@@ -27,6 +27,9 @@ char	*get_name(char *envp[]);
 
 void	ft_perror(char *str);
 
+char	*get_envp(char *str, char *envp[]);
+char	*get_pwd(char *envp[]);
+
 void	ft_exec(char *argv, char *envp[]);
 
 

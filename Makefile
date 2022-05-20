@@ -1,11 +1,11 @@
-NAME		=	minishell
+NAME		=	minishellawd
 
 SRCS		= 	minishell.c\
 				libft/ft_strlen.c libft/ft_strcmp.c libft/ft_strnstr.c\
 				libft/ft_strjoin.c libft/ft_split.c libft/ft_substr.c\
 				libft/ft_strchr.c\
 				get_next_line/gnl.c\
-				command.c name.c\
+				command.c name.c pwd.c\
 				
 
 OBJ			=	$(SRCS:%.c=%.o)

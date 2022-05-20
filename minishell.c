@@ -17,12 +17,10 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	char	*str = "";
 	char	*name;
-	char	*uname;
 
-	name = get_name(envp);
 	while (ft_strcmp(str, "exit"))
 	{
-
+		name = get_name(envp);
 		str = readline(name);
 		if (!str)
 		{
@@ -47,6 +45,10 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		free(str);
 	}
+//	printf("%s\n", name);
+//	str = get_pwd(envp);
+//	printf("%s\n", str);
+//	free (str);
 	
 	free (name);
 	return (0);

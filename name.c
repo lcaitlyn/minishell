@@ -93,15 +93,21 @@ char	*get_name(char *envp[])
 {
 	char	*name;
 	char	*uname;
+	char	*pwd;
 
 	uname = get_uname(envp);
-	name = ft_strjoin(get_username(envp), "@", 0);
+	name = get_username(envp);
+	name = ft_strjoin(name, "@", 1);
 	name = ft_strjoin(name, uname, 1);
 	free (uname);
-	name = ft_strjoin(name, ":~$ ", 1);
 	uname = name;
-	name = ft_strjoin(OK, name, 0);
-	free(uname);
+	name = ft_strjoin(READLINE_GREEN, name, 0);
+	free (uname);
 	name = ft_strjoin(name, RESET, 1);
+	name = ft_strjoin(name, ":", 1);
+	pwd = get_pwd(envp);
+	name = ft_strjoin(name, pwd, 1);
+	free (pwd);
+	name = ft_strjoin(name, "$ ", 1);
 	return (name);
 }
