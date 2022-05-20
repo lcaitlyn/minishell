@@ -8,6 +8,8 @@
 # include <readline/history.h>
 # include "color.h"
 # include <dirent.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 
 int		ft_strlen(const char *s);
