@@ -25,15 +25,6 @@ char	*writer(int *fd, char *envp[])
 	return (str);
 }
 
-void	reader(int *fd, char *envp[])
-{
-	char *str;
-
-	if (dup2(fd[1], 1) == -1)
-		ft_perror("dup");
-	ft_exec("hostname -s", envp);
-}
-
 char	*get_uname(char *envp[])
 {
 	int		fd[2];
@@ -46,26 +37,57 @@ char	*get_uname(char *envp[])
 	if (id == -1)
 		ft_perror("fork");
 	else if (id == 0)
-		reader(fd, envp);
+	{
+		if (dup2(fd[1], 1) == -1)
+			ft_perror("dup");
+		ft_exec("hostname -s", envp);
+	}
 	waitpid(id, 0, 0);
 	if (id > 0)
 		name = writer(fd, envp);
+	close(fd[0]);
+	close(fd[1]);
 	return (name);
 }
 
 char	*get_username(char *envp[])
 {
-	int	i;
+	int		fd[2];
+	pid_t	id;
+	char	*name;
 
-	i = 0;
-	while (envp[i])
+	if (pipe(fd) == -1)
+		ft_perror("pipe");
+	id = fork();
+	if (id == -1)
+		ft_perror("fork");
+	else if (id == 0)
 	{
-		if (ft_strnstr(envp[i], "USER=", 5) != 0)
-			return (envp[i] + 5);
-		i++;
+		if (dup2(fd[1], 1) == -1)
+			ft_perror("dup");
+		ft_exec("whoami", envp);
 	}
-	return NULL;
+	waitpid(id, 0, 0);
+	if (id > 0)
+		name = writer(fd, envp);
+	close(fd[0]);
+	close(fd[1]);
+	return (name);
 }
+
+//char	*get_username(char *envp[])
+//{
+//	int	i;
+//
+//	i = 0;
+//	while (envp[i])
+//	{
+//		if (ft_strnstr(envp[i], "USER=", 5) != 0)
+//			return (envp[i] + 5);
+//		i++;
+//	}
+//	return NULL;
+//}
 
 char	*get_name(char *envp[])
 {
