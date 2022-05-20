@@ -22,7 +22,7 @@ int	main(int argc, char *argv[], char *envp[])
 	name = get_name(envp);
 	while (ft_strcmp(str, "exit"))
 	{
-		
+
 		str = readline(name);
 		if (!str)
 		{
@@ -47,7 +47,6 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		free(str);
 	}
-	
 	
 	free (name);
 	return (0);

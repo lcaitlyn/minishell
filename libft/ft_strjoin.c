@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2, int need_free)
 {
 	char	*dest;
 	char	*p;
@@ -30,5 +30,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (*s2 != '\0')
 		*dest++ = *s2++;
 	*dest++ = '\0';
+	if (need_free)
+		free(tmp);
 	return (p);
 }

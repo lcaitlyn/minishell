@@ -17,18 +17,11 @@ char	*writer(int *fd, char *envp[])
 {
 	char	*str;
 	char	*replace;
-	char	**name;
-	int		len;
 
 	str = get_next_line(fd[0]);
-	len = ft_wrdcnt(str, '.');
-	name = ft_split(str, '.');
-	replace = ft_strchr(name[0], '\n');
+	replace = ft_strchr(str, '\n');
 	if (replace)
 		*replace = '\0';
-	free(str);
-	str = ft_strjoin("", name[0]);
-	ft_free_split(name, len);
 	return (str);
 }
 
@@ -38,7 +31,7 @@ void	reader(int *fd, char *envp[])
 
 	if (dup2(fd[1], 1) == -1)
 		ft_perror("dup");
-	ft_exec("uname -n", envp);
+	ft_exec("hostname -s", envp);
 }
 
 char	*get_uname(char *envp[])
@@ -80,11 +73,13 @@ char	*get_name(char *envp[])
 	char	*uname;
 
 	uname = get_uname(envp);
-	name = ft_strjoin(get_username(envp), "@");
-	name = ft_strjoin(name, uname);
+	name = ft_strjoin(get_username(envp), "@", 0);
+	name = ft_strjoin(name, uname, 1);
 	free (uname);
-	name = ft_strjoin(name, ":~$ " RESET);
-	name = ft_strjoin(READLINE_GREEN, name);
-	name = ft_strjoin(name, RESET);
+	name = ft_strjoin(name, ":~$ ", 1);
+	uname = name;
+	name = ft_strjoin(READLINE_GREEN, name, 0);
+	free(uname);
+	name = ft_strjoin(name, RESET, 1);
 	return (name);
 }
