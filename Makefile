@@ -6,6 +6,7 @@ SRCS		= 	minishell.c\
 				libft/ft_strchr.c\
 				get_next_line/gnl.c\
 				command.c name.c pwd.c\
+				cd.c\
 				
 
 OBJ			=	$(SRCS:%.c=%.o)

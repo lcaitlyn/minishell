@@ -75,20 +75,6 @@ char	*get_username(char *envp[])
 	return (name);
 }
 
-//char	*get_username(char *envp[])
-//{
-//	int	i;
-//
-//	i = 0;
-//	while (envp[i])
-//	{
-//		if (ft_strnstr(envp[i], "USER=", 5) != 0)
-//			return (envp[i] + 5);
-//		i++;
-//	}
-//	return NULL;
-//}
-
 char	*get_name(char *envp[])
 {
 	char	*name;
@@ -105,7 +91,7 @@ char	*get_name(char *envp[])
 	free (uname);
 	name = ft_strjoin(name, RESET, 1);
 	name = ft_strjoin(name, ":", 1);
-	pwd = get_pwd(envp);
+	pwd = get_pwd_for_name(envp);
 	name = ft_strjoin(name, pwd, 1);
 	free (pwd);
 	name = ft_strjoin(name, "$ ", 1);

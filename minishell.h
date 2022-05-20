@@ -7,6 +7,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "color.h"
+# include <dirent.h>
 
 
 int		ft_strlen(const char *s);
@@ -28,7 +29,10 @@ char	*get_name(char *envp[]);
 void	ft_perror(char *str);
 
 char	*get_envp(char *str, char *envp[]);
-char	*get_pwd(char *envp[]);
+char	*get_pwd_for_name(char *envp[]);
+char	*get_pwd(void);
+
+void	change_dir(char *str, char *envp[]);
 
 void	ft_exec(char *argv, char *envp[]);
 

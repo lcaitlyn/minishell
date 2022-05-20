@@ -17,11 +17,13 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	char	*str = "";
 	char	*name;
+	char	*pwd;
 
 	while (ft_strcmp(str, "exit"))
 	{
 		name = get_name(envp);
 		str = readline(name);
+		free (name);
 		if (!str)
 		{
 			printf ("exit\n");
@@ -32,16 +34,22 @@ int	main(int argc, char *argv[], char *envp[])
 			add_history(str);
 			if (!ft_strcmp(str, "env"))
 				system("env");
-			else if (!ft_strcmp(str, "minishell"))
+			else if (ft_strnstr(str, "cd", 2))
 			{
-				ft_exec(str, envp);
-//				if (!access("./minishell", X_OK)) // access return 0
-//					system("./minishell");
-//				else
-//					printf(RED"No such file asshole!\n"RESET);
+				change_dir(str, envp);
+			}
+			else if (ft_strnstr(str, "pwd", 3))
+			{
+				pwd = get_pwd();
+				printf ("%s\n", pwd);
+				free(pwd);
 			}
 			else
-				printf (TERM_BLUE "%s\n" RESET, str);
+			{
+				if (execve(str, argv, envp) == -1)
+					perror("minishell");
+			}
+				
 		}
 		free(str);
 	}
@@ -49,7 +57,5 @@ int	main(int argc, char *argv[], char *envp[])
 //	str = get_pwd(envp);
 //	printf("%s\n", str);
 //	free (str);
-	
-	free (name);
 	return (0);
 }

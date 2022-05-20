@@ -26,19 +26,39 @@ char	*get_envp(char *str, char *envp[])
 	return NULL;
 }
 
-char	*get_pwd(char *envp[])
+char	*get_pwd_for_name(char *envp[])
 {
 	char	*home;
 	char	*pwd;
 	char	**split;
-	int		len;
+	char	*fr;
 
 	home = get_envp("HOME=", envp);
-	pwd = get_envp("PWD=", envp);
+	pwd = malloc(100);
+	fr = pwd;
+	pwd = getcwd(pwd, 1000);
 	split = ft_split(pwd, ' ');
-	pwd = get_envp(home, split);
+	pwd = get_envp(home, &pwd);
+	free (fr);
+	fr = NULL;
+	if (!pwd)
+	{
+		pwd = getcwd(pwd, 1000);
+		fr = pwd;
+	}
 	pwd = ft_strjoin(TERM_BLUE "~", pwd, 0);
+	if (fr)
+		free(fr);
 	pwd = ft_strjoin(pwd, RESET, 1);
 	ft_free_split(split, 1);
 	return (pwd);
+}
+
+char	*get_pwd(void)
+{
+	char	*str;
+
+	str = malloc(100);
+	str = getcwd(str, 1000);
+	return (str);
 }
