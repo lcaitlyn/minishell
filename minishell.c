@@ -11,43 +11,44 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*get_username(char *envp[])
-{
-	int	i;
-
-	i = 0;
-	while (envp[i])
-	{
-		if (ft_strnstr(envp[i], "USER=", 5) != 0)
-			return (envp[i] + 5);
-		i++;
-	}
-	return NULL;
-}
+#include "color.h"
 
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*str = "";
 	char	*name;
+	char	*uname;
 
-	
-//	while (*envp)
-//	{
-//		printf ("%s\n", *envp++);
-//	}
-	name = ft_strjoin("minishell@", get_username(envp));
-	name = ft_strjoin(name, ": ");
+	name = get_name(envp);
 	while (ft_strcmp(str, "exit"))
 	{
+		
 		str = readline(name);
-		if (ft_strcmp(str, ""))
+		if (!str)
 		{
-			printf ("%s\n", str);
+			printf ("exit\n");
+			break ;
+		}
+		if (ft_strlen(str) != 0)
+		{
 			add_history(str);
+			if (!ft_strcmp(str, "env"))
+				system("env");
+			else if (!ft_strcmp(str, "minishell"))
+			{
+				ft_exec(str, envp);
+//				if (!access("./minishell", X_OK)) // access return 0
+//					system("./minishell");
+//				else
+//					printf(RED"No such file asshole!\n"RESET);
+			}
+			else
+				printf (TERM_BLUE "%s\n" RESET, str);
 		}
 		free(str);
 	}
+	
+	
 	free (name);
 	return (0);
 }
