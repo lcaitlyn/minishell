@@ -1,4 +1,4 @@
-NAME		=	minishellawd
+NAME		=	minishell
 
 SRCS		= 	minishell.c\
 				libft/ft_strlen.c libft/ft_strcmp.c libft/ft_strnstr.c\
