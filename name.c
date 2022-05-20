@@ -16,12 +16,17 @@
 char	*writer(int *fd, char *envp[])
 {
 	char	*str;
+	char	*replace;
 	char	**name;
 	int		len;
 
 	str = get_next_line(fd[0]);
 	len = ft_wrdcnt(str, '.');
 	name = ft_split(str, '.');
+	replace = ft_strchr(name[0], '\n');
+	if (replace)
+		*replace = '\0';
+	printf ("uname = %s\n", name[0]);
 	free(str);
 	str = ft_strjoin("", name[0]);
 	ft_free_split(name, len);

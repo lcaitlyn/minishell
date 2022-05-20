@@ -11,6 +11,7 @@
 
 int		ft_strlen(const char *s);
 int		ft_strcmp(char *s1, char *s2);
+char	*ft_strchr(const char *str, int a);
 char	*ft_strnstr(const char *s1, const char *s2, int n);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, int len);
