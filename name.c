@@ -78,7 +78,7 @@ char	*get_name(char *envp[])
 	free (uname);
 	name = ft_strjoin(name, ":~$ ", 1);
 	uname = name;
-	name = ft_strjoin(READLINE_GREEN, name, 0);
+	name = ft_strjoin(OK, name, 0);
 	free(uname);
 	name = ft_strjoin(name, RESET, 1);
 	return (name);
