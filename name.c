@@ -26,7 +26,6 @@ char	*writer(int *fd, char *envp[])
 	replace = ft_strchr(name[0], '\n');
 	if (replace)
 		*replace = '\0';
-	printf ("uname = %s\n", name[0]);
 	free(str);
 	str = ft_strjoin("", name[0]);
 	ft_free_split(name, len);
