@@ -23,8 +23,8 @@ void	change_dir(char *str, char *envp[])
 	i = 0;
 	if (str[2] && str[2] != ' ')
 	{
-		//execve(str, 0, 0);
-		return (perror("minishell"));
+		printf("%s: command not found\n", str);
+		return ;
 	}
 	else if (ft_strlen(str) == 2)
 	{
@@ -32,11 +32,17 @@ void	change_dir(char *str, char *envp[])
 	}
 	else
 	{
+		printf ("Go go go\n");
 		split = ft_split(str, ' ');
-		dir = get_envp("cd ", split);
-		ft_free_split(split, ft_wrdcnt(str, ' '));
-		printf ("%s\n", dir);
-		if (chdir(dir) == -1)
-			return (perror("minishell"));
+		printf ("%s\n", split[0]);
+		if (split[1])
+			printf ("%s\n", split[1]);
+		if (split[0] == "cd ")
+			printf ("Yes\n");
+		//dir = get_envp("cd ", split);
+		//ft_free_split(split, ft_wrdcnt(str, ' '));
+		//printf ("%s\n", dir);
+		//if (chdir(dir) == -1)
+		//	return (perror("minishell"));
 	}
 }

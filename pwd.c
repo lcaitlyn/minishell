@@ -38,7 +38,7 @@ char	*get_pwd_for_name(char *envp[])
 	fr = pwd;
 	pwd = getcwd(pwd, 1000);
 	split = ft_split(pwd, ' ');
-	pwd = get_envp(home, &pwd);
+	pwd = get_envp(home, split);
 	free (fr);
 	fr = NULL;
 	if (!pwd)
