@@ -23,7 +23,7 @@ void	change_dir(char *str, char *envp[])
 	i = 0;
 	if (str[2] && str[2] != ' ')
 	{
-		execve(str, 0, 0);
+		//execve(str, 0, 0);
 		return (perror("minishell"));
 	}
 	else if (ft_strlen(str) == 2)
