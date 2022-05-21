@@ -43,4 +43,6 @@ void    action(char *str, char *envp[]);
 void	ft_exec(char *argv, char *envp[]);
 
 
+int     handle_signal(void);
+
 #endif

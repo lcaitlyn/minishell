@@ -17,3 +17,10 @@ kill <bash pid>
 ps наш бан еще жив
 kill <bash pid SHLVL=1> убиваю bash первого лвла
 резултат: тоже не убивает
+
+Всё сигналы https://dic.academic.ru/dic.nsf/ruwiki/90296
+SIGINT  = Ctrl + C
+SIGTSTP = Ctrl + Z
+SIGQUIT = Ctrl + \
+
+            Обработать Ctrl + C чтобы включал readline

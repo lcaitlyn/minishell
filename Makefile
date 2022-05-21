@@ -5,6 +5,7 @@ SRCS		= 	minishell.c\
 				libft/ft_strjoin.c libft/ft_split.c libft/ft_substr.c\
 				libft/ft_strchr.c\
 				get_next_line/gnl.c\
+				signals/signal.c\
 				ft_exec.c name.c commands/pwd.c\
 				commands/cd.c action.c commands/ls.c\
 				

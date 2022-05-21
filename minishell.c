@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "include/minishell.h"
-#include "color.h"
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -19,8 +18,10 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*name;
 	char	*pwd;
 
+	handle_signal();
 	while (ft_strcmp(str, "exit"))
 	{
+		
 		name = get_name(envp);
 		str = readline(name);
 		free (name);
