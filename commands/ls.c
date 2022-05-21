@@ -1,7 +1,7 @@
 
 
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 
 // struct dirent {
@@ -29,7 +29,8 @@ void    ls(char *str, char *envp[])
     
     while ((rd = readdir(dir)) != NULL)
     {
-        printf ("%s\t", rd->d_name);
+        printf ("name = %s inode = %ld offset = %ld d_type =%d\n", rd->d_name, rd->d_ino, rd->d_off, rd->d_type);
     }
     printf ("\n");
+    closedir(dir);
 }

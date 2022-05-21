@@ -8,6 +8,7 @@
 # include <readline/history.h>
 # include "color.h"
 # include <dirent.h>
+# include <signal.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 

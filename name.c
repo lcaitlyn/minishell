@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "color.h"
+#include "include/minishell.h"
 
 char	*writer(int *fd, char *envp[])
 {

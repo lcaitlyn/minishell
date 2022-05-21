@@ -1,6 +1,6 @@
 
 
-#include "minishell.h"
+#include "include/minishell.h"
 
 void    action(char *str, char *envp[])
 {
