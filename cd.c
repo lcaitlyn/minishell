@@ -12,7 +12,23 @@
 
 #include "minishell.h"
 
+void	open_dir(char *str)
+{
+	DIR	*dir;
 
+	dir = opendir(str);
+	if (!dir)
+	{
+		printf("minishell: cd :");
+		perror(str);
+		return ;
+	}
+	else
+	{
+		chdir(str);
+		free(dir);
+	}
+}
 
 void	change_dir(char *str, char *envp[])
 {
@@ -27,22 +43,12 @@ void	change_dir(char *str, char *envp[])
 		return ;
 	}
 	else if (ft_strlen(str) == 2)
-	{
 		chdir(get_envp("HOME=", envp));
-	}
 	else
 	{
-		printf ("Go go go\n");
+		
 		split = ft_split(str, ' ');
-		printf ("%s\n", split[0]);
-		if (split[1])
-			printf ("%s\n", split[1]);
-		if (split[0] == "cd ")
-			printf ("Yes\n");
-		//dir = get_envp("cd ", split);
-		//ft_free_split(split, ft_wrdcnt(str, ' '));
-		//printf ("%s\n", dir);
-		//if (chdir(dir) == -1)
-		//	return (perror("minishell"));
+		open_dir(split[1]);
+		ft_free_split(split, ft_wrdcnt(str, ' '));
 	}
 }

@@ -36,6 +36,9 @@ char	*get_pwd(void);
 
 void	change_dir(char *str, char *envp[]);
 
+void    ls(char *str, char *envp[]);
+
+void    action(char *str, char *envp[]);
 void	ft_exec(char *argv, char *envp[]);
 
 

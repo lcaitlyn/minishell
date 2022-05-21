@@ -32,22 +32,26 @@ int	main(int argc, char *argv[], char *envp[])
 		if (ft_strlen(str) != 0)
 		{
 			add_history(str);
-			if (!ft_strcmp(str, "env"))
-				system("env");
-			else if (ft_strnstr(str, "cd", 2))
+			if (ft_strnstr(str, "cd", 2))
 			{
+				printf ("my cd working...\n");
 				change_dir(str, envp);
 			}
 			else if (ft_strnstr(str, "pwd", 3))
 			{
+				printf ("my pwd working...\n");
 				pwd = get_pwd();
 				printf ("%s\n", pwd);
 				free(pwd);
 			}
+			else if (ft_strnstr(str, "ls", 2))
+			{
+				printf ("my ls working...\n");
+				ls(str, envp);
+			}
 			else
 			{
-				if (execve(str, argv, envp) == -1)
-					perror("minishell");
+				action(str, envp);
 			}
 				
 		}

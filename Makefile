@@ -6,12 +6,12 @@ SRCS		= 	minishell.c\
 				libft/ft_strchr.c\
 				get_next_line/gnl.c\
 				command.c name.c pwd.c\
-				cd.c\
+				cd.c action.c ls.c\
 				
 
 OBJ			=	$(SRCS:%.c=%.o)
 
-FLAGS		=	#-Wall -Wextra -Werror
+FLAGS		=	-g #-Wall -Wextra -Werror
 
 .PHONY		:	all clean fclean re
 
