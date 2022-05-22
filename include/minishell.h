@@ -32,7 +32,6 @@ char	*get_name(char *envp[]);
 
 void	ft_perror(char *str);
 
-char	*get_envp(char *str, char *envp[]);
 char	*get_pwd_for_name(char *envp[]);
 char	*get_pwd(void);
 

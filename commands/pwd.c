@@ -12,18 +12,9 @@
 
 #include "../include/minishell.h"
 
-char	*get_envp(char *str, char *envp[])
+char	*make_color_pwd(char *pwd)
 {
-	int	i;
 
-	i = 0;
-	while (envp[i])
-	{
-		if (ft_strnstr(envp[i], str, ft_strlen(str)) != 0)
-			return (envp[i] + ft_strlen(str));
-		i++;
-	}
-	return NULL;
 }
 
 char	*get_pwd_for_name(char *envp[])
@@ -33,24 +24,20 @@ char	*get_pwd_for_name(char *envp[])
 	char	**split;
 	char	*fr;
 
-	home = get_envp("HOME=", envp);
+	home = getenv("HOME");
 	pwd = malloc(100);
 	fr = pwd;
-	pwd = getcwd(pwd, 1000);
-	split = ft_split(pwd, ' ');
-	pwd = get_envp(home, split);
-	free (fr);
-	fr = NULL;
+	pwd = getcwd(pwd, 256);
+	pwd = ft_strnstr(pwd, home, ft_strlen(pwd));
 	if (!pwd)
-	{
 		pwd = getcwd(pwd, 1000);
-		fr = pwd;
-	}
-	pwd = ft_strjoin(TERM_BLUE "~", pwd, 0);
-	if (fr)
-		free(fr);
+	else
+		pwd = ft_strjoin("~", pwd + ft_strlen(home), 0);
+	free(fr);
+	fr = pwd;
+	pwd = ft_strjoin(TERM_BLUE, pwd, 0);
+	free(fr);
 	pwd = ft_strjoin(pwd, RESET, 1);
-	ft_free_split(split, 1);
 	return (pwd);
 }
 

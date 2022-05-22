@@ -19,7 +19,7 @@ void	open_dir(char *str)
 	dir = opendir(str);
 	if (!dir)
 	{
-		printf("minishell: cd :");
+		printf("Mne pohui? minishell: cd :");
 		perror(str);
 		return ;
 	}
@@ -43,7 +43,7 @@ void	change_dir(char *str, char *envp[])
 		return ;
 	}
 	else if (ft_strlen(str) == 2)
-		chdir(get_envp("HOME=", envp));
+		chdir(getenv("HOME"));
 	else
 	{
 		

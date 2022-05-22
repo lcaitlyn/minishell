@@ -18,11 +18,13 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*name;
 	char	*pwd;
 
-	// handle_signal();
+	handle_signal();
 	while (ft_strcmp(str, "exit"))
 	{
 		
 		name = get_name(envp);
+		if (!name)
+			name = ft_strjoin("", "minishell> ", 0);
 		str = readline(name);
 		free (name);
 		if (!str)

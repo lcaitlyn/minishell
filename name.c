@@ -81,7 +81,14 @@ char	*get_name(char *envp[])
 	char	*pwd;
 
 	uname = get_uname(envp);
+	if (!uname)
+		return (0);
 	name = get_username(envp);
+	if (!name)
+	{
+		free(uname);
+		return (0);
+	}
 	name = ft_strjoin(name, "@", 1);
 	name = ft_strjoin(name, uname, 1);
 	free (uname);
