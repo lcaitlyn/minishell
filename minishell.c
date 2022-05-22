@@ -19,6 +19,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*pwd;
 
 	handle_signal();
+	printf ("\nВыход на Ctrl + D или exit\n\n");
 	while (ft_strcmp(str, "exit"))
 	{
 		
@@ -52,11 +53,10 @@ int	main(int argc, char *argv[], char *envp[])
 			// 	printf ("my ls working...\n");
 			// 	ls(str, envp);
 			// }
+			else if (ft_strnstr(str, "exit", 4))
+				break;
 			else
-			{
 				action(str, envp);
-			}
-				
 		}
 		free(str);
 	}
@@ -64,5 +64,6 @@ int	main(int argc, char *argv[], char *envp[])
 //	str = get_pwd(envp);
 //	printf("%s\n", str);
 //	free (str);
+	printf ("Завершён!\n");
 	return (0);
 }

@@ -23,19 +23,24 @@ int main(int argc, char *argv[], char *envp[])
 	
 	// printf("%s\n", ft_strnstr(str, s1, ft_strlen(str)) + ft_strlen(s1));
 
-	home = getenv("HOME");
-	pwd = malloc(100);
-	fr = pwd;
-	pwd = getcwd(pwd, 256);
-	pwd = ft_strnstr(pwd, home, ft_strlen(pwd));
-	if (!pwd)
-		pwd = getcwd(pwd, 1000);
-	else
-		pwd = ft_strjoin("~", pwd + ft_strlen(home), 0);
-	free(fr);
-	fr = pwd;
-	pwd = ft_strjoin(TERM_BLUE, pwd, 0);
-	free(fr);
-	pwd = ft_strjoin(pwd, RESET, 1);
-	return (pwd);
+	pid_t	pid;
+	char	**split;
+	char	*cmd[] = {
+		"ls",
+		"-la",
+		NULL};
+
+	split = ft_split(getenv("PATH"), ':');
+	int i = 0;
+	// while (split[i])
+	// 	printf ("%s\n", split[i++]);
+	pid = fork();
+	if (pid == 0)
+	{
+		if (execve(ft_strjoin(split[4], "/ls", 0), cmd, envp) == -1)
+			perror("");
+	}
+	waitpid(pid, 0, 0);
+	ft_free_split(split, 2);
+	return (0);
 }
