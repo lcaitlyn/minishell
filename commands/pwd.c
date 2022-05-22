@@ -12,11 +12,6 @@
 
 #include "../include/minishell.h"
 
-char	*make_color_pwd(char *pwd)
-{
-
-}
-
 char	*get_pwd_for_name(char *envp[])
 {
 	char	*home;
