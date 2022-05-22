@@ -19,8 +19,9 @@ void	open_dir(char *str)
 	dir = opendir(str);
 	if (!dir)
 	{
-		printf("Mne pohui? minishell: cd :");
-		perror(str);
+		printf("minishell: cd: ");
+		printf ("%s: %s\n", str, strerror(errno));
+		
 		return ;
 	}
 	else

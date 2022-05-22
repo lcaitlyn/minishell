@@ -100,6 +100,6 @@ char	*get_name(char *envp[])
 	pwd = get_pwd_for_name(envp);
 	name = ft_strjoin(name, pwd, 1);
 	free (pwd);
-	name = ft_strjoin(name, "[FakeShell]> ", 1);
+	name = ft_strjoin(name, "[MINISHELL]> ", 1);
 	return (name);
 }
