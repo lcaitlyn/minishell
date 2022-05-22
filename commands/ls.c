@@ -18,6 +18,8 @@ void    ls(char *str, char *envp[])
 {
     DIR             *dir;
     struct dirent   *rd;
+    struct stat     *st;
+    
 
     dir = opendir(".");
     if (!dir)
@@ -29,7 +31,9 @@ void    ls(char *str, char *envp[])
     
     while ((rd = readdir(dir)) != NULL)
     {
-        printf ("name = %s inode = %ld offset = %ld d_type =%d\n", rd->d_name, rd->d_ino, rd->d_off, rd->d_type);
+        stat(rd->d_name, st);
+
+        printf ("name = %s d_type = %d st_mod = %d\n", rd->d_name,rd->d_type, st->st_mode);
     }
     printf ("\n");
     closedir(dir);

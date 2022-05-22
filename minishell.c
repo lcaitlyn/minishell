@@ -18,7 +18,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*name;
 	char	*pwd;
 
-	handle_signal();
+	// handle_signal();
 	while (ft_strcmp(str, "exit"))
 	{
 		
@@ -45,11 +45,11 @@ int	main(int argc, char *argv[], char *envp[])
 				printf ("%s\n", pwd);
 				free(pwd);
 			}
-			else if (ft_strnstr(str, "ls", 2))
-			{
-				printf ("my ls working...\n");
-				ls(str, envp);
-			}
+			// else if (ft_strnstr(str, "ls", 2))
+			// {
+			// 	printf ("my ls working...\n");
+			// 	ls(str, envp);
+			// }
 			else
 			{
 				action(str, envp);
