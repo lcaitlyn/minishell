@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
+/*   Updated: 2022/05/24 16:53:50 by lcaitlyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -13,6 +25,27 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <errno.h>
+
+typedef struct s_env
+{
+	char			*name;
+	char			*content;
+	struct s_env	*next;
+}	t_env;
+
+typedef struct s_shell
+{
+	char	**env;
+	char	*name;
+	t_env	*envp;
+}	t_shell;
+
+typedef void * histdata_t;
+
+
+
+
+
 
 
 int		ft_strlen(const char *s);
@@ -45,5 +78,11 @@ void	ft_exec(char *argv, char *envp[]);
 
 
 int     handle_signal(void);
+
+
+t_env	*ft_lstnew(char *name, char *content);
+void	ft_lstadd_back(t_env **lst, t_env *new);
+t_env	*ft_lstlast(t_env *lst);
+
 
 #endif

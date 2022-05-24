@@ -17,12 +17,13 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*str = "";
 	char	*name;
 	char	*pwd;
+	t_shell	*shell;
 
 	handle_signal();
+	shell = shell_init(envp);
 	printf ("\nВыход на Ctrl + D или exit\n\n");
 	while (ft_strcmp(str, "exit"))
 	{
-		
 		name = get_name(envp);
 		if (!name)
 			name = ft_strjoin("", "minishell> ", 0);

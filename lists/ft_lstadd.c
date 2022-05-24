@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   action.c                                           :+:      :+:    :+:   */
+/*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 16:54:24 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/24 16:54:28 by lcaitlyn         ###   ########.fr       */
+/*   Created: 2022/05/24 19:10:10 by lcaitlyn          #+#    #+#             */
+/*   Updated: 2022/05/24 19:10:12 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minishell.h"
+#include "../include/minishell.h"
 
-void    action(char *str, char *envp[])
+void	ft_lstadd_back(t_env **lst, t_env *new)
 {
-    pid_t   pid;
+	t_env	*last;
 
-    pid = fork();
-    if (pid == -1)
-    {
-        perror("minishell");
-        return ;
-    }
-    else if (pid == 0)
-        ft_exec(str, envp);
-    waitpid(pid, 0, 0);
-    return ;
+	if (lst)
+	{
+		if (*lst)
+		{
+			last = ft_lstlast(*lst);
+			last->next = new;
+		}
+		else
+			*lst = new;
+	}
 }

@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   action.c                                           :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 16:54:24 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/24 16:54:28 by lcaitlyn         ###   ########.fr       */
+/*   Created: 2022/05/24 19:05:47 by lcaitlyn          #+#    #+#             */
+/*   Updated: 2022/05/24 19:06:05 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minishell.h"
+#include "../include/minishell.h"
 
-void    action(char *str, char *envp[])
+t_env	*ft_lstnew(char *name, char *content)
 {
-    pid_t   pid;
+	t_env	*new;
 
-    pid = fork();
-    if (pid == -1)
-    {
-        perror("minishell");
-        return ;
-    }
-    else if (pid == 0)
-        ft_exec(str, envp);
-    waitpid(pid, 0, 0);
-    return ;
+	new = (t_env *)malloc(sizeof(t_env));
+	if (!new)
+		return (0);
+	new->name = name;
+	new->content = content;
+	new->next = NULL;
+	return (new);
 }

@@ -1,26 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 16:54:06 by lcaitlyn          #+#    #+#             */
+/*   Updated: 2022/05/24 16:54:07 by lcaitlyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-int    signal_sigint(int sig)
+int	signal_sigint(int sig)
 {
-    printf ("\n");
-    return (1);
+	rl_on_new_line();
+	rl_redisplay();
+	printf("  \n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	return (0);
 }
 
-void    signal_sigtstp(void)
+int	handle_signal(void)
 {
-    return ;
-}
-
-void    signal_sigquit(void)
-{
-    return ;
-}
-
-int    handle_signal(void)
-{
-    if (signal(SIGINT, (void *)&signal_sigint))
-        return (1);
-    signal(SIGTSTP, (void *)&signal_sigtstp);
-    signal(SIGQUIT, (void *)&signal_sigquit);
-    return (0);
+	signal(SIGINT, (void *)&signal_sigint);
+	signal(SIGQUIT, SIG_IGN);
+	return (0);
 }

@@ -25,7 +25,11 @@ SIGQUIT = Ctrl + \
 
             Обработать Ctrl + C чтобы включал readline
 
-22.05   unset PATH (ft_exec)
+22.05   !!!unset PATH (ft_exec)
         сделать эту хрень + также нужно обработать сигналы
         обработать вот эту хрень minishell: cd: ~/minishell/: No such file or directory с ~ фигнёй
         сделать парсер readline
+
+24.05	!!!Обработать Ctrl + D чтобы линия поменялась на exit и free all
+	!!!Сделать парсер 
+	!!!Сделать структура s_env
