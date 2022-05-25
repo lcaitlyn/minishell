@@ -21,15 +21,13 @@ void	open_dir(char *str)
 	{
 		printf("minishell: cd: ");
 		printf ("%s: %s\n", str, strerror(errno));
-		
 		return ;
 	}
 	else
 	{
+		closedir(dir);
 		chdir(str);
-		free(dir);
 	}
-	closedir(dir);
 }
 
 void	change_dir(char *str, char *envp[])
