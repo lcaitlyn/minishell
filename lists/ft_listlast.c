@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   ft_listlast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 16:54:06 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 19:34:41 by gopal            ###   ########.fr       */
+/*   Created: 2022/05/24 19:11:21 by lcaitlyn          #+#    #+#             */
+/*   Updated: 2022/05/25 20:23:19 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	signal_sigint(int sig)
+t_env	*ft_listlast(t_env *lst)
 {
-	(void)sig;
-	rl_on_new_line();
-	rl_redisplay();
-	printf("  \n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	return (0);
-}
-
-int	handle_signal(void)
-{
-	signal(SIGINT, (void *)&signal_sigint);
-	signal(SIGQUIT, SIG_IGN);
-	return (0);
+	if (!lst)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }

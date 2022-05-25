@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   ft_listnew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 16:54:06 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 19:34:41 by gopal            ###   ########.fr       */
+/*   Created: 2022/05/24 19:05:47 by lcaitlyn          #+#    #+#             */
+/*   Updated: 2022/05/25 20:23:30 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	signal_sigint(int sig)
+t_env	*ft_listnew(char *name, char *content)
 {
-	(void)sig;
-	rl_on_new_line();
-	rl_redisplay();
-	printf("  \n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	return (0);
-}
+	t_env	*new;
 
-int	handle_signal(void)
-{
-	signal(SIGINT, (void *)&signal_sigint);
-	signal(SIGQUIT, SIG_IGN);
-	return (0);
+	new = (t_env *)malloc(sizeof(t_env));
+	if (!new)
+		return (0);
+	new->name = name;
+	new->content = content;
+	new->next = NULL;
+	return (new);
 }

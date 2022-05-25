@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 16:54:06 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 19:34:41 by gopal            ###   ########.fr       */
+/*   Created: 2021/10/17 06:03:25 by gopal             #+#    #+#             */
+/*   Updated: 2022/03/30 02:52:21 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	signal_sigint(int sig)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	(void)sig;
-	rl_on_new_line();
-	rl_redisplay();
-	printf("  \n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	return (0);
-}
-
-int	handle_signal(void)
-{
-	signal(SIGINT, (void *)&signal_sigint);
-	signal(SIGQUIT, SIG_IGN);
-	return (0);
+	if (*lst)
+		ft_lstlast(*lst)->next = new;
+	else
+		*lst = new;
 }

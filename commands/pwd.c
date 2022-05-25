@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 13:17:31 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/20 13:17:51 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/05/25 19:49:58 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*get_pwd_for_name(char *envp[])
 	char	**split;
 	char	*fr;
 
+	(void)split;
+	(void)envp;
 	home = getenv("HOME");
 	pwd = malloc(100);
 	fr = pwd;
@@ -27,12 +29,12 @@ char	*get_pwd_for_name(char *envp[])
 	if (!pwd)
 		pwd = getcwd(pwd, 1000);
 	else
-		pwd = ft_strjoin("~", pwd + ft_strlen(home), 0);
+		pwd = ft_strjoin_f("~", pwd + ft_strlen(home), 0);
 	free(fr);
 	fr = pwd;
-	pwd = ft_strjoin(TERM_BLUE, pwd, 0);
+	pwd = ft_strjoin_f(TERM_BLUE, pwd, 0);
 	free(fr);
-	pwd = ft_strjoin(pwd, RESET, 1);
+	pwd = ft_strjoin_f(pwd, RESET, 1);
 	return (pwd);
 }
 

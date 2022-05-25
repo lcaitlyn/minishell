@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   uname.c                                            :+:      :+:    :+:   */
+/*   name.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 09:45:33 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/20 09:45:37 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/05/25 19:42:53 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*writer(int *fd, char *envp[])
 	char	*str;
 	char	*replace;
 
+	(void)envp;
 	str = get_next_line(fd[0]);
 	replace = ft_strchr(str, '\n');
 	if (replace)
@@ -30,6 +31,8 @@ char	*get_uname(char *envp[])
 	pid_t	id;
 	char	*name;
 
+	(void)envp;
+	name = NULL;
 	if (pipe(fd) == -1)
 		ft_perror("pipe");
 	id = fork();
@@ -79,6 +82,7 @@ char	*get_username(char *envp[])
 		ft_exec("whoami", envp);
 	}
 	waitpid(id, 0, 0);
+	name = NULL;
 	if (id > 0)
 		name = writer(fd, envp);
 	close(fd[0]);
@@ -101,17 +105,17 @@ char	*get_name(char *envp[])
 		free(uname);
 		return (0);
 	}
-	name = ft_strjoin(name, "@", 1);
-	name = ft_strjoin(name, uname, 1);
+	name = ft_strjoin_f(name, "@", 1);
+	name = ft_strjoin_f(name, uname, 1);
 	free (uname);
 	uname = name;
-	name = ft_strjoin(READLINE_GREEN, name, 0);
+	name = ft_strjoin_f(READLINE_GREEN, name, 0);
 	free (uname);
-	name = ft_strjoin(name, RESET, 1);
-	name = ft_strjoin(name, ":", 1);
+	name = ft_strjoin_f(name, RESET, 1);
+	name = ft_strjoin_f(name, ":", 1);
 	pwd = get_pwd_for_name(envp);
-	name = ft_strjoin(name, pwd, 1);
+	name = ft_strjoin_f(name, pwd, 1);
 	free (pwd);
-	name = ft_strjoin(name, "[MINISHELL]> ", 1);
+	name = ft_strjoin_f(name, "[MINISHELL]> ", 1);
 	return (name);
 }

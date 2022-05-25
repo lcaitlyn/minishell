@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   ft_strindex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 16:54:06 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 19:34:41 by gopal            ###   ########.fr       */
+/*   Created: 2022/05/25 10:52:08 by lcaitlyn          #+#    #+#             */
+/*   Updated: 2022/05/25 20:28:56 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	signal_sigint(int sig)
+int	ft_strindex(char *str, char a)
 {
-	(void)sig;
-	rl_on_new_line();
-	rl_redisplay();
-	printf("  \n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	return (0);
-}
+	unsigned int	i;
 
-int	handle_signal(void)
-{
-	signal(SIGINT, (void *)&signal_sigint);
-	signal(SIGQUIT, SIG_IGN);
-	return (0);
+	i = 0;
+	while (str[i] && str[i] != a)
+		i++;
+	if (i < ft_strlen(str))
+		return (i);
+	else
+		return (-1);
 }

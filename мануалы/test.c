@@ -37,7 +37,7 @@ int main(int argc, char *argv[], char *envp[])
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execve(ft_strjoin(split[4], "/ls", 0), cmd, envp) == -1)
+		if (execve(ft_strjoin_f(split[4], "/ls", 0), cmd, envp) == -1)
 			perror("");
 	}
 	waitpid(pid, 0, 0);

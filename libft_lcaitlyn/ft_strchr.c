@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 16:54:06 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 19:34:41 by gopal            ###   ########.fr       */
+/*   Created: 2021/10/27 15:56:57 by lcaitlyn          #+#    #+#             */
+/*   Updated: 2022/05/25 20:26:46 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	signal_sigint(int sig)
-{
-	(void)sig;
-	rl_on_new_line();
-	rl_redisplay();
-	printf("  \n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	return (0);
-}
+// char	*ft_strchr(const char *str, int a)
+// {
+// 	size_t	i;
+// 	char	*p;
 
-int	handle_signal(void)
-{
-	signal(SIGINT, (void *)&signal_sigint);
-	signal(SIGQUIT, SIG_IGN);
-	return (0);
-}
+// 	i = 0;
+// 	p = (void *)0;
+// 	while (str[i] != '\0')
+// 	{
+// 		if (str[i] == (char)a)
+// 		{
+// 			p = (void *)&str[i];
+// 			return (p);
+// 		}
+// 		i++;
+// 	}
+// 	if ((char)a == '\0')
+// 		p = ((void *)&str[i]);
+// 	return (p);
+// }

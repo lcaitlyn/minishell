@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 18:50:03 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/24 18:50:17 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/05/25 20:31:56 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_clear_shell(t_shell *shell)
 {
-	ft_lstclear(shell->env);
+	ft_listclear(shell->env);
 	free(shell->name);
 	free(shell);
 }
@@ -34,8 +34,8 @@ t_env	*shell_env(char *envp[])
 		if (ft_strnstr(name, "SHLVL", ft_strlen(name)))
 			content = ft_itoa(ft_atoi(ft_strchr(envp[i], '=') + 1) + 1);
 		else
-			content = ft_strjoin("", ft_strchr(envp[i], '=') + 1, 0);
-		env = ft_lstadd_back(env, ft_lstnew(name, content));
+			content = ft_strjoin_f("", ft_strchr(envp[i], '=') + 1, 0);
+		env = ft_listadd_back(env, ft_listnew(name, content));
 		free(content);
 		free(name);
 		i++;
@@ -52,7 +52,7 @@ t_shell	*shell_init(char *envp[])
 		return (0);
 	shell->name = get_name(envp);
 	if (!shell->name)
-		shell->name = ft_strjoin("", "minishell> ", 0);
+		shell->name = ft_strjoin_f("", "minishell> ", 0);
 	shell->env = shell_env(envp);
 	if (!shell->env)
 	{

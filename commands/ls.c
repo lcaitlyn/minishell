@@ -20,7 +20,9 @@ void    ls(char *str, char *envp[])
     struct dirent   *rd;
     struct stat     *st;
     
-
+    (void)str;
+    (void)envp;
+    st = NULL;
     dir = opendir(".");
     if (!dir)
     {

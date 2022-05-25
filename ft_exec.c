@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command.c                                          :+:      :+:    :+:   */
+/*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:18:22 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/18 17:18:36 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/05/25 19:07:10 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ char	*ft_find_cmd(char *cmd, char *paths[])
 	i = 0;
 	while (paths[i])
 	{
-		path = ft_strjoin(paths[i], "/", 0);
-		path = ft_strjoin(path, cmd, 0);
+		path = ft_strjoin_f(paths[i], "/", 0);
+		path = ft_strjoin_f(path, cmd, 0);
 		if (access(path, F_OK) == 0)
 		{
 			ft_clear_paths(paths);

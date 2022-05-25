@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 14:26:29 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/20 14:26:32 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/05/25 19:55:37 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	change_dir(char *str, char *envp[])
 	char	*dir;
 	char	**split;
 
+	(void)envp;
+	(void)dir;
 	i = 0;
 	if (str[2] && str[2] != ' ')
 	{
