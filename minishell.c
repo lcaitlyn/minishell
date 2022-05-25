@@ -21,7 +21,11 @@ int	main(int argc, char *argv[], char *envp[])
 
 	handle_signal();
 	shell = shell_init(envp);
-	printf ("\nВыход на Ctrl + D или exit\n\n");
+	printf ("*********************************\n");
+	printf ("*\t\t\t\t*\n");
+	printf ("*  Выход на Ctrl + D или exit   *\n");
+	printf ("*\t\t\t\t*\n");
+	printf ("*********************************\n");
 	while (ft_strcmp(str, "exit"))
 	{
 		name = get_name(envp);
@@ -56,8 +60,7 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		free(str);
 	}
-//	ft_clear_shell(&shell);
-	free (shell);
+	ft_clear_shell(shell);
 	printf ("Завершён!\n");
 	return (0);
 }

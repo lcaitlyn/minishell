@@ -16,7 +16,6 @@ void	ft_clear_shell(t_shell *shell)
 {
 	ft_lstclear(shell->env);
 	free(shell->name);
-	free(shell->env);
 	free(shell);
 }
 
@@ -29,9 +28,6 @@ t_env	*shell_env(char *envp[])
 
 	i = 0;
 	env = NULL;
-	printf ("env = %p\n", env);
-	if (!env)
-		return (0);
 	while (envp[i])
 	{
 		name = ft_substr(envp[i], 0, ft_strindex(envp[i], '='));
@@ -44,7 +40,6 @@ t_env	*shell_env(char *envp[])
 		free(name);
 		i++;
 	}
-	printf ("env = %p\n", env);
 	return (env);
 }
 
@@ -61,12 +56,10 @@ t_shell	*shell_init(char *envp[])
 	shell->env = shell_env(envp);
 	if (!shell->env)
 	{
-		printf ("error\n");
+		
+//		обработать ?)
+		
 		exit(1);
 	}
-		
-	printf ("done\n");
-	ft_clear_shell(shell);
-	exit(0);
 	return (shell);
 }

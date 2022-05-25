@@ -39,7 +39,7 @@ char	*get_uname(char *envp[])
 	{
 		
 		//удалить
-		printf ("kill pid %d\n", getpid());
+		printf ("kill %d\n", getpid());
 		
 		
 		
@@ -70,7 +70,7 @@ char	*get_username(char *envp[])
 	{
 		
 		//удалить
-		printf ("kill pid %d\n", getpid());
+		printf ("kill %d\n", getpid());
 		
 		
 		

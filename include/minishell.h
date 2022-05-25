@@ -88,7 +88,8 @@ t_env	*ft_lstadd_back(t_env *lst, t_env *new);
 t_env	*ft_lstlast(t_env *lst);
 void	ft_lstclear(t_env *lst);
 
-
+void	ft_clear_shell(t_shell *shell);
 t_shell	*shell_init(char *envp[]);
+
 
 #endif
