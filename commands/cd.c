@@ -29,6 +29,7 @@ void	open_dir(char *str)
 		chdir(str);
 		free(dir);
 	}
+	closedir(dir);
 }
 
 void	change_dir(char *str, char *envp[])

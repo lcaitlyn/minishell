@@ -20,7 +20,7 @@ int	main(int argc, char *argv[], char *envp[])
 	t_shell	*shell;
 
 	handle_signal();
-	shell = shell_init(envp);
+//	shell = shell_init(envp);
 	printf ("\nВыход на Ctrl + D или exit\n\n");
 	while (ft_strcmp(str, "exit"))
 	{
