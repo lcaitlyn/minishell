@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-void	ft_lstclear(t_env	*lst)
+void	ft_lstclear(t_env *lst)
 {
 	t_env	*next;
 

@@ -12,20 +12,26 @@
 
 #include "include/minishell.h"
 
-t_shell	*shell_init(char *envp[])
+void	ft_clear_shell(t_shell *shell)
 {
-	t_shell	*shell;
+	ft_lstclear(shell->env);
+	free(shell->name);
+	free(shell->env);
+	free(shell);
+}
+
+t_env	*shell_env(char *envp[])
+{
+	int		i;
 	char	*name;
 	char	*content;
-	int		i;
-	
-	shell = (t_shell *)malloc(sizeof(t_shell *));
-	if (!shell)
-		return (0);
-	shell->name = get_name(envp);
-	if (!shell->name)
-		shell->name = ft_strjoin("", "minishell> ", 0);
+	t_env	*env;
+
 	i = 0;
+	env = NULL;
+	printf ("env = %p\n", env);
+	if (!env)
+		return (0);
 	while (envp[i])
 	{
 		name = ft_substr(envp[i], 0, ft_strindex(envp[i], '='));
@@ -33,8 +39,34 @@ t_shell	*shell_init(char *envp[])
 			content = ft_itoa(ft_atoi(ft_strchr(envp[i], '=') + 1) + 1);
 		else
 			content = ft_strjoin("", ft_strchr(envp[i], '=') + 1, 0);
+		env = ft_lstadd_back(env, ft_lstnew(name, content));
 		free(content);
+		free(name);
 		i++;
 	}
+	printf ("env = %p\n", env);
+	return (env);
+}
+
+t_shell	*shell_init(char *envp[])
+{
+	t_shell	*shell;
+	
+	shell = (t_shell *)malloc(sizeof(t_shell *));
+	if (!shell)
+		return (0);
+	shell->name = get_name(envp);
+	if (!shell->name)
+		shell->name = ft_strjoin("", "minishell> ", 0);
+	shell->env = shell_env(envp);
+	if (!shell->env)
+	{
+		printf ("error\n");
+		exit(1);
+	}
+		
+	printf ("done\n");
+	ft_clear_shell(shell);
+	exit(0);
 	return (shell);
 }

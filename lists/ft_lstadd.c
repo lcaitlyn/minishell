@@ -12,18 +12,16 @@
 
 #include "../include/minishell.h"
 
-void	ft_lstadd_back(t_env **lst, t_env *new)
+t_env	*ft_lstadd_back(t_env *lst, t_env *new)
 {
 	t_env	*last;
 
 	if (lst)
 	{
-		if (*lst)
-		{
-			last = ft_lstlast(*lst);
-			last->next = new;
-		}
-		else
-			*lst = new;
+		last = ft_lstlast(lst);
+		last->next = new;
+		return (lst);
 	}
+	else
+		return (new);
 }

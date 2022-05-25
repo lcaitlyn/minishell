@@ -35,9 +35,9 @@ typedef struct s_env
 
 typedef struct s_shell
 {
-	char	**env;
+	char	**envp;
 	char	*name;
-	t_env	*envp;
+	t_env	*env;
 }	t_shell;
 
 typedef void * histdata_t;
@@ -84,8 +84,9 @@ int		handle_signal(void);
 
 
 t_env	*ft_lstnew(char *name, char *content);
-void	ft_lstadd_back(t_env **lst, t_env *new);
+t_env	*ft_lstadd_back(t_env *lst, t_env *new);
 t_env	*ft_lstlast(t_env *lst);
+void	ft_lstclear(t_env *lst);
 
 
 t_shell	*shell_init(char *envp[]);

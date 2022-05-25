@@ -49,11 +49,6 @@ int	main(int argc, char *argv[], char *envp[])
 				printf ("%s\n", pwd);
 				free(pwd);
 			}
-			// else if (ft_strnstr(str, "ls", 2))
-			// {
-			// 	printf ("my ls working...\n");
-			// 	ls(str, envp);
-			// }
 			else if (ft_strnstr(str, "exit", 4))
 				break;
 			else
@@ -61,10 +56,8 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		free(str);
 	}
-//	printf("%s\n", name);
-//	str = get_pwd(envp);
-//	printf("%s\n", str);
-//	free (str);
+//	ft_clear_shell(&shell);
+	free (shell);
 	printf ("Завершён!\n");
 	return (0);
 }

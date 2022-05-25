@@ -37,6 +37,12 @@ char	*get_uname(char *envp[])
 		ft_perror("fork");
 	else if (id == 0)
 	{
+		
+		//удалить
+		printf ("kill pid %d\n", getpid());
+		
+		
+		
 		if (dup2(fd[1], 1) == -1)
 			ft_perror("dup");
 		ft_exec("hostname -s", envp);
@@ -62,6 +68,12 @@ char	*get_username(char *envp[])
 		ft_perror("fork");
 	else if (id == 0)
 	{
+		
+		//удалить
+		printf ("kill pid %d\n", getpid());
+		
+		
+		
 		if (dup2(fd[1], 1) == -1)
 			ft_perror("dup");
 		ft_exec("whoami", envp);
