@@ -76,7 +76,7 @@ t_shell	*shell_init(char *envp[])
 {
 	t_shell	*shell;
 	
-	shell = (t_shell *)malloc(sizeof(t_shell *));
+	shell = malloc(sizeof(t_shell));
 	if (!shell)
 	{
 		printf ("malloc error\n");
