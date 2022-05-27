@@ -14,23 +14,23 @@
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	char	*str = "";
+	char	*str;
 	char	*name;
 	char	*pwd;
 	t_shell	*shell;
 
 	handle_signal();
+	
 	shell = shell_init(envp);
+		
 	printf ("*********************************\n");
 	printf ("*\t\t\t\t*\n");
 	printf ("*  Выход на Ctrl + D или exit   *\n");
 	printf ("*\t\t\t\t*\n");
 	printf ("*********************************\n");
-	while (ft_strcmp(str, "exit"))
+	while (1)
 	{
 		name = get_name(envp);
-		if (!name)
-			name = ft_strjoin("", "minishell> ", 0);
 		str = readline(name);
 		free (name);
 		if (!str)
@@ -49,7 +49,7 @@ int	main(int argc, char *argv[], char *envp[])
 			else if (ft_strnstr(str, "pwd", 3))
 			{
 				printf ("my pwd working...\n");
-				pwd = get_pwd();
+				pwd = getcwd(0, 256);
 				printf ("%s\n", pwd);
 				free(pwd);
 			}

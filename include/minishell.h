@@ -36,15 +36,14 @@ typedef struct s_env
 typedef struct s_shell
 {
 	char	**envp;
+	char	**my_envp;
 	char	*name;
 	t_env	*env;
 }	t_shell;
 
+
+
 typedef void * histdata_t;
-
-
-
-
 
 
 
@@ -70,7 +69,6 @@ char	*get_name(char *envp[]);
 void	ft_perror(char *str);
 
 char	*get_pwd_for_name(char *envp[]);
-char	*get_pwd(void);
 
 void	change_dir(char *str, char *envp[]);
 

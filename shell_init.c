@@ -15,51 +15,77 @@
 void	ft_clear_shell(t_shell *shell)
 {
 	ft_lstclear(shell->env);
-	free(shell->name);
+	// free(shell->name);
 	free(shell);
 }
 
-t_env	*shell_env(char *envp[])
+t_env	*lst_new_env(char *name, char *content)
+{
+	t_env	*lst;
+
+	lst = malloc(sizeof(t_env));
+	if (!lst)
+		return (0);
+	lst->name = name;
+	lst->content = content;
+	lst->next = NULL;
+	
+	return (lst);
+}
+
+int	lstadd_back_env(t_shell *shell, t_env *new)
+{
+	t_env	*begin;
+
+	if (!new)
+		return (1);
+	if (!shell->env)
+		shell->env = new;
+	else
+	{
+		begin = shell->env;
+		while (begin->next != NULL)
+			begin = begin->next;
+		begin->next = new;
+	}
+	return (0);
+}
+
+void	shell_env(t_shell *shell)
 {
 	int		i;
 	char	*name;
 	char	*content;
-	t_env	*env;
 
 	i = 0;
-	env = NULL;
-	while (envp[i])
+	while (shell->envp[i])
 	{
-		name = ft_substr(envp[i], 0, ft_strindex(envp[i], '='));
+		name = ft_substr(shell->envp[i], 0, ft_strindex(shell->envp[i], '='));
 		if (ft_strnstr(name, "SHLVL", ft_strlen(name)))
-			content = ft_itoa(ft_atoi(ft_strchr(envp[i], '=') + 1) + 1);
+			content = ft_itoa(ft_atoi(ft_strchr(shell->envp[i], '=') + 1) + 1);
 		else
-			content = ft_strjoin("", ft_strchr(envp[i], '=') + 1, 0);
-		env = ft_lstadd_back(env, ft_lstnew(name, content));
-		free(content);
-		free(name);
+			content = ft_strjoin("", ft_strchr(shell->envp[i], '=') + 1, 0);
+
+		
+		lstadd_back_env(shell, lst_new_env(name, content));
 		i++;
 	}
-	return (env);
 }
 
 t_shell	*shell_init(char *envp[])
 {
 	t_shell	*shell;
 	
-	shell = (t_shell *)malloc(sizeof(t_shell *));
+	shell = malloc(sizeof(t_shell));
 	if (!shell)
-		return (0);
-	shell->name = get_name(envp);
-	if (!shell->name)
-		shell->name = ft_strjoin("", "minishell> ", 0);
-	shell->env = shell_env(envp);
-	if (!shell->env)
 	{
-		
-//		обработать ?)
-		
-		exit(1);
+		printf ("malloc error\n");
+		exit (1);
 	}
+	shell->envp = envp;
+	shell->name = NULL;
+	shell->my_envp = envp;
+	shell->env = NULL;
+	shell_env(shell);
 	return (shell);
 }

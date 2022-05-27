@@ -20,27 +20,16 @@ char	*get_pwd_for_name(char *envp[])
 	char	*fr;
 
 	home = getenv("HOME");
-	pwd = malloc(100);
+	pwd = getcwd(0, 256);
 	fr = pwd;
-	pwd = getcwd(pwd, 256);
-	pwd = ft_strnstr(pwd, home, ft_strlen(pwd));
-	if (!pwd)
-		pwd = getcwd(pwd, 1000);
-	else
+	if (ft_strnstr(pwd, home, ft_strlen(pwd)))
+	{
 		pwd = ft_strjoin("~", pwd + ft_strlen(home), 0);
-	free(fr);
-	fr = pwd;
+		free(fr);
+		fr = pwd;
+	}
 	pwd = ft_strjoin(TERM_BLUE, pwd, 0);
 	free(fr);
 	pwd = ft_strjoin(pwd, RESET, 1);
 	return (pwd);
-}
-
-char	*get_pwd(void)
-{
-	char	*str;
-
-	str = malloc(100);
-	str = getcwd(str, 1000);
-	return (str);
 }
