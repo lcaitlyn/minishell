@@ -49,7 +49,7 @@ int	main(int argc, char *argv[], char *envp[])
 			else if (ft_strnstr(str, "pwd", 3))
 			{
 				printf ("my pwd working...\n");
-				pwd = get_pwd();
+				pwd = getcwd(0, 256);
 				printf ("%s\n", pwd);
 				free(pwd);
 			}

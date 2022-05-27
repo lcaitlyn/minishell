@@ -33,12 +33,3 @@ char	*get_pwd_for_name(char *envp[])
 	pwd = ft_strjoin(pwd, RESET, 1);
 	return (pwd);
 }
-
-char	*get_pwd(void)
-{
-	char	*str;
-
-	str = malloc(100);
-	str = getcwd(str, 1000);
-	return (str);
-}
