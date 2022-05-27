@@ -36,15 +36,14 @@ typedef struct s_env
 typedef struct s_shell
 {
 	char	**envp;
+	char	**my_envp;
 	char	*name;
 	t_env	*env;
 }	t_shell;
 
+
+
 typedef void * histdata_t;
-
-
-
-
 
 
 

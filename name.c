@@ -86,7 +86,7 @@ char	*get_username(char *envp[])
 	return (name);
 }
 
-char	*get_name(char *envp[])
+char	*get_color_name(char *envp[])
 {
 	char	*name;
 	char	*uname;
@@ -113,5 +113,20 @@ char	*get_name(char *envp[])
 	name = ft_strjoin(name, pwd, 1);
 	free (pwd);
 	name = ft_strjoin(name, "[MINISHELL]> ", 1);
+	return (name);
+}
+
+char	*get_name(char *envp[])
+{
+	char	*name;
+
+	name = get_color_name(envp);
+	if (!name)
+		name = ft_strjoin("", "minishell> ", 0);
+	if (!name)
+	{
+		printf ("malloc error in get_name");
+		exit (1);
+	}
 	return (name);
 }
