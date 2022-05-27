@@ -14,19 +14,20 @@
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	char	*str = "";
+	char	*str;
 	char	*name;
 	char	*pwd;
 	t_shell	*shell;
 
 	handle_signal();
-	shell = shell_init(envp);
+//	shell = shell_init(envp);
 	printf ("*********************************\n");
 	printf ("*\t\t\t\t*\n");
 	printf ("*  Выход на Ctrl + D или exit   *\n");
 	printf ("*\t\t\t\t*\n");
 	printf ("*********************************\n");
-	while (ft_strcmp(str, "exit"))
+	str = NULL;
+	while (ft_strnstr(str, "exit", 4))
 	{
 		name = get_name(envp);
 		if (!name)
