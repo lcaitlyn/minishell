@@ -60,7 +60,7 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		free(str);
 	}
-//	ft_clear_shell(shell);
+	ft_clear_shell(shell);
 	printf ("Завершён!\n");
 	return (0);
 }

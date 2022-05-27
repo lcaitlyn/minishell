@@ -15,7 +15,7 @@
 void	ft_clear_shell(t_shell *shell)
 {
 	ft_lstclear(shell->env);
-	free(shell->name);
+	// free(shell->name);
 	free(shell);
 }
 
