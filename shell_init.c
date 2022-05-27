@@ -35,9 +35,9 @@ t_env	*shell_env(char *envp[])
 			content = ft_itoa(ft_atoi(ft_strchr(envp[i], '=') + 1) + 1);
 		else
 			content = ft_strjoin("", ft_strchr(envp[i], '=') + 1, 0);
-		env = ft_lstadd_back(env, ft_lstnew(name, content));
-		free(content);
-		free(name);
+//		env = ft_lstadd_back(env, ft_lstnew(name, content));
+//		free(content);
+//		free(name);
 		i++;
 	}
 	return (env);
@@ -54,12 +54,12 @@ t_shell	*shell_init(char *envp[])
 	if (!shell->name)
 		shell->name = ft_strjoin("", "minishell> ", 0);
 	shell->env = shell_env(envp);
-	if (!shell->env)
-	{
-		
-//		обработать ?)
-		
-		exit(1);
-	}
+//	if (!shell->env)
+//	{
+//
+////		обработать ?)
+//
+//		exit(1);
+//	}
 	return (shell);
 }
