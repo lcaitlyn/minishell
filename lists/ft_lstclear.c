@@ -19,8 +19,8 @@ void	ft_lstclear(t_env *lst)
 	while (lst)
 	{
 		next = lst->next;
-		free(name);
-		free(content);
+		free(lst->name);
+		free(lst->content);
 		free(lst);
 		lst = NULL;
 		lst = next;
