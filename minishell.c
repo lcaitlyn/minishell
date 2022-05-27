@@ -26,8 +26,7 @@ int	main(int argc, char *argv[], char *envp[])
 	printf ("*  Выход на Ctrl + D или exit   *\n");
 	printf ("*\t\t\t\t*\n");
 	printf ("*********************************\n");
-	str = NULL;
-	while (ft_strnstr(str, "exit", 4))
+	while (1)
 	{
 		name = get_name(envp);
 		if (!name)
@@ -61,7 +60,7 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		free(str);
 	}
-	ft_clear_shell(shell);
+//	ft_clear_shell(shell);
 	printf ("Завершён!\n");
 	return (0);
 }
