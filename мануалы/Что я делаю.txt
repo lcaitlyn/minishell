@@ -37,7 +37,9 @@ SIGQUIT = Ctrl + \
 25.05	ft_strtrim - обретает не нужное. Можно использовать в партере чтобы обрезать пробелы ft_strtrim("hello", "he") -> "llo" (malloced)
 	
 	!!!сделать env
-	
+
+29.05
+        Добавил export.c и ft_lstprint(env). Нужно дорабатывать.
 
 
  

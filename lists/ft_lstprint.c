@@ -1,0 +1,14 @@
+#include "../include/minishell.h"
+
+void    ft_lstprint(t_env *lst)
+{
+	printf ("my env working...");
+    if (!lst)
+        return;
+    while (lst)
+    {
+		if (lst->content)
+        	printf ("%s=%s\n", lst->name, lst->content);
+        lst = lst->next;
+    }
+}

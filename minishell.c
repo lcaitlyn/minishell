@@ -53,6 +53,14 @@ int	main(int argc, char *argv[], char *envp[])
 				printf ("%s\n", pwd);
 				free(pwd);
 			}
+			else if (ft_strnstr(str, "env", 3))
+			{
+				ft_lstprint(shell->env);
+			}
+			else if (ft_strnstr(str, "export", 6))
+			{
+				export_print(shell->env);
+			}
 			else if (ft_strnstr(str, "exit", 4))
 				break;
 			else
