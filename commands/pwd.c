@@ -20,10 +20,9 @@ char	*get_pwd_for_name(t_shell *shell, char *envp[])
 	char	*fr;
 
 	home = get_my_env(shell->env, "HOME");
-	printf ("home = %s\n", home);
 	pwd = getcwd(0, 256);
 	fr = pwd;
-	if (ft_strnstr(pwd, home, ft_strlen(pwd)))
+	if (home && ft_strnstr(pwd, home, ft_strlen(pwd)))
 	{
 		pwd = ft_strjoin("~", pwd + ft_strlen(home), 0);
 		free(fr);
