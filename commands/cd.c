@@ -43,7 +43,10 @@ void	change_dir(char *str, char *envp[])
 		return ;
 	}
 	else if (ft_strlen(str) == 2)
+	{
 		chdir(getenv("HOME"));
+	}
+		
 	else
 	{
 		

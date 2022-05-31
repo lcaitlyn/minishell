@@ -2,7 +2,7 @@
 
 void    ft_lstprint(t_env *lst)
 {
-	printf ("my env working...");
+	printf ("my env working...\n");
     if (!lst)
         return;
     while (lst)

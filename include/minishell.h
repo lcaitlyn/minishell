@@ -90,6 +90,8 @@ void    ft_lstprint(t_env *lst);
 void	ft_clear_shell(t_shell *shell);
 t_shell	*shell_init(char *envp[]);
 
+
+char	**make_env(t_env *env);
 void	export_print(t_env	*lst);
 
 

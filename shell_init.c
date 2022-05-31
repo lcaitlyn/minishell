@@ -61,6 +61,7 @@ void	shell_env(t_shell *shell)
 	while (shell->envp[i])
 	{
 		name = ft_substr(shell->envp[i], 0, ft_strindex(shell->envp[i], '='));
+		// сделать shlvl (проверку на число и на >999)
 		if (ft_strnstr(name, "SHLVL", ft_strlen(name)))
 			content = ft_itoa(ft_atoi(ft_strchr(shell->envp[i], '=') + 1) + 1);
 		else
