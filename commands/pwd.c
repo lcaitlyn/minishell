@@ -20,6 +20,7 @@ char	*get_pwd_for_name(t_shell *shell, char *envp[])
 	char	*fr;
 
 	home = get_my_env(shell->env, "HOME");
+	printf ("home = %s\n", home);
 	pwd = getcwd(0, 256);
 	fr = pwd;
 	if (ft_strnstr(pwd, home, ft_strlen(pwd)))
@@ -31,5 +32,6 @@ char	*get_pwd_for_name(t_shell *shell, char *envp[])
 	pwd = ft_strjoin(TERM_BLUE, pwd, 0);
 	free(fr);
 	pwd = ft_strjoin(pwd, RESET, 1);
+	printf ("pwd = %s\n", pwd);
 	return (pwd);
 }
