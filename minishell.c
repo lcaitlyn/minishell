@@ -30,7 +30,7 @@ int	main(int argc, char *argv[], char *envp[])
 	printf ("*********************************\n");
 	while (1)
 	{
-		name = get_name(envp);
+		name = get_name(shell, envp);
 		str = readline(name);
 		free (name);
 		if (!str)

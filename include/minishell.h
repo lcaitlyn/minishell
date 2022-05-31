@@ -64,11 +64,11 @@ char	**ft_split(char const *s, char c);
 char	*get_next_line(int fd);
 
 char	*get_uname(char *envp[]);
-char	*get_name(char *envp[]);
+char	*get_name(t_shell *shell, char *envp[]);
 
 void	ft_perror(char *str);
 
-char	*get_pwd_for_name(char *envp[]);
+char	*get_pwd_for_name(t_shell *shell, char *envp[]);
 
 void	change_dir(t_shell *shell, char *str, char *envp[]);
 

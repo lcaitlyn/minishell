@@ -12,14 +12,14 @@
 
 #include "../include/minishell.h"
 
-char	*get_pwd_for_name(char *envp[])
+char	*get_pwd_for_name(t_shell *shell, char *envp[])
 {
 	char	*home;
 	char	*pwd;
 	char	**split;
 	char	*fr;
 
-	home = getenv("HOME");
+	home = get_my_env(shell->env, "HOME");
 	pwd = getcwd(0, 256);
 	fr = pwd;
 	if (ft_strnstr(pwd, home, ft_strlen(pwd)))
