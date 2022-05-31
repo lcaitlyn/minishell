@@ -44,7 +44,7 @@ int	main(int argc, char *argv[], char *envp[])
 			if (ft_strnstr(str, "cd", 2))
 			{
 				printf ("my cd working...\n");
-				change_dir(str, envp);
+				change_dir(shell, str, envp);
 			}
 			else if (ft_strnstr(str, "pwd", 3))
 			{

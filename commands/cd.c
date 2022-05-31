@@ -30,11 +30,12 @@ void	open_dir(char *str)
 	}
 }
 
-void	change_dir(char *str, char *envp[])
+void	change_dir(t_shell *shell, char *str, char *envp[])
 {
 	int		i;
 	char	*dir;
 	char	**split;
+	char	*home;
 
 	i = 0;
 	if (str[2] && str[2] != ' ')
@@ -44,12 +45,19 @@ void	change_dir(char *str, char *envp[])
 	}
 	else if (ft_strlen(str) == 2)
 	{
-		chdir(getenv("HOME"));
+		home = get_my_env(shell->env, "HOME");
+		if (!home)
+		{
+			// возможно создать нормальную функцию
+			
+			printf ("minishell: cd: HOME not set\n");
+			return ;
+		}
+		if (chdir(home) == -1)
+			printf ("minishell: cd: %s: No such file or directory\n", home);
 	}
-		
 	else
 	{
-		
 		split = ft_split(str, ' ');
 		open_dir(split[1]);
 		ft_free_split(split, ft_wrdcnt(str, ' '));
