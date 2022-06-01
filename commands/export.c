@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/20 13:17:31 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/20 13:17:51 by lcaitlyn         ###   ########.fr       */
+/*   Created: 2022/05/31 16:10:17 by lcaitlyn          #+#    #+#             */
+/*   Updated: 2022/05/31 16:10:19 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*get_pwd_for_name(t_shell *shell, char *envp[])
+void	export_print(t_env	*lst)
 {
-	char	*home;
-	char	*pwd;
-	char	**split;
-	char	*fr;
-
-	home = get_my_env(shell->env, "HOME");
-	pwd = getcwd(0, 256);
-	fr = pwd;
-	if (home && ft_strnstr(pwd, home, ft_strlen(pwd)))
+	printf ("my export working...\n");
+	if (!lst)
+		return;
+	while (lst)
 	{
-		pwd = ft_strjoin("~", pwd + ft_strlen(home), 0);
-		free(fr);
-		fr = pwd;
+		printf ("declare -x %s", lst->name);
+		if (lst->content)
+			printf("=\"%s\"", lst->content);
+		printf ("\n");
+		lst = lst->next;
 	}
-	pwd = ft_strjoin(TERM_BLUE, pwd, 0);
-	free(fr);
-	pwd = ft_strjoin(pwd, RESET, 1);
-	printf ("pwd = %s\n", pwd);
-	return (pwd);
 }

@@ -5,11 +5,13 @@ SRCS		= 	minishell.c\
 				libft/ft_strjoin.c libft/ft_split.c libft/ft_substr.c\
 				libft/ft_strchr.c libft/ft_strindex.c libft/ft_atoi.c\
 				libft/ft_itoa.c\
-				lists/ft_lstnew.c lists/ft_lstadd.c lists/ft_lstclear.c lists/ft_lstlast.c\
+				lists/ft_lstnew.c lists/ft_lstadd.c lists/ft_lstclear.c\
+				lists/ft_lstlast.c lists/ft_lstprint.c\
 				get_next_line/gnl.c\
 				signals/signal.c\
-				ft_exec.c name.c commands/pwd.c\
-				commands/cd.c action.c commands/ls.c\
+				commands/pwd.c commands/cd.c commands/export.c\
+				commands/env.c\
+				ft_exec.c name.c action.c\
 				shell_init.c\
 				
 

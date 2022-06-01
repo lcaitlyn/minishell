@@ -30,7 +30,7 @@ int	main(int argc, char *argv[], char *envp[])
 	printf ("*********************************\n");
 	while (1)
 	{
-		name = get_name(envp);
+		name = get_name(shell, envp);
 		str = readline(name);
 		free (name);
 		if (!str)
@@ -44,7 +44,7 @@ int	main(int argc, char *argv[], char *envp[])
 			if (ft_strnstr(str, "cd", 2))
 			{
 				printf ("my cd working...\n");
-				change_dir(str, envp);
+				change_dir(shell, str, envp);
 			}
 			else if (ft_strnstr(str, "pwd", 3))
 			{
@@ -53,10 +53,18 @@ int	main(int argc, char *argv[], char *envp[])
 				printf ("%s\n", pwd);
 				free(pwd);
 			}
+			else if (ft_strnstr(str, "env", 3))
+			{
+				ft_lstprint(shell->env);
+			}
+			else if (ft_strnstr(str, "export", 6))
+			{
+				export_print(shell->env);
+			}
 			else if (ft_strnstr(str, "exit", 4))
 				break;
 			else
-				action(str, envp);
+				action(str, make_env(shell));
 		}
 		free(str);
 	}

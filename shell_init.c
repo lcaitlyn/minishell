@@ -16,6 +16,7 @@ void	ft_clear_shell(t_shell *shell)
 {
 	ft_lstclear(shell->env);
 	// free(shell->name);
+	ft_free_split(shell->my_envp, split_len(shell->my_envp));
 	free(shell);
 }
 
@@ -61,6 +62,7 @@ void	shell_env(t_shell *shell)
 	while (shell->envp[i])
 	{
 		name = ft_substr(shell->envp[i], 0, ft_strindex(shell->envp[i], '='));
+		// сделать shlvl (проверку на число и на >999)
 		if (ft_strnstr(name, "SHLVL", ft_strlen(name)))
 			content = ft_itoa(ft_atoi(ft_strchr(shell->envp[i], '=') + 1) + 1);
 		else
@@ -84,7 +86,7 @@ t_shell	*shell_init(char *envp[])
 	}
 	shell->envp = envp;
 	shell->name = NULL;
-	shell->my_envp = envp;
+	shell->my_envp = NULL;
 	shell->env = NULL;
 	shell_env(shell);
 	return (shell);

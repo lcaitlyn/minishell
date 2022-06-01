@@ -86,7 +86,7 @@ char	*get_username(char *envp[])
 	return (name);
 }
 
-char	*get_color_name(char *envp[])
+char	*get_color_name(t_shell *shell, char *envp[])
 {
 	char	*name;
 	char	*uname;
@@ -109,18 +109,18 @@ char	*get_color_name(char *envp[])
 	free (uname);
 	name = ft_strjoin(name, RESET, 1);
 	name = ft_strjoin(name, ":", 1);
-	pwd = get_pwd_for_name(envp);
+	pwd = get_pwd_for_name(shell, envp);
 	name = ft_strjoin(name, pwd, 1);
 	free (pwd);
-	name = ft_strjoin(name, "[MINISHELL]> ", 1);
+	name = ft_strjoin(name, "[\033[1;91mMINISHELL\033[0m]> ", 1);
 	return (name);
 }
 
-char	*get_name(char *envp[])
+char	*get_name(t_shell *shell, char *envp[])
 {
 	char	*name;
 
-	name = get_color_name(envp);
+	name = get_color_name(shell, envp);
 	if (!name)
 		name = ft_strjoin("", "minishell> ", 0);
 	if (!name)

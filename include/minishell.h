@@ -64,13 +64,13 @@ char	**ft_split(char const *s, char c);
 char	*get_next_line(int fd);
 
 char	*get_uname(char *envp[]);
-char	*get_name(char *envp[]);
+char	*get_name(t_shell *shell, char *envp[]);
 
 void	ft_perror(char *str);
 
-char	*get_pwd_for_name(char *envp[]);
+char	*get_pwd_for_name(t_shell *shell, char *envp[]);
 
-void	change_dir(char *str, char *envp[]);
+void	change_dir(t_shell *shell, char *str, char *envp[]);
 
 void	ls(char *str, char *envp[]);
 
@@ -85,9 +85,15 @@ t_env	*ft_lstnew(char *name, char *content);
 t_env	*ft_lstadd_back(t_env *lst, t_env *new);
 t_env	*ft_lstlast(t_env *lst);
 void	ft_lstclear(t_env *lst);
+void	ft_lstprint(t_env *lst);
 
 void	ft_clear_shell(t_shell *shell);
 t_shell	*shell_init(char *envp[]);
 
+
+int	split_len(char **arr);
+char	**make_env(t_shell *shell);
+void	export_print(t_env	*lst);
+char	*get_my_env(t_env *env, char *str);
 
 #endif
