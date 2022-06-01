@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 22:22:23 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/01 11:53:27 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ void	ft_clear_shell(t_shell *shell);
 t_shell	*shell_init(char *envp[]);
 
 // Parser
-char	*parser(char *str);
+char	*parser(char *str, char **env);
 
 #endif

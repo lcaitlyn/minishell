@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:53:40 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 22:22:02 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/01 11:54:26 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,12 @@ int	main(int argc, char *argv[], char *envp[])
 	printf ("*********************************\n");
 	while (ft_strcmp(str, "exit"))
 	{
-		name = get_name(envp); 
+		// name = get_name(envp); 
+		name = NULL;
 		if (!name)
 			name = ft_strjoin_f("", "minishell> ", 0);
 		str = readline(name);
-		str = parser(str);
+		str = parser(str, envp);
 		free (name);
 		if (!str)
 		{

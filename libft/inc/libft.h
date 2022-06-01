@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 20:04:47 by gopal             #+#    #+#             */
-/*   Updated: 2022/03/30 02:41:37 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/01 09:04:17 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t dstsize);
 int		ft_atoi(const char *str);
 char	*ft_strdup(char *src);
 void	*ft_calloc(size_t count, size_t size);
+int		ft_isspace(int n);
 
 // PART II
 

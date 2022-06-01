@@ -55,3 +55,6 @@ fclean		:	clean
 					@make fclean -sC $(LIBFT_DIR)
 
 re			:	fclean all
+
+run:	re
+		./minishell
