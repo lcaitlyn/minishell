@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strindex.c                                      :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 10:52:08 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 20:28:56 by gopal            ###   ########.fr       */
+/*   Created: 2021/10/04 12:01:58 by gopal             #+#    #+#             */
+/*   Updated: 2021/10/19 05:02:55 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-
-int	ft_strindex(char *str, char a)
+int	ft_isalpha(int c)
 {
-	unsigned int	i;
-
-	i = 0;
-	while (str[i] && str[i] != a)
-		i++;
-	if (i < ft_strlen(str))
-		return (i);
-	else
-		return (-1);
+	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
 }

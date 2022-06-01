@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void    ft_lstprint(t_env *lst)
+void    ft_listprint(t_env *lst)
 {
 	printf ("my env working...\n");
     if (!lst)

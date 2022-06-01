@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strindex.c                                      :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 10:52:08 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 20:28:56 by gopal            ###   ########.fr       */
+/*   Created: 2021/10/09 08:27:32 by gopal             #+#    #+#             */
+/*   Updated: 2021/10/19 05:10:03 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	ft_strindex(char *str, char a)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	unsigned int	i;
-
-	i = 0;
-	while (str[i] && str[i] != a)
-		i++;
-	if (i < ft_strlen(str))
-		return (i);
+	while (n && *s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+		n--;
+	}
+	if (n == 0)
+		return (0);
 	else
-		return (-1);
+		return (*(unsigned char *) s1 - *(unsigned char *) s2);
 }

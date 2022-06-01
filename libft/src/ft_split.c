@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/27 15:54:43 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2021/10/27 15:54:44 by lcaitlyn         ###   ########.fr       */
+/*   Created: 2021/10/14 03:32:46 by gopal             #+#    #+#             */
+/*   Updated: 2022/05/25 18:56:43 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
 char	**ft_free_split(char **arr, int j)
 {

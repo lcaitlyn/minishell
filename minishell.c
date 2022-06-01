@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:53:40 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/17 12:00:37 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/06/01 11:54:26 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*pwd;
 	t_shell	*shell;
 
+	(void)argc;
+	(void)argv;
 	handle_signal();
 	
 	shell = shell_init(envp);
@@ -32,12 +34,13 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		name = get_name(shell, envp);
 		str = readline(name);
-		free (name);
 		if (!str)
 		{
 			printf ("exit\n");
 			break ;
 		}
+		str = parser(str, envp);
+		free (name);
 		if (ft_strlen(str) != 0)
 		{
 			add_history(str);
@@ -55,7 +58,7 @@ int	main(int argc, char *argv[], char *envp[])
 			}
 			else if (ft_strnstr(str, "env", 3))
 			{
-				ft_lstprint(shell->env);
+				ft_listprint(shell->env);
 			}
 			else if (ft_strnstr(str, "export", 6))
 			{

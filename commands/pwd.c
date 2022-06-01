@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 13:17:31 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/20 13:17:51 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/05/25 19:49:58 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*get_pwd_for_name(t_shell *shell, char *envp[])
+char	*get_pwd_for_name(t_shell *shell)
 {
 	char	*home;
 	char	*pwd;
-	char	**split;
 	char	*fr;
 
 	home = get_my_env(shell->env, "HOME");
@@ -24,13 +23,10 @@ char	*get_pwd_for_name(t_shell *shell, char *envp[])
 	fr = pwd;
 	if (home && ft_strnstr(pwd, home, ft_strlen(pwd)))
 	{
-		pwd = ft_strjoin("~", pwd + ft_strlen(home), 0);
+		pwd = ft_strjoin("~", pwd + ft_strlen(home));
 		free(fr);
-		fr = pwd;
 	}
-	pwd = ft_strjoin(TERM_BLUE, pwd, 0);
-	free(fr);
-	pwd = ft_strjoin(pwd, RESET, 1);
-	printf ("pwd = %s\n", pwd);
+	// pwd = ft_strjoin_f(TERM_BLUE, pwd, 2);
+	// pwd = ft_strjoin_f(pwd, RESET, 1);
 	return (pwd);
 }

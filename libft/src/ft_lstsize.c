@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 19:03:53 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/27 16:10:25 by lcaitlyn         ###   ########.fr       */
+/*   Created: 2021/10/17 08:23:08 by gopal             #+#    #+#             */
+/*   Updated: 2021/10/19 05:28:07 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-void	ft_lstclear(t_env *lst)
+int	ft_lstsize(t_list *lst)
 {
-	t_env	*next;
+	int	i;
 
+	i = 0;
 	while (lst)
 	{
-		next = lst->next;
-		free(lst->name);
-		free(lst->content);
-		free(lst);
-		lst = NULL;
-		lst = next;
+		lst = lst->next;
+		i++;
 	}
+	return (i);
 }

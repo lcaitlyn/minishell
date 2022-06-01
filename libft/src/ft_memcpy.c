@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strindex.c                                      :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 10:52:08 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 20:28:56 by gopal            ###   ########.fr       */
+/*   Created: 2021/10/09 01:58:07 by gopal             #+#    #+#             */
+/*   Updated: 2021/10/19 05:05:03 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	ft_strindex(char *str, char a)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	unsigned int	i;
+	char	*ds;
+	char	*sr;
 
-	i = 0;
-	while (str[i] && str[i] != a)
-		i++;
-	if (i < ft_strlen(str))
-		return (i);
-	else
-		return (-1);
+	ds = (char *) dst;
+	sr = (char *) src;
+	while (n-- && (ds || sr))
+		ds[n] = sr[n];
+	return ((void *) dst);
 }

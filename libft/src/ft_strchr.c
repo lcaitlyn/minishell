@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strindex.c                                      :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 10:52:08 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 20:28:56 by gopal            ###   ########.fr       */
+/*   Created: 2021/10/09 06:03:02 by gopal             #+#    #+#             */
+/*   Updated: 2021/10/19 05:05:18 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-
-int	ft_strindex(char *str, char a)
+char	*ft_strchr(const char *s, int c)
 {
-	unsigned int	i;
+	unsigned char	sym;
 
-	i = 0;
-	while (str[i] && str[i] != a)
-		i++;
-	if (i < ft_strlen(str))
-		return (i);
-	else
-		return (-1);
+	sym = (unsigned char) c;
+	while (*s)
+	{
+		if (sym == *s)
+			return ((char *) s);
+		s++;
+	}
+	if (*s == sym)
+		return ((char *) s);
+	return (0);
 }

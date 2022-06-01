@@ -3,34 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/09 14:41:34 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/03/09 14:41:47 by lcaitlyn         ###   ########.fr       */
+/*   Created: 2021/10/12 13:05:35 by gopal             #+#    #+#             */
+/*   Updated: 2021/11/26 23:07:20 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2, int need_free)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*dest;
-	char	*p;
-	void	*tmp;
+	size_t	len_s1;
+	size_t	len_s2;
+	char	*str;
 
-	tmp = (void *)s1;
-	if (s1 == NULL && s2 == NULL)
+	if (s1 == NULL || !s2)
 		return (NULL);
-	dest = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (dest == NULL)
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	str = ft_calloc(len_s1 + len_s2 + 1, 1);
+	if (!str)
 		return (NULL);
-	p = dest;
-	while (*s1 != '\0')
-		*dest++ = *s1++;
-	while (*s2 != '\0')
-		*dest++ = *s2++;
-	*dest++ = '\0';
-	if (need_free)
-		free(tmp);
-	return (p);
+	ft_memcpy(str, s1, len_s1);
+	ft_memcpy(&str[len_s1], s2, len_s2);
+	return (str);
 }

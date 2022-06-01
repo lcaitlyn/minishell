@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strindex.c                                      :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 10:52:08 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 20:28:56 by gopal            ###   ########.fr       */
+/*   Created: 2021/10/11 10:16:30 by gopal             #+#    #+#             */
+/*   Updated: 2021/10/19 05:05:25 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	ft_strindex(char *str, char a)
+char	*ft_strdup(char *src)
 {
-	unsigned int	i;
+	int		l;
+	int		i;
+	char	*dest;
 
 	i = 0;
-	while (str[i] && str[i] != a)
+	l = ft_strlen(src);
+	dest = malloc(sizeof(*src) * (l + 1));
+	if (dest == NULL)
+		return (NULL);
+	while (i < l)
+	{
+		dest[i] = src[i];
 		i++;
-	if (i < ft_strlen(str))
-		return (i);
-	else
-		return (-1);
+	}
+	dest[i] = '\0';
+	return (dest);
 }

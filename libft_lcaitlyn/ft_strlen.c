@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/17 10:41:44 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/17 10:41:57 by lcaitlyn         ###   ########.fr       */
+/*   Created: 2022/05/17 10:13:47 by lcaitlyn          #+#    #+#             */
+/*   Updated: 2022/05/25 20:05:19 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	int i;
+// int	ft_strlen(const char *s)
+// {
+// 	int	i;
 
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	return (s1[i] - s2[i]);
-}
+// 	i = 0;
+// 	while (s[i] != '\0')
+// 		i++;
+// 	return (i);
+// }

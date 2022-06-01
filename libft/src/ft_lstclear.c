@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 19:05:47 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/24 19:06:05 by lcaitlyn         ###   ########.fr       */
+/*   Created: 2021/10/17 09:20:01 by gopal             #+#    #+#             */
+/*   Updated: 2021/10/19 05:24:00 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-t_env	*ft_lstnew(char *name, char *content)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_env	*new;
+	t_list	*temp;
 
-	new = (t_env *)malloc(sizeof(t_env));
-	if (!new)
-		return (0);
-	new->name = name;
-	new->content = content;
-	new->next = NULL;
-	return (new);
+	if (lst)
+	{
+		while (*lst)
+		{
+			temp = (*lst)->next;
+			ft_lstdelone(*lst, del);
+			*lst = temp;
+		}
+	}
 }

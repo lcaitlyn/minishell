@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstpop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/17 10:13:47 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/17 10:14:13 by lcaitlyn         ###   ########.fr       */
+/*   Created: 2022/03/30 02:39:29 by gopal             #+#    #+#             */
+/*   Updated: 2022/03/30 02:42:41 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	ft_strlen(const char *s)
+t_list	*ft_lst_pop(t_list **list)
 {
-	int	i;
+	t_list	*top;
 
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	top = NULL;
+	if (list && *list)
+	{
+		top = *list;
+		*list = (*list)->next;
+	}
+	return (top);
 }

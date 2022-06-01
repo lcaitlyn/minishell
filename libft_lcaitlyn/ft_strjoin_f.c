@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   ft_strjoin_f.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 16:54:06 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 19:34:41 by gopal            ###   ########.fr       */
+/*   Created: 2022/03/09 14:41:34 by lcaitlyn          #+#    #+#             */
+/*   Updated: 2022/05/25 18:58:08 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	signal_sigint(int sig)
+char	*ft_strjoin_f(char const *s1, char const *s2, int need_free)
 {
-	(void)sig;
-	rl_on_new_line();
-	rl_redisplay();
-	printf("  \n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	return (0);
-}
+	char	*str;
 
-int	handle_signal(void)
-{
-	signal(SIGINT, (void *)&signal_sigint);
-	signal(SIGQUIT, SIG_IGN);
-	return (0);
+	if (!s1 || !s2)
+		return (NULL);
+	str = ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1, 1);
+	if (!str)
+		return (NULL);
+	ft_memcpy(str, s1, ft_strlen(s1));
+	ft_memcpy(&str[ft_strlen(s1)], s2, ft_strlen(s2));
+	if (need_free == 1)
+		free (s1);
+	else if (need_free == 2)
+		free (s2)
+	else if (need_free == 3)
+	{
+		free (s1);
+		free (s2);
+	}
+	return (str);
 }

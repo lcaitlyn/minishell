@@ -1,38 +1,49 @@
 NAME		=	minishell
 
+LIBFT_A		=	libft.a
+LIBFT_H		=	libft.h
+LIBFT_DIR	=	./libft/
+LIBFT_INC	=	libft/inc
+LIBFT		=	-L libft -l ft -I libft/inc/
+
 SRCS		= 	minishell.c\
-				libft/ft_strlen.c libft/ft_strcmp.c libft/ft_strnstr.c\
-				libft/ft_strjoin.c libft/ft_split.c libft/ft_substr.c\
-				libft/ft_strchr.c libft/ft_strindex.c libft/ft_atoi.c\
-				libft/ft_itoa.c\
-				lists/ft_lstnew.c lists/ft_lstadd.c lists/ft_lstclear.c\
-				lists/ft_lstlast.c lists/ft_lstprint.c\
-				get_next_line/gnl.c\
-				signals/signal.c\
-				commands/pwd.c commands/cd.c commands/export.c\
-				commands/env.c\
-				ft_exec.c name.c action.c\
-				shell_init.c\
-				
+			libft/ft_strindex.c libft/ft_strjoin_f.c\
+			lists/ft_listclear.c lists/ft_listprint.c\
+			get_next_line/gnl.c\
+			signals/signal.c\
+			commands/pwd.c commands/cd.c commands/export.c\
+			commands/env.c\
+			ft_exec.c name.c action.c\
+			shell_init.c\
+			parser/parser.c
 
-OBJ			=	$(SRCS:%.c=%.o)
+OBJ		=	$(SRCS:%.c=%.o)
 
-FLAGS		=	-g #-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g
 
 .PHONY		:	all clean fclean re
 
-all			:	$(NAME)
+all		:	$(LIBFT_A) $(NAME)
 
-%.o			:	%.c
-					@gcc $(FLAGS) -c $< -o $@
+%.o		:	%.c
+				@gcc $(CFLAGS) -I include -c $< -o $@
 
 $(NAME)		:	$(OBJ)
-					@gcc $(FLAGS) -o $(NAME) $(OBJ) -lreadline
+				@gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
+
+$(LIBFT_A)	:
+				@make -sC $(LIBFT_DIR)
+				@echo Minishell ready!
 
 clean		:	
-					@rm -f $(OBJ)
+				@rm -f $(OBJ)
+				@make clean -sC $(LIBFT_DIR)
 
 fclean		:	clean
-					@rm -f $(NAME)
+				@rm -f $(NAME)
+				@make fclean -sC $(LIBFT_DIR)
 
-re			:	fclean all
+re		:	fclean all
+
+run		:	re
+				./minishell

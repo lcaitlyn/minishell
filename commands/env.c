@@ -56,8 +56,8 @@ char	**make_env(t_shell *shell)
 	i = 0;
 	while (lst)
 	{
-		envp[i] = ft_strjoin(lst->name, "=", 0);
-		envp[i] = ft_strjoin(envp[i], lst->content, 1);
+		envp[i] = ft_strjoin(lst->name, "=");
+		envp[i] = ft_strjoin_f(envp[i], lst->content, 1);
 		lst = lst->next;
 		i++;
 	}
