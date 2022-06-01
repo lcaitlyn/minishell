@@ -91,6 +91,7 @@ void	ft_clear_shell(t_shell *shell);
 t_shell	*shell_init(char *envp[]);
 
 
+int	split_len(char **arr);
 char	**make_env(t_shell *shell);
 void	export_print(t_env	*lst);
 char	*get_my_env(t_env *env, char *str);
