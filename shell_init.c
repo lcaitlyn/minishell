@@ -85,7 +85,7 @@ t_shell	*shell_init(char *envp[])
 	}
 	shell->envp = envp;
 	shell->name = NULL;
-	shell->my_envp = envp;
+	shell->my_envp = NULL;
 	shell->env = NULL;
 	shell_env(shell);
 	return (shell);

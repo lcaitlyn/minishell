@@ -12,7 +12,19 @@
 
 #include "../include/minishell.h"
 
-int		env_len(t_env *env)
+int	split_len(char **arr)
+{
+	int	i;
+
+	i = 0;
+	if (!arr)
+		return (0);
+	while (arr[i])
+		i++;
+	return (i);
+}
+
+int	env_len(t_env *env)
 {
 	int		env_size;
 	t_env	*lst;
@@ -27,17 +39,17 @@ int		env_len(t_env *env)
 	return (env_size);
 }
 
-char	**make_env(t_env *env)
+char	**make_env(t_shell *shell)
 {
 	t_env	*lst;
 	char	**envp;
 	int		env_size;
 	int		i;
 
-	if (!env)
+	if (!shell->env)
 		return (0);
-	lst = env;
-	env_size = env_len(env);
+	lst = shell->env;
+	env_size = env_len(shell->env);
 	if (!env_size)
 		return (0);
 	envp = (char **)malloc(sizeof(char *) * env_size + 1);
@@ -50,6 +62,9 @@ char	**make_env(t_env *env)
 		i++;
 	}
 	envp[i] = NULL;
+	if (shell->my_envp)
+		ft_free_split(shell->my_envp, split_len(shell->my_envp));
+	shell->my_envp = envp;
 	return (envp);
 }
 

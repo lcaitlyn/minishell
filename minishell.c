@@ -64,7 +64,7 @@ int	main(int argc, char *argv[], char *envp[])
 			else if (ft_strnstr(str, "exit", 4))
 				break;
 			else
-				action(str, make_env(shell->env));
+				action(str, make_env(shell));
 		}
 		free(str);
 	}
