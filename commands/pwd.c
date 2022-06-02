@@ -31,6 +31,19 @@ char	*get_pwd_for_name(t_shell *shell)
 	return (pwd);
 }
 
+int	print_pwd(char	**cmd)
+{
+	char	*pwd;
+
+	if (cmd)
+		if (cmd[1])
+			return (print_error("pwd: too many arguments"));
+	pwd = getcwd(0, 256);
+	printf ("%s\n", pwd);
+	free(pwd);
+	return (0);
+}
+
 //char	*get_home(void)
 //{
 //	

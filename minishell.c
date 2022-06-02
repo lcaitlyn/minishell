@@ -12,11 +12,21 @@
 
 #include "include/minishell.h"
 
+char	**my_parser(char *str)
+{
+	void	*tmp;
+	char	**cmd;
+
+	tmp = (void *)str;
+	cmd = ft_split(str, ' ');
+	return (cmd);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*str;
 	char	*name;
-	char	*pwd;
+	char	**cmd;
 	t_shell	*shell;
 
 	(void)argc;
@@ -26,10 +36,11 @@ int	main(int argc, char *argv[], char *envp[])
 	shell = shell_init(envp);
 		
 	printf ("*********************************\n");
-	printf ("*\t\t\t\t*\n");
+	printf ("*\t\t\t\t\t*\n");
 	printf ("*  Выход на Ctrl + D или exit   *\n");
-	printf ("*\t\t\t\t*\n");
+	printf ("*\t\t\t\t\t*\n");
 	printf ("*********************************\n");
+	printf ("HOME = %s\n", shell->home);
 	while (1)
 	{
 		name = get_name(shell, envp);
@@ -40,38 +51,39 @@ int	main(int argc, char *argv[], char *envp[])
 			printf ("exit\n");
 			break ;
 		}
-//		str = parser(str, envp);
+		cmd = my_parser(str);
 		if (ft_strlen(str) != 0)
 		{
 			add_history(str);
-			if (ft_strnstr(str, "cd", 2))
+			if (ft_strnstr("cd", cmd[0], 2))
 			{
-				printf ("my cd working...\n");
-				change_dir(shell, str, envp);
+				exit_stat = change_dir(shell, cmd);
 			}
-			else if (ft_strnstr(str, "pwd", 3))
-			{
-				printf ("my pwd working...\n");
-				pwd = getcwd(0, 256);
-				printf ("%s\n", pwd);
-				free(pwd);
-			}
-			else if (ft_strnstr(str, "env", 3))
-			{
-				ft_listprint(shell->env);
-			}
-			else if (ft_strnstr(str, "export", 6))
-			{
-				export_print(shell->env);
-			}
-			else if (ft_strnstr(str, "exit", 4))
-				break;
-			else
-				action(str, make_env(shell));
+//			else if (ft_strnstr(str, "pwd", 3))
+//			{
+//				printf ("my pwd working...\n");
+//				print_pwd();
+//			}
+//			else if (ft_strnstr(str, "env", 3))
+//			{
+//				ft_listprint(shell->env);
+//			}
+//			else if (ft_strnstr(str, "export", 6))
+//			{
+//				export_print(shell->env);
+//			}
+//			else if (ft_strnstr(str, "exit", 4))
+//				break;
+//			else
+//				action(str, make_env(shell));
 		}
+		ft_free_split(cmd, ft_wrdcnt(str, ' '));
 		free(str);
+		print_pwd(NULL);
+		break;
 	}
 	ft_clear_shell(shell);
 	printf ("Завершён!\n");
-	return (0);
+	exit_stat = 0;
+	return (exit_stat);
 }

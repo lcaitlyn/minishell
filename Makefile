@@ -14,12 +14,12 @@ SRCS		= 	minishell.c\
 			commands/pwd.c commands/cd.c commands/export.c\
 			commands/env.c\
 			ft_exec.c name.c action.c\
-			shell_init.c\
+			shell_init.c error.c\
 			parser/parser.c
 
 OBJ		=	$(SRCS:%.c=%.o)
 
-CFLAGS		=	-g -fsanitize=address #-Wall -Wextra -Werror
+CFLAGS		=	-g #-fsanitize=address #-Wall -Wextra -Werror
 
 .PHONY		:	all clean fclean re
 

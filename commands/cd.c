@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-void	open_dir(char *str)
+int	open_dir(char *str)
 {
 	DIR	*dir;
 
@@ -21,45 +21,45 @@ void	open_dir(char *str)
 	{
 		printf("minishell: cd: ");
 		printf ("%s: %s\n", str, strerror(errno));
-		return ;
+		return (1);
 	}
 	else
 	{
 		closedir(dir);
 		chdir(str);
 	}
+	return (0);
 }
 
-void	change_dir(t_shell *shell, char *str, char *envp[])
+int	micro_cd(t_env *env, char *str)
 {
-	char	*dir;
+	char	*path;
+
+	path = get_my_env(env, str);
+	if (!path)
+	{
+		printf ("minishell: cd: %s not set\n", str);
+		return (1);
+	}
+	chdir(path);
+	if (ft_strnstr("-", str, 1))
+		print_pwd(NULL);
+	return (0);
+}
+
+int	change_dir(t_shell *shell, char *cmd[])
+{
 	char	**split;
 	char	*home;
+	char	*oldpwd;
 
-	(void)envp;
-	(void)dir;
-	if (str[2] && str[2] != ' ')
-	{
-		printf("%s: command not found\n", str);
-		return ;
-	}
-	else if (ft_strlen(str) == 2)
-	{
-		home = get_my_env(shell->env, "HOME");
-		if (!home)
-		{
-			// возможно создать нормальную функцию
-			
-			printf ("minishell: cd: HOME not set\n");
-			return ;
-		}
-		if (chdir(home) == -1)
-			printf ("minishell: cd: %s: No such file or directory\n", home);
-	}
+	if (cmd[1])
+		if (cmd[2])
+			return (print_error("minishell: cd: too many arguments"));
+	if (!cmd[1])
+		return (micro_cd(shell->env, "HOME"));
+	else if (ft_strnstr("-", cmd[1], 1))
+		return (micro_cd(shell->env, "OLDPWD"));
 	else
-	{
-		split = ft_split(str, ' ');
-		open_dir(split[1]);
-		ft_free_split(split, ft_wrdcnt(str, ' '));
-	}
+		return (open_dir(cmd[1]));
 }

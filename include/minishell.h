@@ -27,6 +27,7 @@
 # include <errno.h>
 // Libft by gopal
 # include "../libft/inc/libft.h"
+
 typedef struct s_env
 {
 	char			*name;
@@ -45,6 +46,8 @@ typedef struct s_shell
 
 typedef void * histdata_t;
 
+int		exit_stat;
+
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strjoin_f(char *s1, char *s2, int need_free);
 int		ft_strindex(char *str, char a); //возвращает индекс символа в строке
@@ -61,11 +64,10 @@ char	*get_name(t_shell *shell, char *envp[]);
 
 void	ft_perror(char *str);
 
+int		print_pwd(char  **cmd);
 char	*get_pwd_for_name(t_shell *shell);
 
-void	change_dir(t_shell *shell, char *str, char *envp[]);
-
-void	ls(char *str, char *envp[]);
+int		change_dir(t_shell *shell, char **str);
 
 void	action(char *str, char *envp[]);
 void	ft_exec(char *argv, char *envp[]);
@@ -86,9 +88,13 @@ t_shell	*shell_init(char *envp[]);
 // Parser
 char	*parser(char *str, char **env);
 
-int	split_len(char **arr);
+int		split_len(char **arr);
 char	**make_env(t_shell *shell);
 void	export_print(t_env	*lst);
 char	*get_my_env(t_env *env, char *str);
+
+char	*get_execve(char *cmd, char *envp[]);
+
+int		print_error(char *str);
 
 #endif
