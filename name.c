@@ -42,7 +42,7 @@ char	*get_execve(char *cmd, char *envp[])
 	{
 		
 		// удалить
-		// printf ("kill %d\n", getpid());
+		 printf ("kill %d\n", getpid());
 		
 		
 		

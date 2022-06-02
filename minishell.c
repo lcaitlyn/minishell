@@ -34,13 +34,13 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		name = get_name(shell, envp);
 		str = readline(name);
+		free (name);
 		if (!str)
 		{
 			printf ("exit\n");
 			break ;
 		}
 		str = parser(str, envp);
-		free (name);
 		if (ft_strlen(str) != 0)
 		{
 			add_history(str);
