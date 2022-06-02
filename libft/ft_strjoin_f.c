@@ -12,17 +12,8 @@
 
 #include "minishell.h"
 
-char	*ft_strjoin_f(char *s1, char *s2, int need_free)
+void	strjoin_cleaner(char *s1, char *s2, int need_free)
 {
-	char	*str;
-
-	if (!s1 || !s2)
-		return (NULL);
-	str = ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1, 1);
-	if (!str)
-		return (NULL);
-	ft_memcpy(str, s1, ft_strlen(s1));
-	ft_memcpy(&str[ft_strlen(s1)], s2, ft_strlen(s2));
 	if (need_free == 1)
 		free (s1);
 	else if (need_free == 2)
@@ -32,5 +23,29 @@ char	*ft_strjoin_f(char *s1, char *s2, int need_free)
 		free (s1);
 		free (s2);
 	}
-	return (str);
 }
+
+char	*ft_strjoin_f(char *s1, char *s2, int need_free)
+{
+	char	*dest;
+	char	*p;
+	void	*tmp;
+	void	*tmp2;
+
+	tmp = (void *)s1;
+	tmp2 = (void *)s2;
+	if (s1 == NULL && s2 == NULL)
+		return (NULL);
+	dest = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (dest == NULL)
+		return (NULL);
+	p = dest;
+	while (*s1 != '\0')
+		*dest++ = *s1++;
+	while (*s2 != '\0')
+		*dest++ = *s2++;
+	*dest++ = '\0';
+	strjoin_cleaner(tmp, tmp2, need_free);
+	return (p);
+}
+
