@@ -30,3 +30,8 @@ char	*get_pwd_for_name(t_shell *shell)
 	// pwd = ft_strjoin_f(pwd, RESET, 1);
 	return (pwd);
 }
+
+//char	*get_home(void)
+//{
+//	
+//}

@@ -39,6 +39,7 @@ typedef struct s_shell
 	char	**envp;
 	char	**my_envp;
 	char	*name;
+	char	*home;
 	t_env	*env;
 }	t_shell;
 
