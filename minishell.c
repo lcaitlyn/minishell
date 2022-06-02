@@ -40,7 +40,7 @@ int	main(int argc, char *argv[], char *envp[])
 			printf ("exit\n");
 			break ;
 		}
-		str = parser(str, envp);
+//		str = parser(str, envp);
 		if (ft_strlen(str) != 0)
 		{
 			add_history(str);
