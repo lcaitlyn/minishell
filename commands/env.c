@@ -52,7 +52,7 @@ char	**make_env(t_shell *shell)
 	env_size = env_len(shell->env);
 	if (!env_size)
 		return (0);
-	envp = (char **)malloc(sizeof(char *) * env_size + 1);
+	envp = (char **)malloc(sizeof(char *) * (env_size + 1));
 	i = 0;
 	while (lst)
 	{
