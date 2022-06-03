@@ -17,7 +17,6 @@ int	change_env(t_shell *shell, char *name, char *newcontent)
 	t_env	*tmp;
 
 	tmp = get_my_env(shell->env, name);
-	printf ("OLD name = %s env->name = %s content = %s\n", name, tmp->name, tmp->content);
 	if (tmp)
 	{
 		if (tmp->content)
@@ -26,7 +25,6 @@ int	change_env(t_shell *shell, char *name, char *newcontent)
 	}
 	else
 		lstadd_back_env(shell, lst_new_env(name, newcontent));
-	printf ("NEW name = %s env->name = %s newcontent = %s\n", name, tmp->name, newcontent);
 	return (0);
 }
 
@@ -83,8 +81,11 @@ char	*get_env_content(t_env *env, char *content)
 	lst = env;
 	while (lst)
 	{
-		if (ft_strnstr(content, lst->name, ft_strlen(content)))
+		if (ft_strnstr(content, lst->name, ft_strlen(content))
+			&& ft_strlen(content) == ft_strlen(lst->name))
+		{
 			return (lst->content);
+		}
 		lst = lst->next;
 	}
 	return (0);
