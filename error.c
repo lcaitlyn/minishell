@@ -12,6 +12,12 @@
 
 #include "include/minishell.h"
 
+void	ft_perror(char *str)
+{
+	perror(str);
+	exit(EXIT_FAILURE);
+}
+
 int	print_error(char *str)
 {
 	printf ("%s\n", str);

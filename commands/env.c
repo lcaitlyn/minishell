@@ -12,17 +12,24 @@
 
 #include "../include/minishell.h"
 
-int	split_len(char **arr)
-{
-	int	i;
-
-	i = 0;
-	if (!arr)
-		return (0);
-	while (arr[i])
-		i++;
-	return (i);
-}
+//int	change_env(t_shell *shell, char *name, char *newcontent)
+//{
+//	t_env	*tmp;
+//
+//	tmp = get_my_env(shell->env, name);
+//	if (tmp)
+//	{
+//		if (tmp->content)
+//			free(tmp->content);
+//		tmp->content = newcontent;
+//	}
+//	else
+//	{
+//		
+//	}
+//
+//
+//}
 
 int	env_len(t_env *env)
 {
@@ -68,7 +75,7 @@ char	**make_env(t_shell *shell)
 	return (envp);
 }
 
-char	*get_my_env(t_env *env, char *str)
+char	*get_env_content(t_env *env, char *content)
 {
 	t_env	*lst;
 
@@ -77,8 +84,24 @@ char	*get_my_env(t_env *env, char *str)
 	lst = env;
 	while (lst)
 	{
-		if (ft_strnstr(lst->name, str, ft_strlen(str)))
+		if (ft_strnstr(content, lst->name, ft_strlen(content)))
 			return (lst->content);
+		lst = lst->next;
+	}
+	return (0);
+}
+
+t_env	*get_my_env(t_env *env, char *name)
+{
+	t_env	*lst;
+
+	if (!env)
+		return (0);
+	lst = env;
+	while (lst)
+	{
+		if (ft_strnstr(name, lst->name, ft_strlen(name)))
+			return (lst);
 		lst = lst->next;
 	}
 	return (0);

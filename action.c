@@ -12,6 +12,18 @@
 
 #include "include/minishell.h"
 
+int	split_len(char *arr[])
+{
+	int	i;
+
+	if (!arr)
+		return (0);
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
+}
+
 void	action(char *str, char *envp[])
 {
 	pid_t	pid;

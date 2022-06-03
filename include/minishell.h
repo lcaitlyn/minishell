@@ -48,53 +48,110 @@ typedef void * histdata_t;
 
 int		exit_stat;
 
-int		ft_strcmp(char *s1, char *s2);
+
+
+
+//	libft/
+
 char	*ft_strjoin_f(char *s1, char *s2, int need_free);
 int		ft_strindex(char *str, char a); //возвращает индекс символа в строке
 
-// split.c
+
+//	split.c
+
 char	**ft_free_split(char **arr, int j);
 int		ft_wrdcnt(char const *s, char c);
 char	**ft_split(char const *s, char c);
 
+
+//	get_next_line/gnl.c
+
 char	*get_next_line(int fd);
+
+
+//	name.c
 
 char	*get_uname(char *envp[]);
 char	*get_name(t_shell *shell, char *envp[]);
+char	*get_color_name(t_shell *shell, char *envp[]);
+char	*get_execve(char *cmd, char *envp[]);
+char	*writer(int *fd, char *envp[]);
 
-void	ft_perror(char *str);
 
-int		print_pwd(char  **cmd);
-char	*get_pwd_for_name(t_shell *shell);
+//	action.c
 
-int		change_dir(t_shell *shell, char **str);
-
+int		split_len(char **arr);
 void	action(char *str, char *envp[]);
+
+
+//	ft_exec.c
+
 void	ft_exec(char *argv, char *envp[]);
 
 
-int		handle_signal(void);
+//	shlvl.c
 
-// Lists
+int		ft_is_num(char *str);
+char	*shlvl(char *content);
+
+
+//	/lists
 
 void	ft_listclear(t_env *lst);
 void	ft_listprint(t_env *lst);
 
 
+//	shell_init.c
 
 void	ft_clear_shell(t_shell *shell);
+t_env	*lst_new_env(char *name, char *content);
+int		lstadd_back_env(t_shell *shell, t_env *new);
+void	shell_env(t_shell *shell);
 t_shell	*shell_init(char *envp[]);
 
-// Parser
+
+//	signals/signal.c
+
+int		handle_signal(void);
+
+
+//	command/cd.c
+
+int		open_dir(char *str);
+int		micro_cd(t_env *env, char *str);
+int		change_dir(t_shell *shell, char **str);
+
+
+//	command/pwd.c
+
+int		print_pwd(char  **cmd);
+char	*get_pwd_for_name(t_shell *shell);
+
+
+//	command/env.c
+
+int		change_env(t_shell *shell, char *name, char *newcontent);
+int		env_len(t_env *env);
+char	**make_env(t_shell *shell);
+char	*get_env_content(t_env *env, char *content);
+t_env	*get_my_env(t_env *env, char *name);
+
+
+//	command/export.c
+
+void	export_print(t_env	*lst);
+
+
+//	error.c
+
+void	ft_perror(char *str);
+int		print_error(char *str);
+
+
+//	Parser
+
 char	*parser(char *str, char **env);
 
-int		split_len(char **arr);
-char	**make_env(t_shell *shell);
-void	export_print(t_env	*lst);
-char	*get_my_env(t_env *env, char *str);
 
-char	*get_execve(char *cmd, char *envp[]);
-
-int		print_error(char *str);
 
 #endif

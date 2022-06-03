@@ -35,7 +35,7 @@ int	micro_cd(t_env *env, char *str)
 {
 	char	*path;
 
-	path = get_my_env(env, str);
+	path = get_env_content(env, str);
 	if (!path)
 	{
 		printf ("minishell: cd: %s not set\n", str);
@@ -53,9 +53,10 @@ int	change_dir(t_shell *shell, char *cmd[])
 	char	*home;
 	char	*oldpwd;
 
-	if (cmd[1])
-		if (cmd[2])
-			return (print_error("minishell: cd: too many arguments"));
+	write (1, "my cd working...\n", 17);
+	
+	if (split_len(cmd) > 2)
+		return (print_error("minishell: cd: too many arguments"));
 	if (!cmd[1])
 		return (micro_cd(shell->env, "HOME"));
 	else if (ft_strnstr("-", cmd[1], 1))

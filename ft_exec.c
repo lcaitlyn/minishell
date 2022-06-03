@@ -12,12 +12,6 @@
 
 #include "include/minishell.h"
 
-void	ft_perror(char *str)
-{
-	perror(str);
-	exit(EXIT_FAILURE);
-}
-
 void	ft_clear_paths(char *paths[])
 {
 	int	i;

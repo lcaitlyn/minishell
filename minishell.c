@@ -36,11 +36,11 @@ int	main(int argc, char *argv[], char *envp[])
 	shell = shell_init(envp);
 		
 	printf ("*********************************\n");
-	printf ("*\t\t\t\t\t*\n");
+	printf ("*\t\t\t\t*\n");
 	printf ("*  Выход на Ctrl + D или exit   *\n");
-	printf ("*\t\t\t\t\t*\n");
+	printf ("*\t\t\t\t*\n");
 	printf ("*********************************\n");
-	printf ("HOME = %s\n", shell->home);
+//	printf ("HOME = %s\n", shell->home);
 	while (1)
 	{
 		name = get_name(shell, envp);
@@ -51,6 +51,7 @@ int	main(int argc, char *argv[], char *envp[])
 			printf ("exit\n");
 			break ;
 		}
+		cmd = NULL;
 		cmd = my_parser(str);
 		if (ft_strlen(str) != 0)
 		{
@@ -59,28 +60,25 @@ int	main(int argc, char *argv[], char *envp[])
 			{
 				exit_stat = change_dir(shell, cmd);
 			}
-//			else if (ft_strnstr(str, "pwd", 3))
-//			{
-//				printf ("my pwd working...\n");
-//				print_pwd();
-//			}
-//			else if (ft_strnstr(str, "env", 3))
-//			{
-//				ft_listprint(shell->env);
-//			}
-//			else if (ft_strnstr(str, "export", 6))
-//			{
-//				export_print(shell->env);
-//			}
-//			else if (ft_strnstr(str, "exit", 4))
-//				break;
-//			else
-//				action(str, make_env(shell));
+			else if (ft_strnstr("pwd", cmd[0], 3))
+			{
+				exit_stat = print_pwd(cmd);
+			}
+			else if (ft_strnstr(str, "env", 3))
+			{
+				ft_listprint(shell->env);
+			}
+			else if (ft_strnstr(str, "export", 6))
+			{
+				export_print(shell->env);
+			}
+			else if (ft_strnstr(str, "exit", 4))
+				break;
+			else
+				action(str, make_env(shell));
 		}
-		ft_free_split(cmd, ft_wrdcnt(str, ' '));
+		ft_free_split(cmd, split_len(cmd));
 		free(str);
-		print_pwd(NULL);
-		break;
 	}
 	ft_clear_shell(shell);
 	printf ("Завершён!\n");

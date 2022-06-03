@@ -14,7 +14,7 @@ SRCS		= 	minishell.c\
 			commands/pwd.c commands/cd.c commands/export.c\
 			commands/env.c\
 			ft_exec.c name.c action.c\
-			shell_init.c error.c\
+			shell_init.c error.c shlvl.c\
 			parser/parser.c
 
 OBJ		=	$(SRCS:%.c=%.o)
