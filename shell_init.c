@@ -15,7 +15,7 @@
 void	ft_clear_shell(t_shell *shell)
 {
 	ft_listclear(shell->env);
-	free(shell->home);
+//	free(shell->home);
 	ft_free_split(shell->my_envp);
 	free(shell);
 }

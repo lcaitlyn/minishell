@@ -117,8 +117,8 @@ int		handle_signal(void);
 
 //	command/cd.c
 
-int		open_dir(char *str);
-int		micro_cd(t_env *env, char *str);
+int		open_dir(t_shell* shell, char *str);
+int		micro_cd(t_shell *shell, char *str);
 int		change_dir(t_shell *shell, char **str);
 
 

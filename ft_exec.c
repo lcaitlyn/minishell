@@ -35,7 +35,7 @@ char	*ft_find_cmd(char *cmd, char *paths[])
 	while (paths[i])
 	{
 		path = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(path, cmd);
+		path = ft_strjoin_f(path, cmd, 1);
 		if (access(path, F_OK) == 0)
 		{
 			ft_clear_paths(paths);

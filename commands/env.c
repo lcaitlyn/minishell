@@ -12,24 +12,23 @@
 
 #include "../include/minishell.h"
 
-//int	change_env(t_shell *shell, char *name, char *newcontent)
-//{
-//	t_env	*tmp;
-//
-//	tmp = get_my_env(shell->env, name);
-//	if (tmp)
-//	{
-//		if (tmp->content)
-//			free(tmp->content);
-//		tmp->content = newcontent;
-//	}
-//	else
-//	{
-//		
-//	}
-//
-//
-//}
+int	change_env(t_shell *shell, char *name, char *newcontent)
+{
+	t_env	*tmp;
+
+	tmp = get_my_env(shell->env, name);
+	printf ("OLD name = %s env->name = %s content = %s\n", name, tmp->name, tmp->content);
+	if (tmp)
+	{
+		if (tmp->content)
+			free(tmp->content);
+		tmp->content = newcontent;
+	}
+	else
+		lstadd_back_env(shell, lst_new_env(name, newcontent));
+	printf ("NEW name = %s env->name = %s newcontent = %s\n", name, tmp->name, newcontent);
+	return (0);
+}
 
 int	env_len(t_env *env)
 {
@@ -100,8 +99,12 @@ t_env	*get_my_env(t_env *env, char *name)
 	lst = env;
 	while (lst)
 	{
-		if (ft_strnstr(name, lst->name, ft_strlen(name)))
+		if (ft_strnstr(name, lst->name, ft_strlen(name))
+			&& (ft_strlen(name) == ft_strlen(lst->name)))
+		{
 			return (lst);
+		}
+			
 		lst = lst->next;
 	}
 	return (0);
