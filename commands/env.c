@@ -70,7 +70,7 @@ char	**make_env(t_shell *shell)
 	}
 	envp[i] = NULL;
 	if (shell->my_envp)
-		ft_free_split(shell->my_envp, split_len(shell->my_envp));
+		ft_free_split(shell->my_envp);
 	shell->my_envp = envp;
 	return (envp);
 }

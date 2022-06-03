@@ -59,7 +59,7 @@ int		ft_strindex(char *str, char a); //возвращает индекс сим�
 
 //	split.c
 
-char	**ft_free_split(char **arr, int j);
+char	**ft_free_split(char *split[]);
 int		ft_wrdcnt(char const *s, char c);
 char	**ft_split(char const *s, char c);
 
@@ -74,8 +74,8 @@ char	*get_next_line(int fd);
 char	*get_uname(char *envp[]);
 char	*get_name(t_shell *shell, char *envp[]);
 char	*get_color_name(t_shell *shell, char *envp[]);
-char	*get_execve(char *cmd, char *envp[]);
 char	*writer(int *fd, char *envp[]);
+char	*get_execve(char *path, char *cmd, char *envp[]);
 
 
 //	action.c
@@ -86,7 +86,7 @@ void	action(char *str, char *envp[]);
 
 //	ft_exec.c
 
-void	ft_exec(char *argv, char *envp[]);
+void	ft_exec(char *path, char *argv, char *envp[]);
 
 
 //	shlvl.c

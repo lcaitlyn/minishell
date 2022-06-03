@@ -48,6 +48,6 @@ char	*shlvl(char *content)
 	}
 	else
 		newcontent = ft_itoa(1);
-	ft_free_split(split, split_len(split));
+	ft_free_split(split);
 	return (newcontent);
 }

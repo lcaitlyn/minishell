@@ -77,7 +77,7 @@ int	main(int argc, char *argv[], char *envp[])
 			else
 				action(str, make_env(shell));
 		}
-		ft_free_split(cmd, split_len(cmd));
+		ft_free_split(cmd);
 		free(str);
 	}
 	ft_clear_shell(shell);

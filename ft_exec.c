@@ -44,7 +44,7 @@ char	*ft_find_cmd(char *cmd, char *paths[])
 		free(path);
 		i++;
 	}
-	ft_clear_paths(paths);
+	ft_free_split(paths);
 	return (NULL);
 }
 
@@ -68,17 +68,17 @@ char	**ft_find_paths(char *envp[])
 	exit (0);
 }
 
-void	ft_exec(char *argv, char *envp[])
+void	ft_exec(char *path, char *argv, char *envp[])
 {
-	char	*path;
 	char	**cmd;
 
 	if (ft_strlen(argv) == 0)
 		ft_perror("");
 	cmd = ft_split(argv, ' ');
-	path = ft_find_cmd(cmd[0], ft_find_paths(envp));
 	if (!path)
-		ft_perror ("");
+		path = ft_find_cmd(cmd[0], ft_find_paths(envp));
+	if (!path)
+		ft_perror ("execve");
 	if (execve(path, cmd, envp) == -1)
 		ft_perror("");
 }

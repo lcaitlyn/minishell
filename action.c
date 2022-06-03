@@ -35,7 +35,7 @@ void	action(char *str, char *envp[])
 		return ;
 	}
 	else if (pid == 0)
-	ft_exec(str, envp);
+	ft_exec(0, str, envp);
 	waitpid(pid, 0, 0);
 	return ;
 }

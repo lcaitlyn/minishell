@@ -16,7 +16,7 @@ void	ft_clear_shell(t_shell *shell)
 {
 	ft_listclear(shell->env);
 	free(shell->home);
-	ft_free_split(shell->my_envp, split_len(shell->my_envp));
+	ft_free_split(shell->my_envp);
 	free(shell);
 }
 
@@ -87,7 +87,7 @@ t_shell	*shell_init(char *envp[])
 	shell->name = NULL;
 	shell->my_envp = NULL;
 	shell->env = NULL;
-	shell->home = get_execve("echo ~", envp);
+//	shell->home = get_execve("echo ~", envp);
 	shell_env(shell);
 	return (shell);
 }

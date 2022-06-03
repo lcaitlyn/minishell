@@ -49,10 +49,9 @@ int	micro_cd(t_env *env, char *str)
 
 int	change_dir(t_shell *shell, char *cmd[])
 {
-	char	**split;
-	char	*home;
-	char	*oldpwd;
-
+	
+	// сделать с $OLDPWD $PWD ‼️
+	
 	write (1, "my cd working...\n", 17);
 	
 	if (split_len(cmd) > 2)
