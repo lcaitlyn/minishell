@@ -57,7 +57,7 @@ int	micro_cd(t_shell *shell, char *str)
 	pwd = getcwd(0, 256);
 	change_env(shell, "PWD", pwd);
 	change_env(shell, "_", ft_strdup("cd"));
-	if (ft_strnstr("OLDPWD", str, 6))
+	if (my_strnstr("OLDPWD", str, 6))
 		print_pwd(NULL);
 	return (0);
 }
@@ -71,10 +71,9 @@ int	change_dir(t_shell *shell, char *cmd[])
 	
 	if (split_len(cmd) > 2)
 		return (print_error("minishell: cd: too many arguments"));
-	printf("cmd [1] %s\n", cmd[1]);
 	if (!cmd[1])
 		return (micro_cd(shell, "HOME"));
-	else if (ft_strnstr("-", cmd[1], 1))
+	else if (my_strnstr("-", cmd[1], 1))
 		return (micro_cd(shell, "OLDPWD"));
 	else
 		return (open_dir(shell, cmd[1]));

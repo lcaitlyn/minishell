@@ -56,23 +56,27 @@ int	main(int argc, char *argv[], char *envp[])
 		if (ft_strlen(str) != 0)
 		{
 			add_history(str);
-			if (ft_strnstr("cd", cmd[0], 2))
+			if (my_strnstr("cd", cmd[0], 2))
 			{
 				exit_stat = change_dir(shell, cmd);
 			}
-			else if (ft_strnstr("pwd", cmd[0], 3))
+			else if (my_strnstr("pwd", cmd[0], 3))
 			{
 				exit_stat = print_pwd(cmd);
 			}
-			else if (ft_strnstr(str, "env", 3))
+			else if (my_strnstr("env", cmd[0], 3))
 			{
-				ft_listprint(shell->env);
+				exit_stat = ft_listprint(shell->env);
 			}
-			else if (ft_strnstr(str, "export", 6))
+			else if (my_strnstr("echo", cmd[0], 4))
+			{
+				exit_stat = echo(cmd);
+			}
+			else if (my_strnstr(str, "export", 6))
 			{
 				export_print(shell->env);
 			}
-			else if (ft_strnstr(str, "exit", 4))
+			else if (my_strnstr(str, "exit", 4))
 				break;
 			else
 				action(str, make_env(shell));

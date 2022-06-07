@@ -54,7 +54,10 @@ int		exit_stat;
 //	libft/
 
 char	*ft_strjoin_f(char *s1, char *s2, int need_free);
-int		ft_strindex(char *str, char a); //возвращает индекс символа в строке
+//	возвращает индекс символа в строке
+int		ft_strindex(char *str, char a);
+//	доп проверка на strlen(haystack) == strlen(needle)
+char	*my_strnstr(const char *haystack, const char *needle, size_t len);
 
 
 //	split.c
@@ -98,7 +101,7 @@ char	*shlvl(char *content);
 //	/lists
 
 void	ft_listclear(t_env *lst);
-void	ft_listprint(t_env *lst);
+int		ft_listprint(t_env *lst);
 
 
 //	shell_init.c
@@ -135,6 +138,11 @@ int		env_len(t_env *env);
 char	**make_env(t_shell *shell);
 char	*get_env_content(t_env *env, char *content);
 t_env	*get_my_env(t_env *env, char *name);
+
+
+//	command/echo.c
+
+int		echo(char *cmd[]);
 
 
 //	command/export.c

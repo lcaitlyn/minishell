@@ -7,12 +7,12 @@ LIBFT_INC	=	libft/inc
 LIBFT		=	-L libft -l ft -I libft/inc/
 
 SRCS		= 	minishell.c\
-			libft/ft_strindex.c libft/ft_strjoin_f.c\
+			libft/ft_strindex.c libft/ft_strjoin_f.c libft/my_strnstr.c\
 			lists/ft_listclear.c lists/ft_listprint.c\
 			get_next_line/gnl.c\
 			signals/signal.c\
 			commands/pwd.c commands/cd.c commands/export.c\
-			commands/env.c\
+			commands/env.c commands/echo.c\
 			ft_exec.c name.c action.c\
 			shell_init.c error.c shlvl.c\
 			parser/parser.c
