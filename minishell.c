@@ -70,7 +70,7 @@ int	main(int argc, char *argv[], char *envp[])
 			}
 			else if (my_strnstr("echo", cmd[0], 4))
 			{
-				exit_stat = echo(cmd);
+				exit_stat = echo(str, cmd);
 			}
 			else if (my_strnstr(str, "export", 6))
 			{

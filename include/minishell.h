@@ -142,7 +142,8 @@ t_env	*get_my_env(t_env *env, char *name);
 
 //	command/echo.c
 
-int		echo(char *cmd[]);
+void	print_echo(char *str, int len);
+int		echo(char *str, char *cmd[]);
 
 
 //	command/export.c
