@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:07:36 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/03 10:19:47 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/09 14:27:47 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ int	is_sym_var_env(char c)
 	return (ft_isalnum(c) || c =='_');
 }
 
+int	is_spec_sym(char c)
+{
+	return (c == '>' || c == '<' || c == '|') ;
+}
+
 char	*find_var_env(char *key, char **env)
 {
 	char	*value;
@@ -132,6 +137,27 @@ void	replace_var_env(char **word, int start, int end, char *var)
 	}
 }
 
+int	is_single_token(char *word)
+{
+	int	i;
+
+	i = 0;
+	while (word[i])
+	{
+		if (!is_spec_sym(word[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+// 3 типа редиректа и heredoc, а также пайп
+// еще можно раздеть кавычки у строк, и склеить слипшие строки
+// нужно поделить слова между < << > >> | 
+
+// связные списки (или массивы?) для редиректов (с 3 типами) и команд между пайпами
+// по сути нужен список команд для  pipex с бонусами
+
 char	*parser(char *input, char **env)
 {
 	char *str = ft_strtrim(input, " \t\v\f\r");
@@ -139,6 +165,7 @@ char	*parser(char *input, char **env)
 	int j;
 	t_list	*tokens = NULL;
 	char	*word;
+	char	flag_open;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -166,7 +193,7 @@ char	*parser(char *input, char **env)
 	{
 		word = list->content;
 		i = 0;
-		char flag_open = 0;
+		flag_open = 0;
 		while (word[i])
 		{
 			check_open_q(word[i], &flag_open);
@@ -200,6 +227,101 @@ char	*parser(char *input, char **env)
 		list = list->next;
 	}
 
+	// < << > >> | - сами по себе токены, поэтому подлежать распилу
+	list = tokens;
+
+	while (list)
+	{
+		word = list->content;
+		i = 0;
+		// если это строка, то "fr|as" просто строка
+		char *part1 = NULL;
+		char *part3 = NULL;
+		flag_open = 0;
+		if (is_single_token(word))
+		{
+			list = list->next;
+			continue;
+		}
+		while (word[i])
+		{
+			// пример: cat|ls преобразуется в  <cat> <|> <ls>
+			// пример: cat<<ls преобразуется в  cat << ls
+			// пример: cat| преобразуется в  <cat> <|>
+			// пример: |ls преобразуется в <|> <ls>
+			
+			check_open_q(word[i], &flag_open);
+			if (!flag_open)
+			{
+				j = i;
+				while (!is_spec_sym(word[j]) && !is_quote(word[j]) && word[j] != '\0')
+					j++;
+				if (!word[j])
+				{
+					i = j;
+					break;
+				}
+				if (j > i)
+					part1 = ft_substr(word, i, j - i);
+				i = j;
+				while (is_spec_sym(word[j]))
+					j++;
+				char *part2 = ft_substr(word, i, j - i);
+				// есть два исхода: ls| или ls|ls 
+				part3 = NULL;
+				if (word[j]) {
+					i = j;
+					while (word[j])
+						j++;
+					part3 = ft_substr(word, i, j - i);
+				}
+				// есть некое слово word, который мы разделили на 2-3 части
+				// нужно в середину связного списка засунуть еще 3 слова
+				t_list *tail = list->next;
+				free(word);
+				if (part1)
+				{
+					list->content = part1;
+					list->next = ft_lstnew(part2);
+					if (part3)
+					{
+						list->next->next = ft_lstnew(part3);
+						list->next->next->next = tail;
+						// list = list->next->next;
+						list = list->next;
+						word = part3;
+						i = 0;
+						break;
+					}
+					else {
+						list->next->next = tail;
+						list = list->next;
+					}
+				}
+				else {
+					list->content = part2;
+					if (part3)
+					{
+						list->next = ft_lstnew(part3);
+						list->next->next = tail;
+						word = part3;
+						i = 0;
+						break;
+					}
+					else {
+						// тут случай когда нет и part1 и part3 но есть part2
+						// тогда резать никого не надо, но по идее этого не случиться
+						// из-за проверку сверху функцией is_single_token
+						puts("Но это случилось!");
+					}
+				}
+			}
+			i++;
+		}
+		list = list->next;
+	}
+
+	//  вывод списка
 	list = tokens;
 	puts("Tokens 2");
 	i = 0;
