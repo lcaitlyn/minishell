@@ -58,19 +58,19 @@ int	main(int argc, char *argv[], char *envp[])
 			add_history(str);
 			if (my_strnstr("cd", cmd[0], 2))
 			{
-				exit_stat = change_dir(shell, cmd);
+				change_dir(shell, cmd);
 			}
 			else if (my_strnstr("pwd", cmd[0], 3))
 			{
-				exit_stat = print_pwd(cmd);
+				print_pwd(cmd);
 			}
 			else if (my_strnstr("env", cmd[0], 3))
 			{
-				exit_stat = ft_listprint(shell->env);
+				ft_listprint(shell->env);
 			}
 			else if (my_strnstr("echo", cmd[0], 4))
 			{
-				exit_stat = echo(str, cmd);
+				echo(str, cmd);
 			}
 			else if (my_strnstr(str, "export", 6))
 			{
@@ -86,6 +86,6 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	ft_clear_shell(shell);
 	printf ("Завершён!\n");
-	exit_stat = 0;
+//	exit_stat = 0;
 	return (exit_stat);
 }

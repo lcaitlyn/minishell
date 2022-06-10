@@ -46,7 +46,7 @@ typedef struct s_shell
 
 typedef void * histdata_t;
 
-int		exit_stat;
+//int		exit_stat;
 
 
 
