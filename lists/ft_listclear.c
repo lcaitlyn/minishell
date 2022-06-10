@@ -20,7 +20,8 @@ void	ft_listclear(t_env *lst)
 	{
 		next = lst->next;
 		free(lst->name);
-		free(lst->content);
+		if (lst->content)
+			free(lst->content);
 		free(lst);
 		lst = NULL;
 		lst = next;

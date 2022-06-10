@@ -87,5 +87,5 @@ int	main(int argc, char *argv[], char *envp[])
 	ft_clear_shell(shell);
 	printf ("Завершён!\n");
 //	exit_stat = 0;
-	return (exit_stat);
+	return (0);
 }

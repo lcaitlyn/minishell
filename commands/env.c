@@ -37,8 +37,9 @@ int	env_len(t_env *env)
 	env_size = 0;
 	while (lst)
 	{
+		if (lst->content)
+			env_size++;
 		lst = lst->next;
-		env_size++;
 	}
 	return (env_size);
 }
@@ -60,10 +61,13 @@ char	**make_env(t_shell *shell)
 	i = 0;
 	while (lst)
 	{
-		envp[i] = ft_strjoin(lst->name, "=");
-		envp[i] = ft_strjoin_f(envp[i], lst->content, 1);
+		if (lst->content)
+		{
+			envp[i] = ft_strjoin(lst->name, "=");
+			envp[i] = ft_strjoin_f(envp[i], lst->content, 1);
+			i++;
+		}
 		lst = lst->next;
-		i++;
 	}
 	envp[i] = NULL;
 	if (shell->my_envp)
