@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/01 11:53:27 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/11 15:35:11 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,18 @@ int	split_len(char **arr);
 char	**make_env(t_shell *shell);
 void	export_print(t_env	*lst);
 char	*get_my_env(t_env *env, char *str);
+
+typedef	struct s_command
+{
+	char	*cmd_name;
+	t_list	*list_args;
+	char	**args; // не забыть 0 - команда
+	t_list	*redirects_read; // если NULL - Стандарт ввод
+	t_list	*redirects_write;
+	int		fd_read; // start -1
+	int		fd_write; // start -1
+	
+}	t_command;
+
 
 #endif
