@@ -76,6 +76,10 @@ int	main(int argc, char *argv[], char *envp[])
 			{
 				export_print(shell->env);
 			}
+			else if (my_strnstr("unset", cmd[0], 5))
+			{
+				unset(shell, cmd);
+			}
 			else if (my_strnstr(str, "exit", 4))
 				break;
 			else
