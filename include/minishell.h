@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/11 15:35:11 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/16 01:07:27 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_shell
 
 typedef void * histdata_t;
 
-int		ft_strcmp(char *s1, char *s2);
+// int		ft_strcmp(char *s1, char *s2);
 char	*ft_strjoin_f(char *s1, char *s2, int need_free);
 int		ft_strindex(char *str, char a); //возвращает индекс символа в строке
 
@@ -102,5 +102,21 @@ typedef	struct s_command
 	
 }	t_command;
 
+// typedef enum
+// {
+// 	READ,
+// 	HEREDOC,
+// 	WRITE,
+// 	APPEND,
+// }	e_type_redirect;
+
+typedef struct s_redirect
+{
+	char	*file_name;
+	char	*type_redir;
+	// e_type_redirect	type;
+	
+	
+}	t_redirect;
 
 #endif

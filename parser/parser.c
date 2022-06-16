@@ -6,13 +6,14 @@
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:07:36 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/14 18:35:01 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/16 03:29:59 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	check_open_q(char c, char *flag_open);
+void	free_list_cmd(void *cmd);
 
 int	is_quote(char c)
 {
@@ -20,6 +21,11 @@ int	is_quote(char c)
 }
 
 // идея функции: проверки на закрытые кавычки - если после прогона flag_open != 0 - Error!!!
+// 				 и она также сообщает что не закрыта нужная кавычка (хранится в flag_open)
+// Пример: ls "text - не валидно 👺 ls text" - 
+
+// Идея другой функции - проверяет, что пайпы не стоят в начале и в конце
+// 						 и проверяет сами токены редиректов
 // пайп в начале и в конце - ящик пандоры, редирект без пары - очень грустный - Error
 
 int	skiper_spaces(char *str, int *i, char *flag_open)
@@ -69,16 +75,11 @@ int	cnt_len_word(char *str, int i)
 
 void	check_open_q(char c, char *flag_open)
 {
-	if (!*flag_open && (c == '\'' || c ==  '"'))
+	if (!*flag_open && is_quote(c))
 		*flag_open = c;
 	else if (*flag_open && c == *flag_open)
 		*flag_open = 0;
 }
-
-// 012345678
-// ***ret
-// ***ret***
-// ret***
 
 int	is_sym_var_env(char c)
 {
@@ -202,23 +203,26 @@ void	split_into_space(char *str, t_list **tokens)
 	}
 }
 
+// нарезка между спец символами
 void	split_into_spec_sym(t_list **tokens)
 {
-	// нарезка между спец символами
 	t_list	*list;
 	char	*word;
 	int		i;
 	int		j;
 	char	flag_open;
+	char	*part1;
+	char	*part2;
+	char	*part3;
 
 	list = *tokens;
 	while (list)
 	{
 		word = list->content;
 		i = 0;
-		char *part1 = NULL;
-		char *part2 =  NULL;
-		char *part3 = NULL;
+		part1 = NULL;
+		part2 =  NULL;
+		part3 = NULL;
 		flag_open = 0;
 		if (is_single_token(word))
 		{
@@ -418,97 +422,223 @@ void	insert_env_var(t_list *list, char **env)
 	}
 }
 
+int	is_redirects(char *str)
+{
+	return (!ft_strcmp(str, ">") || !ft_strcmp(str, ">>")
+			|| !ft_strcmp(str, "<") || !ft_strcmp(str, "<<"));
+}
+
+int	is_pipe(char *str)
+{
+	return (!ft_strcmp(str, "|"));
+}
+
+int	is_valid_end_start_tokens(t_list *tokens)
+{
+	char	*first_token;
+	char	*last_token;
+
+	first_token = tokens->content;
+	last_token = (ft_lstlast(tokens))->content;
+	if (!ft_strcmp(first_token, "|"))
+	{
+		ft_putstr_fd("Syntax error: '|' cannot stand at the beginning\n", 2 );
+		return (0);
+	}
+	if (!ft_strcmp(last_token, "|"))
+	{
+		ft_putstr_fd("Syntax error: '|' can't stand at the end\n", 2);
+		return (0);
+	}
+	if (is_redirects(last_token))
+	{
+		ft_putstr_fd("Syntax error: parse error near '\\n'\n", 2);
+		return (0);
+	}
+	return (1);
+}
+
+int	is_valid_tokens(t_list *tokens)
+{
+	char	*token;
+
+	if (!is_valid_end_start_tokens(tokens))
+		return (0);
+	while (tokens)
+	{
+		token = tokens->content;
+		if (is_single_token(token))
+		{
+			if (is_redirects(token) || is_pipe(token))
+			{
+				tokens = tokens->next;
+				continue;
+			}
+			ft_putstr_fd("Syntax error: invalid token '", 2);
+			ft_putstr_fd(token, 2);
+			ft_putstr_fd("'\n", 2);
+			return (0);
+		}
+		tokens = tokens->next;
+	}
+	return (1);
+}
+
 char	*parser(char *input, char **env)
 {
 	char *str;
-	int i;
-	// int j;
 	t_list	*tokens = NULL;
-	// char	*word;
-	char	flag_open;
+	
 
 	str = ft_strtrim(input, " \t\v\f\r"); 
 	free(input);
+	wait(0);
 	// if (*str == '\0') // по идее здесь это обработается
 	// 	return (str);
-	flag_open = 0;
-	i = 0;
-	
+
 	// цикл нарезает по пробелам, но за кавычками (не учитывает пайпы и редиректы ls|ls file1>file2)
 	split_into_space(str, &tokens);
-	puts("Tokens");
-	print_list(tokens);
-	
-	t_list *list = tokens;
-	list = tokens;
-
 	insert_env_var(tokens, env);
-
-	// < << > >> | - сами по себе токены, поэтому подлежать выпиливания из строки
-	list = tokens;
-
-	// нарезка между спец символами
-	split_into_spec_sym(&tokens);
-	
-
+	split_into_spec_sym(&tokens); // < << > >> | - сами по себе токены, поэтому подлежать выпиливания из строки
 	strip_quotes(tokens);
-
 	delete_empty_tokens(&tokens);
-	//  вывод списка
+
 	puts("Tokens 2");
 	print_list(tokens);
-	list = tokens;
+
 	// проверка на пустую душу??????
+	t_list *list_commands = NULL;
+	if (is_valid_tokens(tokens))
+	{
+		// определить что из токенов команды, редиректы и аргументы и кидать в спискок
+		// <lo cmd arg1 arg2 arg3 | cmd 2 <redi1 <redir2 | cmd3 >redir4
+		t_list	*list;
+		char	*token;
+		char	*next_token;
 
-	// определить что из токенов команды, редиректы и аргументы и кидать в спискок
-	// <lo cmd arg1 arg2 arg3 | cmd 2 <redi1 <redir2 | cmd3 >redir4
-
-	// list = tokens;
-	// t_list *list_commands = NULL;
-	// char *token;
-	// t_list *node;
-	// t_command	*cmd;
-	// while (list)
-	// {
-	// 	token = list->content;
-	// 	// для меня все логично
-	// 	// if (ft_strcmp(token, "|")) { ладно пока оставлю, возможно буду переписывать
-	// 		cmd = (t_command *) malloc(sizeof(t_command));
-
-	// 		cmd->redirects_read = NULL;
-	// 		cmd->redirects_write = NULL;
-	// 		cmd->fd_read = -1;
-	// 		cmd->fd_write = -1;
-	// 		cmd->args = NULL;
-	// 		cmd->cmd_name = NULL;
-
-	// 		// нет я не выхожу из этого цикла ()
-	// 		// цикл можно открыть здесь
-	// 		while (ft_strncmp(token, "|", 1) && list)
-	// 		{
-	// 			token = list->content;
-	// 			// давай просто опишем все случаи
-	// 			// 1) Если токен == >> или > то вызвать f() которые заносить токены на запись в команде (next само собой)
-	// 			// 2) Если токен == < или << то вызвать f() которые заносить токены на чтение в команде
-	// 			// 3) если это не редир то аргументы
-	// 			// ну ладно вроде все распланировали
+		list = tokens;
+		// t_list *node;
+		t_command	*cmd;
+		while (list)
+		{
 				
-	// 			list = list->next;
-	// 		}
-			
-	// 		// тут внутри можно прыгать по листу до тех пор пока не встретим | или NULL
-	// 		// ну сначала заполняем команду и зачем закидываем в лист
-	// 		// не когда команда закончена тогда закидываю - так я задумал - 
-	// 		node = ft_lstnew((void *) cmd);
-	// 		ft_lstadd_back(&list_commands, node); //он закончить эту строку
-	// 	// }
-	// 	if (list)
-	// 		list = list->next;
-	// }
+			token = list->content;
+			if (is_pipe(token))
+				continue;
+			cmd = (t_command *) malloc(sizeof(t_command));
 
+			cmd->redirects_read = NULL;
+			cmd->redirects_write = NULL;
+			cmd->fd_read = -1;
+			cmd->fd_write = -1;
+			cmd->args = NULL;
+			cmd->list_args = NULL;
+			cmd->cmd_name = NULL;
+
+
+			while (!is_pipe(token) && list)
+			{
+				token = list->content; // повторояет строку 526
+				if (is_redirects(token))
+				{
+					if (list->next)
+					{
+						next_token = list->next->content;
+						if (!is_redirects(next_token))
+						{
+							t_redirect *redir = (t_redirect *) malloc(sizeof(t_redirect));
+							// redir->type_redir = token;
+							redir->type_redir = ft_strdup(token);
+							redir->file_name = ft_strdup(next_token);
+							if (!ft_strcmp(token, "<") || !ft_strcmp(token, "<<"))
+								ft_lstadd_back(&cmd->redirects_read, ft_lstnew(redir));
+							if (!ft_strcmp(token, ">") || !ft_strcmp(token, ">>"))
+								ft_lstadd_back(&cmd->redirects_write, ft_lstnew(redir));
+							list = list->next->next;
+							continue ;
+						}
+						else
+						{
+							ft_putstr_fd("Oh! два спец токена не могут быть рядом", 2);
+						}
+					}
+					else
+					{
+						// "так получилось, что редирект оказался в конце,
+						// хотя такого не может случиться,  ибо есть проверка is_valid_tokens"
+						puts("Oh!");
+					}
+					
+				}
+				
+				if (!cmd->cmd_name)
+					cmd->cmd_name = ft_strdup(token);
+				ft_lstadd_back(&cmd->list_args, ft_lstnew(ft_strdup(token)));
+				
+				list = list->next;
+			}
+			
+			// тут внутри можно прыгать по листу до тех пор пока не встретим | или NULL
+			// ну сначала заполняем команду и зачем закидываем в лист
+			// стоит отметить, что если у команды нет команды но oдни редиректы, то bash ничего не делает
+			ft_lstadd_back(&list_commands, ft_lstnew(cmd));
+			if (list)
+				list = list->next;
+		}
+	}
 
 	ft_lstclear(&tokens, free);
+
+	// int i = 0;
+	
+	t_list **list_cmds = &list_commands;
+
+	
+	// while(list_commands)
+	// {
+	// 	// puts("Кря!");
+	// 	t_command *command = (t_command *)(list_commands)->content;
+	// 	// char *redir = (t_redirect *) command->redirects_write 
+	// 	// 	? ((t_redirect *) command->redirects_write->content)
+	// 	// 	: NULL;
+	// 	printf("%i - cmd - %s\n", ++i, (command->cmd_name));
+	// 	printf("args (1st)  - %s, redir to write - %s %s \n",
+	// 		command->list_args->content,
+	// 		((t_redirect *) command->redirects_write->content)->type_redir,
+	// 		((t_redirect *) command->redirects_write->content)->file_name);
+	// 	printf("redir to read - %s %s \n",
+	// 		((t_redirect *) command->redirects_read->content)->type_redir,
+	// 		((t_redirect *) command->redirects_read->content)->file_name);
+
+	// 	list_commands = list_commands->next;
+	// 	command = NULL;
+	// }
+	// puts("Кря!");
+	
+	ft_lstclear(list_cmds, free_list_cmd); // тут не все так просто с функцией очистки
+	list_commands = NULL;
 	return(str);
 }
 
+void	free_redirect(void *redir)
+{
+	t_redirect *rdr;
 
+	rdr = (t_redirect *) redir;
+	free(rdr->file_name);
+	free(rdr->type_redir);
+	free(rdr);
+}
+
+void	free_list_cmd(void *command)
+{
+	t_command	*cmd;
+
+	cmd = (t_command *) command;
+	puts("Cry");
+	free(cmd->cmd_name);
+	ft_lstclear(&cmd->redirects_read, free_redirect);
+	ft_lstclear(&cmd->redirects_write, free_redirect);
+	ft_lstclear(&cmd->list_args, free);
+	free(cmd);
+}
