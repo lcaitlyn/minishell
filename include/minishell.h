@@ -151,10 +151,10 @@ int		echo(char *str, char *cmd[]);
 void	export_print(t_env	*lst);
 
 
-//	command/export.c
+//	command/unset.c
 
 int		check_name(char *name);
-int		del_env(t_env *env, char *name);
+int		del_env(t_shell *shell, char *name);
 int		unset(t_shell *shell, char **cmd);
 
 

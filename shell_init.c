@@ -70,7 +70,7 @@ void	shell_env(t_shell *shell)
 		i++;
 	}
 	if (!get_my_env(shell->env, "SHLVL"))
-		lstadd_back_env(shell, lst_new_env("SHLVL", "1"));
+		lstadd_back_env(shell, lst_new_env(ft_strdup("SHLVL"), ft_itoa(1)));
 	if (!get_my_env(shell->env, "PWD"))
 		lstadd_back_env(shell, lst_new_env(ft_strdup("PWD"), getcwd(0, 256)));
 	if (!get_my_env(shell->env, "OLDPWD"))

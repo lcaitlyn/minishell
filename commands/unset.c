@@ -19,39 +19,40 @@ int	check_name(char *name)
 	i = 0;
 	while (name[i])
 	{
+		printf ("char = %c\n", name[i]);
 		if (!ft_isalpha(name[i]) && !ft_isdigit(name[i])
 		&& name[i] != '_')
 			return (1);
 		i++;
 	}
-	if (ft_isalpha(name[0]))
+	if (ft_isdigit(name[0]))
 	{
 		i = 0;
 		while (ft_isdigit(name[i]))
 			i++;
 		if (i != ft_strlen(name))
-			return (1);
+			return (2);
 	}
 	return (0);
 }
 
-int	del_env(t_env *env, char *name)
+int	del_env(t_shell *shell, char *name)
 {
 	t_env	*lst;
 	t_env	*prev;
 	
-	if (!env || !get_my_env(env, name))
+	if (!shell->env || !get_my_env(shell->env, name))
 		return (0);
-	lst = get_my_env(env, name);
-	if (lst == env)
+	lst = get_my_env(shell->env, name);
+	if (lst == shell->env)
 	{
-		free(env);
-		env = lst->next;
+		shell->env = shell->env->next;
+		free(lst);
 	}
 	else
 	{
-		prev = env;
-		while (prev->next != lst || prev->next)
+		prev = shell->env;
+		while (prev->next != lst)
 			prev = prev->next;
 		prev->next = lst->next;
 		free(lst->name);
@@ -75,14 +76,15 @@ int	unset(t_shell *shell, char **cmd)
 		return (0);
 	while (cmd[i])
 	{
+		printf ("check name = %d\n", check_name(cmd[i]));
 		if (check_name(cmd[i]))
 		{
+			printf ("cmd [%d] = %s\n", i, cmd[i]);
 			printf("minishell: unset: %s: not a valid identifier\n", cmd[i]);
 			status = 1;
 		}
-			
 		else
-			del_env(shell->env, cmd[i]);
+			del_env(shell, cmd[i]);
 		i++;
 	}
 	return (status);

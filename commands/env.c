@@ -24,7 +24,7 @@ int	change_env(t_shell *shell, char *name, char *newcontent)
 		tmp->content = newcontent;
 	}
 	else
-		lstadd_back_env(shell, lst_new_env(name, newcontent));
+		lstadd_back_env(shell, lst_new_env(ft_strdup(name), newcontent));
 	return (0);
 }
 
