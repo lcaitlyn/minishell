@@ -64,13 +64,15 @@ void	export_print(t_env	*env)
 	}
 	sorted[i] = NULL;
 	sorted = sorting(sorted);
-	while (*sorted)
+	i = 0;
+	while (sorted[i])
 	{
-		printf ("declare -x %s", *sorted);
-		if (get_env_content(env, *sorted))
-			printf("=\"%s\"", get_env_content(env, *sorted++));
+		printf ("declare -x %s", sorted[i]);
+		if (get_env_content(env, sorted[i]))
+			printf("=\"%s\"", get_env_content(env, sorted[i++]));
 		printf ("\n");
 	}
+	free(sorted);
 }
 
 //void	export_print(t_env	*lst)
