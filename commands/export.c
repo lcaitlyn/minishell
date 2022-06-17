@@ -12,17 +12,78 @@
 
 #include "../include/minishell.h"
 
-void	export_print(t_env	*lst)
+int ft_strcmp(const char *s1, const char *s2)
 {
-	printf ("my export working...\n");
-	if (!lst)
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
+}
+
+char	**sorting(char **arr)
+{
+	int	i = 0;
+	int	j;
+	char *tmp;
+
+	while (arr[i])
+	{
+		j = 0;
+		while (arr[j])
+		{
+			if (ft_strcmp(arr[i], arr[j]) < 0)
+			{
+				tmp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+	return (arr);
+}
+
+void	export_print(t_env	*env)
+{
+	char	**sorted;
+	t_env	*lst;
+	int		i;
+
+	if (!env)
 		return;
+	lst = env;
+	sorted = malloc((env_len(env) + 1) * sizeof(char *));
+	i = 0;
 	while (lst)
 	{
-		printf ("declare -x %s", lst->name);
-		if (lst->content)
-			printf("=\"%s\"", lst->content);
-		printf ("\n");
+		sorted[i++] = lst->name;
 		lst = lst->next;
 	}
+	sorted[i] = NULL;
+	sorted = sorting(sorted);
+	while (*sorted)
+	{
+		printf ("declare -x %s", *sorted);
+		if (get_env_content(env, *sorted))
+			printf("=\"%s\"", get_env_content(env, *sorted++));
+		printf ("\n");
+	}
 }
+
+//void	export_print(t_env	*lst)
+//{
+//	printf ("my export working...\n");
+//	if (!lst)
+//		return;
+//	while (lst)
+//	{
+//		printf ("declare -x %s", lst->name);
+//		if (lst->content)
+//			printf("=\"%s\"", lst->content);
+//		printf ("\n");
+//		lst = lst->next;
+//	}
+//}
