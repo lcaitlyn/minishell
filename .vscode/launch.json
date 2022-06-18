@@ -11,6 +11,7 @@
 			"program": "${workspaceFolder}/minishell",
 			"args": [],
 			"cwd": "${workspaceFolder}"
+			
 		}
 	]
 }

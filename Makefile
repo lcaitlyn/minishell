@@ -15,7 +15,8 @@ SRCS		= 	minishell.c\
 			commands/env.c\
 			ft_exec.c name.c action.c\
 			shell_init.c\
-			parser/parser.c
+			parser/parser.c\
+			lexer/make_tokens.c
 
 OBJ		=	$(SRCS:%.c=%.o)
 

@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/16 01:07:27 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/18 21:54:00 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,16 @@ t_shell	*shell_init(char *envp[]);
 // Parser
 char	*parser(char *str, char **env);
 
-int	split_len(char **arr);
+int		split_len(char **arr);
 char	**make_env(t_shell *shell);
 void	export_print(t_env	*lst);
 char	*get_my_env(t_env *env, char *str);
+
+// Lexer
+void	print_list(t_list *list);
+void	print_redir_list(t_list *list);
+t_list	**make_tokens(char *input, char**env);
+int		is_single_token(char *word);
 
 typedef	struct s_command
 {
@@ -102,21 +108,10 @@ typedef	struct s_command
 	
 }	t_command;
 
-// typedef enum
-// {
-// 	READ,
-// 	HEREDOC,
-// 	WRITE,
-// 	APPEND,
-// }	e_type_redirect;
-
 typedef struct s_redirect
 {
 	char	*file_name;
-	char	*type_redir;
-	// e_type_redirect	type;
-	
-	
+	char	*type_redir;	
 }	t_redirect;
 
 #endif

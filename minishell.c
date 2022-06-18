@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:53:40 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/16 03:00:49 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/17 18:01:37 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,6 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	ft_clear_shell(shell);
 	printf ("Завершён!\n");
-	while (7)
-	{
-		int i = 1 + 1;
-		i = i + i;
-	}
 	
 	return (0);
 }
