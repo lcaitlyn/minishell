@@ -17,21 +17,14 @@ int	check_name(char *name)
 	int	i;
 
 	i = 0;
+	if (!ft_isalpha(name[0]) && name[i] != '_')
+		return (1);
 	while (name[i])
 	{
-		printf ("char = %c\n", name[i]);
 		if (!ft_isalpha(name[i]) && !ft_isdigit(name[i])
 		&& name[i] != '_')
 			return (1);
 		i++;
-	}
-	if (ft_isdigit(name[0]))
-	{
-		i = 0;
-		while (ft_isdigit(name[i]))
-			i++;
-		if (i != ft_strlen(name))
-			return (2);
 	}
 	return (0);
 }
@@ -47,6 +40,9 @@ int	del_env(t_shell *shell, char *name)
 	if (lst == shell->env)
 	{
 		shell->env = shell->env->next;
+		free(lst->name);
+		if (lst->content)
+			free(lst->content);
 		free(lst);
 	}
 	else
@@ -63,7 +59,7 @@ int	del_env(t_shell *shell, char *name)
 	return (0);
 }
 
-int	unset(t_shell *shell, char **cmd)
+int	unset(t_shell *shell, char *cmd[])
 {
 	printf("my unset working...\n");
 	t_env	*prev;
@@ -76,10 +72,8 @@ int	unset(t_shell *shell, char **cmd)
 		return (0);
 	while (cmd[i])
 	{
-		printf ("check name = %d\n", check_name(cmd[i]));
 		if (check_name(cmd[i]))
 		{
-			printf ("cmd [%d] = %s\n", i, cmd[i]);
 			printf("minishell: unset: %s: not a valid identifier\n", cmd[i]);
 			status = 1;
 		}

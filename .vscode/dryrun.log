@@ -1,0 +1,28 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/lcaitlyn/minishell'
+make -sC ./libft/
+echo Minishell ready!
+gcc -g -fsanitize=address  -I include -c minishell.c -o minishell.o
+gcc -g -fsanitize=address  -I include -c libft/ft_strindex.c -o libft/ft_strindex.o
+gcc -g -fsanitize=address  -I include -c libft/ft_strjoin_f.c -o libft/ft_strjoin_f.o
+gcc -g -fsanitize=address  -I include -c libft/my_strnstr.c -o libft/my_strnstr.o
+gcc -g -fsanitize=address  -I include -c lists/ft_listclear.c -o lists/ft_listclear.o
+gcc -g -fsanitize=address  -I include -c lists/ft_listprint.c -o lists/ft_listprint.o
+gcc -g -fsanitize=address  -I include -c get_next_line/gnl.c -o get_next_line/gnl.o
+gcc -g -fsanitize=address  -I include -c signals/signal.c -o signals/signal.o
+gcc -g -fsanitize=address  -I include -c commands/pwd.c -o commands/pwd.o
+gcc -g -fsanitize=address  -I include -c commands/cd.c -o commands/cd.o
+gcc -g -fsanitize=address  -I include -c commands/export.c -o commands/export.o
+gcc -g -fsanitize=address  -I include -c commands/env.c -o commands/env.o
+gcc -g -fsanitize=address  -I include -c commands/echo.c -o commands/echo.o
+gcc -g -fsanitize=address  -I include -c commands/unset.c -o commands/unset.o
+gcc -g -fsanitize=address  -I include -c ft_exec.c -o ft_exec.o
+gcc -g -fsanitize=address  -I include -c name.c -o name.o
+gcc -g -fsanitize=address  -I include -c action.c -o action.o
+gcc -g -fsanitize=address  -I include -c shell_init.c -o shell_init.o
+gcc -g -fsanitize=address  -I include -c error.c -o error.o
+gcc -g -fsanitize=address  -I include -c shlvl.c -o shlvl.o
+gcc -g -fsanitize=address  -I include -c parser/parser.c -o parser/parser.o
+gcc -g -fsanitize=address  -o minishell minishell.o libft/ft_strindex.o libft/ft_strjoin_f.o libft/my_strnstr.o lists/ft_listclear.o lists/ft_listprint.o get_next_line/gnl.o signals/signal.o commands/pwd.o commands/cd.o commands/export.o commands/env.o commands/echo.o commands/unset.o ft_exec.o name.o action.o shell_init.o error.o shlvl.o parser/parser.o -L libft -l ft -I libft/inc/ -lreadline
+make: Leaving directory '/home/lcaitlyn/minishell'
+ 

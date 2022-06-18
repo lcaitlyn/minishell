@@ -59,7 +59,7 @@ char	*ft_itoa(int n)
 		n_copy = -n_copy;
 	}
 	len = ft_calc_len(n_copy) + is_minus;
-	str = ft_calloc(len + 1, 1);
+	str = ft_calloc(len + 1, sizeof(int));
 	if (!str)
 		return (NULL);
 	str = ft_fill_str(str, n_copy, len);

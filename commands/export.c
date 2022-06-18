@@ -75,6 +75,11 @@ void	export_print(t_env	*env)
 	free(sorted);
 }
 
+int	export(t_shell *shell, char *cmd[])
+{
+	
+}
+
 //void	export_print(t_env	*lst)
 //{
 //	printf ("my export working...\n");
