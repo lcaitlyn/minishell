@@ -14,7 +14,6 @@
 
 void	print_echo(char *str, int len)
 {
-	int		j;
 	int		i;
 	char	*tmp;
 

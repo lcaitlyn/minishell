@@ -62,7 +62,6 @@ int	del_env(t_shell *shell, char *name)
 int	unset(t_shell *shell, char *cmd[])
 {
 	printf("my unset working...\n");
-	t_env	*prev;
 	int		i;
 	int		status;
 

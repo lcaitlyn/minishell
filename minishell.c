@@ -14,10 +14,8 @@
 
 char	**my_parser(char *str)
 {
-	void	*tmp;
 	char	**cmd;
 
-	tmp = (void *)str;
 	cmd = ft_split(str, ' ');
 	return (cmd);
 }

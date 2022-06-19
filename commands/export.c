@@ -79,10 +79,6 @@ int	export_print(t_env	*env)
 		lst = lst->next;
 	}
 	sorted[i] = NULL;
-	i = 0;
-	while (sorted[i])
-		printf ("%s[%d]\n", sorted[i], i++);
-	
 	sorted = sorting(sorted);
 	i = 0;
 	while (sorted[i])

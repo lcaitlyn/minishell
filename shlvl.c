@@ -29,7 +29,6 @@ char	*shlvl(char *content)
 {
 	char	**split;
 	char	*newcontent;
-	int		i;
 
 	if (!content)
 		return (ft_itoa(1));
