@@ -18,11 +18,6 @@ void	ft_listclear(t_env *lst)
 
 	while (lst)
 	{
-		printf ("free %s[%p] %s[%p]\n", lst->name, lst->name, lst->content, lst->content);
-		write (1, lst->name, ft_strlen(lst->name));
-		if (lst->content)
-			write (1, lst->content, ft_strlen(lst->content));
-		write(1, "\n", 1);
 		next = lst->next;
 		free(lst->name);
 		if (lst->content)

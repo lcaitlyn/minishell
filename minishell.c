@@ -72,9 +72,9 @@ int	main(int argc, char *argv[], char *envp[])
 			{
 				echo(str, cmd);
 			}
-			else if (my_strnstr(str, "export", 6))
+			else if (my_strnstr(cmd[0], "export", 6))
 			{
-				export_print(shell->env);
+				export(shell, cmd);
 			}
 			else if (my_strnstr("unset", cmd[0], 5))
 			{

@@ -148,7 +148,11 @@ int		echo(char *str, char *cmd[]);
 
 //	command/export.c
 
-void	export_print(t_env	*lst);
+int 	ft_strcmp(const char *s1, const char *s2);
+char	**sorting(char **arr);
+int		export_print(t_env	*lst);
+int		add_env(t_shell *shell, char *name);
+int		export(t_shell *shell, char *cmd[]);
 
 
 //	command/unset.c

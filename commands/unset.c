@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int	check_name(char *name)
+int	check_name_unset(char *name)
 {
 	int	i;
 
@@ -72,7 +72,7 @@ int	unset(t_shell *shell, char *cmd[])
 		return (0);
 	while (cmd[i])
 	{
-		if (check_name(cmd[i]))
+		if (check_name_unset(cmd[i]))
 		{
 			printf("minishell: unset: %s: not a valid identifier\n", cmd[i]);
 			status = 1;
