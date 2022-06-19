@@ -83,7 +83,7 @@ void	ft_clear_shell(t_shell *shell);
 t_shell	*shell_init(char *envp[]);
 
 // Parser
-char	*parser(char *str, char **env);
+void	parser(char **str, char **env);
 
 int		split_len(char **arr);
 char	**make_env(t_shell *shell);
@@ -93,13 +93,14 @@ char	*get_my_env(t_env *env, char *str);
 // Lexer
 void	print_list(t_list *list);
 void	print_redir_list(t_list *list);
-t_list	**make_tokens(char *input, char**env);
+t_list	**make_tokens(char **input, char**env);
 int		is_single_token(char *word);
 
 typedef	struct s_command
 {
 	char	*cmd_name;
 	t_list	*list_args;
+	int		args_count;
 	char	**args; // не забыть 0 - команда
 	t_list	*redirects_read; // если NULL - Стандарт ввод
 	t_list	*redirects_write;

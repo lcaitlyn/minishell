@@ -360,13 +360,18 @@ void	insert_env_var(t_list *list, char **env)
 	}
 }
 
-t_list	**make_tokens(char *input, char**env)
+t_list	**make_tokens(char **input, char**env)
 {
 	char	*str;
 	t_list	**tokens = NULL;
 
-	str = ft_strtrim(input, " \t\v\f\r");
-	free(input);
+	str = ft_strtrim(*input, " \t\v\f\r");
+	if (!*str)
+	{
+		free(*input);
+		*input = str;
+		return (tokens);
+	}
 
 	tokens = ft_calloc(1, sizeof(t_list **));
 	split_into_space(str, tokens);

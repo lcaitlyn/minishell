@@ -17,13 +17,15 @@ void	free_list_cmd(void *cmd);
 
 
 
-// идея функции: проверки на закрытые кавычки - если после прогона flag_open != 0 - Error!!!
-// 				 и она также сообщает что не закрыта нужная кавычка (хранится в flag_open)
+// идея функции: проверки на закрытые кавычки - 
+// если после прогона flag_open != 0 - Error!!!
+// и она также сообщает что не закрыта нужная кавычка (хранится в flag_open)
 // Пример: ls "text - не валидно 👺 ls text" - 
 
 // Идея другой функции - проверяет, что пайпы не стоят в начале и в конце
 // 						 и проверяет сами токены редиректов
-// пайп в начале и в конце - ящик пандоры, редирект без пары - очень грустный - Error
+// пайп в начале и в конце - ящик пандоры,
+// редирект без пары - очень грустный - Error
 
 
 
@@ -63,7 +65,8 @@ void	free_list_cmd(void *cmd);
 // еще можно раздеть кавычки у строк, и склеить слипшие строки
 // нужно поделить слова между < << > >> | 
 
-// связные списки (или массивы?) для редиректов (с 3 типами) и команд между пайпами
+// связные списки (или массивы?) для редиректов (с 3 типами
+//  и команд между пайпами
 // по сути нужен список команд для  pipex с бонусами
 
 void	print_list(t_list *list)
@@ -74,9 +77,20 @@ void	print_list(t_list *list)
 	puts("");
 	while (list)
 	{
-		i++;
-		printf("\t%i - %s\n", i, (char *) list->content);
+		printf("\t%i - %s\n", ++i, (char *) list->content);
 		list = list->next;
+	}
+}
+
+void	print_arr_str(char **arr)
+{
+	int	i;
+
+	i = -1;
+	puts("");
+	while (arr && arr[++i])
+	{
+		printf("\t%i - %s\n", i, arr[i]);
 	}
 }
 
@@ -165,6 +179,7 @@ void	print_list_cmds(t_list *list_commands)
 	t_list		*redir_read;
 	t_list		*redir_write;
 	t_list		*args;
+	char		**arr_args;
 	int			i = 0;
 
 	while (list_commands)
@@ -174,6 +189,7 @@ void	print_list_cmds(t_list *list_commands)
 		redir_read = command->redirects_read;
 		redir_write = command->redirects_write;
 		args = command->list_args;
+		arr_args = command->args;
 		printf("--> %i command = - %s <-- \n", ++i, name);
 
 		printf("  rediretcs to read **");
@@ -191,27 +207,58 @@ void	print_list_cmds(t_list *list_commands)
 			print_list(args);
 		else
 			printf(": Empty\n");
+		printf("  arguments array**");
+		if (arr_args)
+			print_arr_str(arr_args);
+		else
+			printf(": Empty\n");
 		puts("");
 		
 		list_commands = list_commands->next;
 	}
 }
 
-char	*parser(char *input, char **env)
+char	**get_arr_args(t_list *list)
+{
+	char	**arr;
+	int		size;
+	int		i;
+
+	arr = NULL;
+	size = ft_lstsize(list);
+	if (size)
+	{
+		arr = (char **) ft_calloc(size + 1, sizeof(char *));
+		if (!arr)
+			return (arr);
+		i = 0;
+		while (list)
+		{
+			arr[i++] = ft_strdup((char *) list->content);
+			list = list->next;
+		}
+		arr[size] = NULL;
+
+	}
+	return (arr);
+}
+
+void	parser(char **input, char **env)
 {
 	// char	*str;
 	t_list	**tokens = NULL;
 
 	tokens = make_tokens(input, env);
-
 	// puts("Tokens:");
 	// print_list(tokens);
 
+
 	// проверка на пустую душу??????
 	t_list *list_commands = NULL;
-	if (is_valid_tokens(*tokens))
+	if (tokens && is_valid_tokens(*tokens))
 	{
-		// определить что из токенов команды, редиректы и аргументы и кидать в спискок
+		// определить что из токенов команды,
+		// редиректы и аргументы и кидать в спискок
 		// <lo cmd arg1 arg2 arg3 | cmd 2 <redi1 <redir2 | cmd3 >redir4
 		t_list	*list;
 		char	*token;
@@ -233,24 +280,25 @@ char	*parser(char *input, char **env)
 			cmd->redirects_read = NULL;
 			cmd->redirects_write = NULL;
 			cmd->args = NULL;
+			cmd->args_count = 0;
 			cmd->fd_read = -1;
 			cmd->fd_write = -1;
+			int	err_parse = 0;
 
 			while (!is_pipe(token) && list)
 			{
-				token = list->content; // повторояет строку 526
+				token = list->content;
 				if (is_redirects(token))
 				{
 					if (list->next)
 					{
 						next_token = list->next->content;
-						if (!is_redirects(next_token))
+						if (!is_redirects(next_token) && !is_pipe(next_token))
 						{
 							t_redirect *redir = (t_redirect *) malloc(sizeof(t_redirect));
-							// redir->type_redir = token;
 							redir->type_redir = ft_strdup(token);
 							redir->file_name = ft_strdup(next_token);
-							if (!ft_strcmp(token, "<") || !ft_strcmp(token, "<<"))
+							if (!ft_strcmp(token, "<")|| !ft_strcmp(token, "<<"))
 								ft_lstadd_back(&cmd->redirects_read, ft_lstnew(redir));
 							if (!ft_strcmp(token, ">") || !ft_strcmp(token, ">>"))
 								ft_lstadd_back(&cmd->redirects_write, ft_lstnew(redir));
@@ -260,6 +308,9 @@ char	*parser(char *input, char **env)
 						else
 						{
 							ft_putstr_fd("Oh! два спец токена не могут быть рядом", 2);
+							// долгая и нудная проверка с очисткой памяти
+							err_parse = 1;
+							break ;
 						}
 					}
 					else
@@ -274,13 +325,11 @@ char	*parser(char *input, char **env)
 				if (!cmd->cmd_name)
 					cmd->cmd_name = ft_strdup(token);
 				ft_lstadd_back(&cmd->list_args, ft_lstnew(ft_strdup(token)));
-				
+				cmd->args_count += 1;
 				list = list->next;
 			}
 			
-			// тут внутри можно прыгать по листу до тех пор пока не встретим | или NULL
-			// ну сначала заполняем команду и зачем закидываем в лист
-			// стоит отметить, что если у команды нет команды но oдни редиректы, то bash ничего не делает
+			cmd->args = get_arr_args(cmd->list_args);
 			ft_lstadd_back(&list_commands, ft_lstnew(cmd));
 			if (list)
 				list = list->next;
@@ -289,9 +338,9 @@ char	*parser(char *input, char **env)
 
 	ft_lstclear(tokens, free);
 	print_list_cmds(list_commands);
-	ft_lstclear(&list_commands, free_list_cmd); // тут не все так просто с функцией очистки
+	// тут не все так просто с функцией очистки
+	ft_lstclear(&list_commands, free_list_cmd); 
 	list_commands = NULL;
-	return(ft_strdup("Zaglushka"));
 }
 
 void	free_redirect(void *redir)
@@ -313,5 +362,6 @@ void	free_list_cmd(void *command)
 	ft_lstclear(&cmd->redirects_read, free_redirect);
 	ft_lstclear(&cmd->redirects_write, free_redirect);
 	ft_lstclear(&cmd->list_args, free);
+	ft_free_split(cmd->args, cmd->args_count);
 	free(cmd);
 }

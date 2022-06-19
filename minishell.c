@@ -14,10 +14,11 @@
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	char	*str;
-	char	*name;
-	char	*pwd;
-	t_shell	*shell;
+	char		*str;
+	char		*name;
+	char		*pwd;
+	t_shell		*shell;
+	// t_command	*list_commamds;
 
 	(void)argc;
 	(void)argv;
@@ -34,13 +35,14 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		name = get_name(shell, envp);
 		str = readline(name);
+		free (name);
 		if (!str)
 		{
 			printf ("exit\n");
 			break ;
 		}
-		str = parser(str, envp);
-		free (name);
+		parser(&str, envp);
+		// execute(list_commands);
 		if (ft_strlen(str) != 0)
 		{
 			add_history(str);
@@ -67,7 +69,8 @@ int	main(int argc, char *argv[], char *envp[])
 			else if (ft_strnstr(str, "exit", 4))
 				break;
 			else
-				action(str, make_env(shell));
+				// action(str, make_env(shell));
+				action(str, envp);
 		}
 		free(str);
 	}

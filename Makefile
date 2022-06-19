@@ -20,7 +20,7 @@ SRCS		= 	minishell.c\
 
 OBJ		=	$(SRCS:%.c=%.o)
 
-CFLAGS		=	-Wall -Wextra -Werror -g
+CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
 
 .PHONY		:	all clean fclean re
 
@@ -31,10 +31,10 @@ all		:	$(LIBFT_A) $(NAME)
 
 $(NAME)		:	$(OBJ)
 				@gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
+				@echo Minishell ready!
 
 $(LIBFT_A)	:
 				@make -sC $(LIBFT_DIR)
-				@echo Minishell ready!
 
 clean		:	
 				@rm -f $(OBJ)
