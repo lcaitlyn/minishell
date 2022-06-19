@@ -75,7 +75,7 @@ void	print_list(t_list *list)
 	while (list)
 	{
 		i++;
-		printf("\t%i - %s\n", i, list->content);
+		printf("\t%i - %s\n", i, (char *) list->content);
 		list = list->next;
 	}
 }

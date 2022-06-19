@@ -32,14 +32,14 @@ void	open_dir(char *str)
 
 void	change_dir(t_shell *shell, char *str, char *envp[])
 {
-	int		i;
+	// int		i;
 	char	*dir;
 	char	**split;
 	char	*home;
 
 	(void)envp;
 	(void)dir;
-	i = 0;
+	// i = 0;
 	if (str[2] && str[2] != ' ')
 	{
 		printf("%s: command not found\n", str);
