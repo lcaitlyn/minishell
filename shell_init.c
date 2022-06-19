@@ -91,7 +91,7 @@ t_shell	*shell_init(char *envp[])
 	shell->name = NULL;
 	shell->my_envp = NULL;
 	shell->env = NULL;
-//	shell->home = get_execve("echo ~", envp);
+	shell->status = 0;
 	shell_env(shell);
 	return (shell);
 }

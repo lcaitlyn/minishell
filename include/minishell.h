@@ -41,6 +41,7 @@ typedef struct s_shell
 	char	**my_envp;
 	char	*name;
 	char	*home;
+	int		status;
 	t_env	*env;
 }	t_shell;
 
@@ -150,16 +151,23 @@ int		echo(char *str, char *cmd[]);
 
 int 	ft_strcmp(const char *s1, const char *s2);
 char	**sorting(char **arr);
+int		export_len(t_env *env);
 int		export_print(t_env	*lst);
 int		add_env(t_shell *shell, char *name);
+int		check_name_export(char *name);
 int		export(t_shell *shell, char *cmd[]);
 
 
 //	command/unset.c
 
-int		check_name(char *name);
+int		check_name_unset(char *name);
 int		del_env(t_shell *shell, char *name);
 int		unset(t_shell *shell, char **cmd);
+
+//	command/exit.c
+
+int	my_exit(t_shell *shell, char **cmd);
+
 
 
 //	error.c

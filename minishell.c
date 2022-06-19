@@ -26,6 +26,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*name;
 	char	**cmd;
 	t_shell	*shell;
+	int		status;
 
 	(void)argc;
 	(void)argv;
@@ -78,16 +79,23 @@ int	main(int argc, char *argv[], char *envp[])
 			{
 				unset(shell, cmd);
 			}
-			else if (my_strnstr(str, "exit", 4))
-				break;
+			else if (my_strnstr(cmd[0], "exit", 4))
+			{
+				if (!my_exit(shell, cmd))
+				{
+					ft_free_split(cmd);
+					free(str);
+					break;
+				}
+			}
 			else
 				action(str, make_env(shell));
 		}
 		ft_free_split(cmd);
 		free(str);
 	}
+	status = shell->status;
 	ft_clear_shell(shell);
 	printf ("Завершён!\n");
-//	exit_stat = 0;
-	return (0);
+	exit (status);
 }

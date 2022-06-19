@@ -13,6 +13,7 @@ SRCS		= 	minishell.c\
 			signals/signal.c\
 			commands/pwd.c commands/cd.c commands/export.c\
 			commands/env.c commands/echo.c commands/unset.c\
+			commands/exit.c\
 			ft_exec.c name.c action.c\
 			shell_init.c error.c shlvl.c\
 			parser/parser.c
