@@ -111,11 +111,10 @@ void	execute_list_cmds(t_shell *shell)
 		{
 			ft_listprint(shell->env);
 		}
-		// else if (!ft_strcmp(cmd->cmd_name, "echo"))
-		// {
-		// 	// переделать эхо
-		// 	// echo(str, cmd);
-		// }
+		else if (!ft_strcmp(cmd->cmd_name, "echo"))
+		{
+			echo(cmd->args);
+		}
 		else if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "export"))
 		{
 			export(shell, cmd->args);
@@ -139,10 +138,10 @@ int	executor(t_shell *shell)
 
 	if (ft_lstsize(shell->list_commands) == 1)
 	{
-		cmd = (t_command *)shell->list_commands->content;
-		if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "exit") &&
-			!my_exit(shell, cmd->args))
-			return (1);
+	cmd = (t_command *)shell->list_commands->content;
+	if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "exit") &&
+		!my_exit(shell, cmd->args))
+		return (1);
 	}
 	execute_list_cmds(shell);
 	return (0);

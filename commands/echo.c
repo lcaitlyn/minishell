@@ -12,26 +12,24 @@
 
 #include "../include/minishell.h"
 
-void	print_echo(char *str, int len)
+void	print_echo(char *str[])
 {
-	int		i;
-	char	*tmp;
+	int	i;
 
-	tmp = str;
 	i = 0;
-	while (i < len)
+	if (!str)
+		return;
+	write(1, str[i], ft_strlen(str[i]));
+	i++;
+	while (str[i])
 	{
-		tmp = ft_strnstr(tmp, "-n", 2);
-		if (tmp)
-			i++;
-	tmp = tmp + 2;
+		write(1, " ", 1);
+		write(1, str[i], ft_strlen(str[i]));
+		i++;
 	}
-	while (*tmp == ' ')
-		tmp++;
-	write (1, tmp, ft_strlen(tmp));
 }
 
-int	echo(char *str, char *cmd[])
+int	echo(char *cmd[])
 {
 	int	need_n;
 	int	i;
@@ -52,7 +50,7 @@ int	echo(char *str, char *cmd[])
 		else
 			break;
 	}
-	print_echo(str, i - 1);
+	print_echo(cmd + i);
 	if (need_n)
 		write (1, "\n", 1);
 	return (0);
