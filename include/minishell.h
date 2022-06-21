@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/18 21:54:00 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/20 13:37:04 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_shell
 	char	**my_envp;
 	char	*name;
 	t_env	*env;
+	t_list	*list_commands;
+	char	*last_cmd_input;
 }	t_shell;
 
 typedef void * histdata_t;
@@ -82,9 +84,6 @@ void	ft_listprint(t_env *lst);
 void	ft_clear_shell(t_shell *shell);
 t_shell	*shell_init(char *envp[]);
 
-// Parser
-void	parser(char **str, char **env);
-
 int		split_len(char **arr);
 char	**make_env(t_shell *shell);
 void	export_print(t_env	*lst);
@@ -95,6 +94,17 @@ void	print_list(t_list *list);
 void	print_redir_list(t_list *list);
 t_list	**make_tokens(char **input, char**env);
 int		is_single_token(char *word);
+
+// Parser
+// void	parser(char **str, char **env);
+void	parser(char **input, char **env, t_shell *shell);
+void	free_list_cmd(void *command);
+
+// Executor
+void	execute_list_cmds(t_shell *shell);
+char	**ft_find_paths(char *envp[]);
+char	*ft_find_cmd(char *cmd, char *paths[]);
+void	ft_clear_paths(char *paths[]);
 
 typedef	struct s_command
 {

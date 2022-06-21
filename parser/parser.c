@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:07:36 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/17 18:07:14 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/20 14:01:41 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,8 @@ int	is_valid_end_start_tokens(t_list *tokens)
 	return (1);
 }
 
+
+// Нужно сделать здесь проверку токенов типа  "cat la > | la" - здесь после ">" не может быть "|"
 int	is_valid_tokens(t_list *tokens)
 {
 	char	*token;
@@ -243,14 +245,14 @@ char	**get_arr_args(t_list *list)
 	return (arr);
 }
 
-void	parser(char **input, char **env)
+void	parser(char **input, char **env, t_shell *shell)
 {
 	// char	*str;
 	t_list	**tokens = NULL;
 
 	tokens = make_tokens(input, env);
 	// puts("Tokens:");
-	// print_list(tokens);
+	// print_list(*tokens);
 
 
 	// проверка на пустую душу??????
@@ -283,9 +285,9 @@ void	parser(char **input, char **env)
 			cmd->args_count = 0;
 			cmd->fd_read = -1;
 			cmd->fd_write = -1;
-			int	err_parse = 0;
+			// int	err_parse = 0;
 
-			while (!is_pipe(token) && list)
+			while (list && !is_pipe(list->content))
 			{
 				token = list->content;
 				if (is_redirects(token))
@@ -293,7 +295,8 @@ void	parser(char **input, char **env)
 					if (list->next)
 					{
 						next_token = list->next->content;
-						if (!is_redirects(next_token) && !is_pipe(next_token))
+						// if (!is_redirects(next_token) && !is_pipe(next_token))
+						if (!is_redirects(next_token))
 						{
 							t_redirect *redir = (t_redirect *) malloc(sizeof(t_redirect));
 							redir->type_redir = ft_strdup(token);
@@ -309,7 +312,7 @@ void	parser(char **input, char **env)
 						{
 							ft_putstr_fd("Oh! два спец токена не могут быть рядом", 2);
 							// долгая и нудная проверка с очисткой памяти
-							err_parse = 1;
+							// err_parse = 1;
 							break ;
 						}
 					}
@@ -337,10 +340,11 @@ void	parser(char **input, char **env)
 	}
 
 	ft_lstclear(tokens, free);
-	print_list_cmds(list_commands);
+	// print_list_cmds(list_commands);
+	shell->list_commands = list_commands;
 	// тут не все так просто с функцией очистки
-	ft_lstclear(&list_commands, free_list_cmd); 
-	list_commands = NULL;
+	// ft_lstclear(&list_commands, free_list_cmd); 
+	// list_commands = NULL;
 }
 
 void	free_redirect(void *redir)

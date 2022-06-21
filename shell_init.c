@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 18:50:03 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 20:31:56 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/20 13:18:08 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_clear_shell(t_shell *shell)
 	ft_listclear(shell->env);
 	// free(shell->name);
 	ft_free_split(shell->my_envp, split_len(shell->my_envp));
+	free(shell->last_cmd_input);
+	shell->last_cmd_input = NULL;
 	free(shell);
 }
 
@@ -86,6 +88,8 @@ t_shell	*shell_init(char *envp[])
 	shell->name = NULL;
 	shell->my_envp = NULL;
 	shell->env = NULL;
+	shell->list_commands = NULL;
+	shell->last_cmd_input = NULL;
 	shell_env(shell);
 	return (shell);
 }

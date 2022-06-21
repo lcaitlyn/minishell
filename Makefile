@@ -16,11 +16,12 @@ SRCS		= 	minishell.c\
 			ft_exec.c name.c action.c\
 			shell_init.c\
 			parser/parser.c\
-			lexer/make_tokens.c
+			lexer/make_tokens.c\
+			executor/execute_list_cmds.c
 
 OBJ		=	$(SRCS:%.c=%.o)
 
-CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror -g #-fsanitize=address
 
 .PHONY		:	all clean fclean re
 

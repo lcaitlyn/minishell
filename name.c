@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   name.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 09:45:33 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 19:42:53 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/20 14:16:30 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ char	*get_uname(char *envp[])
 	{
 		
 		//удалить
-		printf ("kill %d\n", getpid());
-		
-		
-		
+		// printf ("kill %d\n", getpid());
 		if (dup2(fd[1], 1) == -1)
 			ft_perror("dup");
 		ft_exec("hostname -s", envp);
@@ -71,12 +68,8 @@ char	*get_username(char *envp[])
 		ft_perror("fork");
 	else if (id == 0)
 	{
-		
 		//удалить
-		printf ("kill %d\n", getpid());
-		
-		
-		
+		// printf ("kill %d\n", getpid());
 		if (dup2(fd[1], 1) == -1)
 			ft_perror("dup");
 		ft_exec("whoami", envp);
