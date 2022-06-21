@@ -36,17 +36,16 @@ int	main(int argc, char *argv[], char *envp[])
 		str = readline(name);
 		free (name);
 		if (!str)
-		{
-			printf ("exit\n");
 			break ;
-		}
 		if (ft_strlen(str) != 0)
 		{
 			add_history(str);
 			parser(&str, shell->envp, shell);
-			if (shell->list_commands)
+			if (shell->list_commands && executor(shell))
 			{
-				execute_list_cmds(shell);
+				
+				ft_lstclear(&shell->list_commands, free_list_cmd);
+				break;
 			}
 			ft_lstclear(&shell->list_commands, free_list_cmd);
 		}
@@ -54,6 +53,7 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	status = shell->status;
 	ft_clear_shell(shell);
+	printf ("exit\n");
 	printf ("Завершён!\n");
 	exit (status);
 }

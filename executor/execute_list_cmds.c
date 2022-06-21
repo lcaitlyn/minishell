@@ -140,6 +140,21 @@ void	execute_list_cmds(t_shell *shell)
 		// }
 		else
 			execute_cmd(cmd, make_env(shell));
-		
 	}
+}
+
+int	executor(t_shell *shell)
+{
+	t_command	*cmd;
+
+	if (ft_lstsize(shell->list_commands) == 1)
+	{
+		cmd = (t_command *)shell->list_commands->content;
+		if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "exit") &&
+			!my_exit(shell, cmd->args))
+			return (1);
+	}
+	else
+		execute_list_cmds(shell);
+	return (0);
 }

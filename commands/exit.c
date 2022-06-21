@@ -1,12 +1,24 @@
 #include "../include/minishell.h"
 
+int	size_len(char *arr[])
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
+}
+
 int	my_exit(t_shell *shell, char **cmd)
 {
 	int	i;
 
 	if (!cmd)
 		return (1);
-	if (cmd[2])
+	if (size_len(cmd)  == 1)
+		return (0);
+	if (size_len(cmd) > 2)
 	{
 		printf("minishell: exit: too many arguments\n");
 		return (1);
@@ -24,6 +36,6 @@ int	my_exit(t_shell *shell, char **cmd)
 	if (i >= 0 && i <= 255)
 		shell->status = i;
 	else
-		shell->status = i % 255;
+		shell->status = i % 256;
 	return (0);
 }

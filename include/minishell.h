@@ -143,7 +143,6 @@ int		echo(char *str, char *cmd[]);
 
 //	command/export.c
 
-int 	ft_strcmp(const char *s1, const char *s2);
 char	**sorting(char **arr);
 int		export_len(t_env *env);
 int		export_print(t_env	*lst);
@@ -186,6 +185,8 @@ void	execute_list_cmds(t_shell *shell);
 char	**ft_find_paths(char *envp[]);
 char	*ft_find_cmd(char *cmd, char *paths[]);
 void	ft_clear_paths(char *paths[]);
+int		executor(t_shell *shell);
+
 
 typedef	struct s_command
 {
