@@ -61,7 +61,6 @@ int	export_print(t_env	*env)
 		return (1);
 	lst = env;
 	sorted = malloc((export_len(env) + 1) * sizeof(char *));
-	printf ("env len = %d\n", export_len(env));
 	i = 0;
 	while (lst)
 	{

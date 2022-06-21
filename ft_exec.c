@@ -32,6 +32,8 @@ char	*ft_find_cmd(char *cmd, char *paths[])
 	int		i;
 
 	i = 0;
+	if (!paths)
+		return (0);
 	while (paths[i])
 	{
 		path = ft_strjoin(paths[i], "/");
@@ -63,9 +65,7 @@ char	**ft_find_paths(char *envp[])
 		}
 		i++;
 	}
-	if (envp[i] == NULL)
-		ft_perror("");
-	exit (0);
+	return (0);
 }
 
 void	ft_exec(char *path, char *argv, char *envp[])

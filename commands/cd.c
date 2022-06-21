@@ -29,11 +29,9 @@ int	open_dir(t_shell *shell, char *str)
 	{
 		closedir(dir);
 		oldpwd = getcwd(0, 256);
-		printf ("new oldpwd = %p\n", oldpwd);
 		chdir(str);
 		change_env(shell, "OLDPWD", oldpwd);
 		pwd = getcwd(0, 256);
-		printf ("new pwd = %p\n", pwd);
 		change_env(shell, "PWD", pwd);
 		change_env(shell, "_", ft_strdup("cd"));
 	}

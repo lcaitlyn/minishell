@@ -159,7 +159,7 @@ int		unset(t_shell *shell, char **cmd);
 
 //	command/exit.c
 
-int	my_exit(t_shell *shell, char **cmd);
+int		my_exit(t_shell *shell, char **cmd);
 
 
 
