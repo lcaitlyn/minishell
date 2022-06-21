@@ -43,7 +43,6 @@ int	main(int argc, char *argv[], char *envp[])
 			parser(&str, shell->envp, shell);
 			if (shell->list_commands && executor(shell))
 			{
-				
 				ft_lstclear(&shell->list_commands, free_list_cmd);
 				break;
 			}

@@ -85,6 +85,7 @@ void	execute_cmd(t_command *cmd, char **env)
 
 void	execute_list_cmds(t_shell *shell)
 {
+	printf ("qwe\n");
 	t_command	*cmd;
 	t_list		*list_commands;
 
@@ -99,16 +100,10 @@ void	execute_list_cmds(t_shell *shell)
 			continue;
 		if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "cd"))
 		{
-			// printf ("my cd working...\n");
-			// change_dir(shell, shell->last_cmd_input, make_env(shell));
 			change_dir(shell, cmd->args);
 		}
 		else if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "pwd"))
 		{
-			// printf ("my pwd working...\n");
-			// char *pwd = getcwd(0, 256);
-			// printf ("%s\n", pwd);
-			// free(pwd);
 			print_pwd(cmd->args);
 		}
 		else if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "env"))
@@ -122,22 +117,12 @@ void	execute_list_cmds(t_shell *shell)
 		// }
 		else if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "export"))
 		{
-			// export_print(shell->env);
 			export(shell, cmd->args);
 		}
 		else if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "unset"))
 		{
 			unset(shell, cmd->args);
 		}
-		// else if (!ft_strcmp(cmd->cmd_name, "exit"))
-		// {
-		// 	if (!my_exit(shell, cmd->args))
-		// 	{
-		// 		ft_free_split(cmd->args);
-		// 		free(str);
-		// 		break;
-		// 	}
-		// }
 		else
 			execute_cmd(cmd, make_env(shell));
 	}
@@ -154,7 +139,6 @@ int	executor(t_shell *shell)
 			!my_exit(shell, cmd->args))
 			return (1);
 	}
-	else
-		execute_list_cmds(shell);
+	execute_list_cmds(shell);
 	return (0);
 }
