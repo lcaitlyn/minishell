@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 18:50:03 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 20:31:56 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/21 14:15:10 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ t_shell	*shell_init(char *envp[])
 	shell->my_envp = NULL;
 	shell->env = NULL;
 	shell->status = 0;
+	shell->list_commands = NULL;
 	shell_env(shell);
 	return (shell);
 }

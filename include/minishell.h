@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/01 11:53:27 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/21 14:15:38 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,10 @@ typedef struct s_shell
 	char	*home;
 	int		status;
 	t_env	*env;
+	t_list	*list_commands;
 }	t_shell;
 
 typedef void * histdata_t;
-
-//int		exit_stat;
-
-
-
-
-//	libft/
 
 char	*ft_strjoin_f(char *s1, char *s2, int need_free);
 //	возвращает индекс символа в строке
@@ -181,5 +175,41 @@ int		print_error(char *str);
 char	*parser(char *str, char **env);
 
 
+
+// Lexer
+void	print_list(t_list *list);
+void	print_redir_list(t_list *list);
+t_list	**make_tokens(char **input, char**env);
+int		is_single_token(char *word);
+
+// Parser
+// void	parser(char **str, char **env);
+void	parser(char **input, char **env, t_shell *shell);
+void	free_list_cmd(void *command);
+
+// Executor
+void	execute_list_cmds(t_shell *shell);
+char	**ft_find_paths(char *envp[]);
+char	*ft_find_cmd(char *cmd, char *paths[]);
+void	ft_clear_paths(char *paths[]);
+
+typedef	struct s_command
+{
+	char	*cmd_name;
+	t_list	*list_args;
+	int		args_count;
+	char	**args; // не забыть 0 - команда
+	t_list	*redirects_read; // если NULL - Стандарт ввод
+	t_list	*redirects_write;
+	int		fd_read; // start -1
+	int		fd_write; // start -1
+	
+}	t_command;
+
+typedef struct s_redirect
+{
+	char	*file_name;
+	char	*type_redir;	
+}	t_redirect;
 
 #endif

@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "minishell.h"
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -28,9 +28,6 @@ int	main(int argc, char *argv[], char *envp[])
         str = malloc(1);
     waitpid(pid, 0, 0);
     return 0;
-
-
-
 
 	// char	*s;
 	// int		i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:53:40 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/01 11:54:26 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/21 14:15:44 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argc;
 	(void)argv;
 	handle_signal();
-	
 	shell = shell_init(envp);
 		
 	printf ("*********************************\n");
@@ -39,7 +38,7 @@ int	main(int argc, char *argv[], char *envp[])
 	printf ("*  Выход на Ctrl + D или exit   *\n");
 	printf ("*\t\t\t\t*\n");
 	printf ("*********************************\n");
-//	printf ("HOME = %s\n", shell->home);
+	
 	while (1)
 	{
 		name = get_name(shell, envp);
@@ -50,49 +49,16 @@ int	main(int argc, char *argv[], char *envp[])
 			printf ("exit\n");
 			break ;
 		}
-		cmd = NULL;
-		cmd = my_parser(str);
 		if (ft_strlen(str) != 0)
 		{
 			add_history(str);
-			if (my_strnstr("cd", cmd[0], 2))
-			{
-				change_dir(shell, cmd);
-			}
-			else if (my_strnstr("pwd", cmd[0], 3))
-			{
-				print_pwd(cmd);
-			}
-			else if (my_strnstr("env", cmd[0], 3))
-			{
-				ft_listprint(shell->env);
-			}
-			else if (my_strnstr("echo", cmd[0], 4))
-			{
-				echo(str, cmd);
-			}
-			else if (my_strnstr(cmd[0], "export", 6))
-			{
-				export(shell, cmd);
-			}
-			else if (my_strnstr("unset", cmd[0], 5))
-			{
-				unset(shell, cmd);
-			}
-			else if (my_strnstr(cmd[0], "exit", 4))
-			{
-				if (!my_exit(shell, cmd))
-				{
-					ft_free_split(cmd);
-					free(str);
-					break;
-				}
-			}
-			else
-				action(str, make_env(shell));
+			parser(&str, shell->envp, shell);
+			if (!(shell->list_commands))
+				execute_list_cmds(shell);
+			ft_lstclear(&shell->list_commands, free_list_cmd);
 		}
-		ft_free_split(cmd);
 		free(str);
+		shell->last_cmd_input = NULL;
 	}
 	status = shell->status;
 	ft_clear_shell(shell);

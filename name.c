@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   name.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 09:45:33 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 19:42:53 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/21 14:17:20 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ char	*get_execve(char *path, char *cmd, char *envp[])
 	else if (id == 0)
 	{
 		
-		// удалить
-		 printf ("kill %d\n", getpid());
-		
+		//удалить
+		// printf ("kill %d\n", getpid());
 		if (dup2(fd[1], 1) == -1)
 			ft_perror("get_execve(): dup");
 		ft_exec(path, cmd, envp);

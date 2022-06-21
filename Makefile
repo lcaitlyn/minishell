@@ -15,12 +15,16 @@ SRCS		= 	minishell.c\
 			commands/env.c commands/echo.c commands/unset.c\
 			commands/exit.c\
 			ft_exec.c name.c action.c\
-			shell_init.c error.c shlvl.c\
-			parser/parser.c
+			shell_init.c\
+			error.c\
+			shlvl.c\
+			parser/parser.c\
+			lexer/make_tokens.c\
+			executor/execute_list_cmds.c\
 
 OBJ		=	$(SRCS:%.c=%.o)
 
-CFLAGS		=	-g -fsanitize=address -Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 
 .PHONY		:	all clean fclean re
 
@@ -31,10 +35,10 @@ all		:	$(LIBFT_A) $(NAME)
 
 $(NAME)		:	$(OBJ)
 				@gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
+				@echo Minishell ready!
 
 $(LIBFT_A)	:
 				@make -sC $(LIBFT_DIR)
-				@echo Minishell ready!
 
 clean		:	
 				@rm -f $(OBJ)

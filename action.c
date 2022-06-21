@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:54:24 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/24 16:54:28 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/06/21 13:14:22 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,4 @@ void	action(char *str, char *envp[])
 	else if (pid == 0)
 	ft_exec(0, str, envp);
 	waitpid(pid, 0, 0);
-	return ;
 }
