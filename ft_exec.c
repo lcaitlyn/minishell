@@ -12,12 +12,6 @@
 
 #include "include/minishell.h"
 
-void	ft_perror(char *str)
-{
-	perror(str);
-	exit(EXIT_FAILURE);
-}
-
 void	ft_clear_paths(char *paths[])
 {
 	int	i;
@@ -41,7 +35,7 @@ char	*ft_find_cmd(char *cmd, char *paths[])
 	while (paths[i])
 	{
 		path = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(path, cmd);
+		path = ft_strjoin_f(path, cmd, 1);
 		if (access(path, F_OK) == 0)
 		{
 			ft_clear_paths(paths);
@@ -50,7 +44,7 @@ char	*ft_find_cmd(char *cmd, char *paths[])
 		free(path);
 		i++;
 	}
-	ft_clear_paths(paths);
+	ft_free_split(paths);
 	return (NULL);
 }
 
@@ -74,17 +68,19 @@ char	**ft_find_paths(char *envp[])
 	exit (0);
 }
 
-void	ft_exec(char *argv, char *envp[])
+void	ft_exec(char *path, char *argv, char *envp[])
 {
-	char	*path;
 	char	**cmd;
-
+	
 	if (ft_strlen(argv) == 0)
 		ft_perror("");
 	cmd = ft_split(argv, ' ');
-	path = ft_find_cmd(cmd[0], ft_find_paths(envp));
+	if (access(cmd[0], X_OK) == 0)
+		path = cmd[0];
+	if (!path || access(path, X_OK) == -1)
+		path = ft_find_cmd(cmd[0], ft_find_paths(envp));
 	if (!path)
-		ft_perror ("");
+		ft_perror ("execve");
 	if (execve(path, cmd, envp) == -1)
 		ft_perror("");
 }

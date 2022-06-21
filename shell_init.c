@@ -15,8 +15,8 @@
 void	ft_clear_shell(t_shell *shell)
 {
 	ft_listclear(shell->env);
-	// free(shell->name);
-	ft_free_split(shell->my_envp, split_len(shell->my_envp));
+//	free(shell->home);
+	ft_free_split(shell->my_envp);
 	free(shell);
 }
 
@@ -62,14 +62,19 @@ void	shell_env(t_shell *shell)
 	while (shell->envp[i])
 	{
 		name = ft_substr(shell->envp[i], 0, ft_strindex(shell->envp[i], '='));
-		// сделать shlvl (проверку на число и на >999)
 		if (ft_strnstr(name, "SHLVL", ft_strlen(name)))
-			content = ft_itoa(ft_atoi(ft_strchr(shell->envp[i], '=') + 1) + 1);
+			content = shlvl(ft_strchr(shell->envp[i], '=') + 1);
 		else
 			content = ft_strjoin("", ft_strchr(shell->envp[i], '=') + 1);
 		lstadd_back_env(shell, lst_new_env(name, content));
 		i++;
 	}
+	if (!get_my_env(shell->env, "SHLVL"))
+		lstadd_back_env(shell, lst_new_env(ft_strdup("SHLVL"), ft_itoa(1)));
+	if (!get_my_env(shell->env, "PWD"))
+		lstadd_back_env(shell, lst_new_env(ft_strdup("PWD"), getcwd(0, 256)));
+	if (!get_my_env(shell->env, "OLDPWD"))
+		lstadd_back_env(shell, lst_new_env(ft_strdup("OLDPWD"), 0));
 }
 
 t_shell	*shell_init(char *envp[])
@@ -86,6 +91,7 @@ t_shell	*shell_init(char *envp[])
 	shell->name = NULL;
 	shell->my_envp = NULL;
 	shell->env = NULL;
+	shell->status = 0;
 	shell_env(shell);
 	return (shell);
 }

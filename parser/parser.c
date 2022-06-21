@@ -70,7 +70,7 @@ char	*parser(char *input, char **env)
 	while (tokens)
 	{
 		i++;
-		printf("%i - %s\n", i, tokens->content);
+		printf("%i - %s\n", i, (char *)tokens->content);
 		tokens = tokens->next;
 	}
 	

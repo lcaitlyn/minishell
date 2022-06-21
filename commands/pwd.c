@@ -18,10 +18,12 @@ char	*get_pwd_for_name(t_shell *shell)
 	char	*pwd;
 	char	*fr;
 
-	home = get_my_env(shell->env, "HOME");
+	home = get_env_content(shell->env, "HOME");
 	pwd = getcwd(0, 256);
+	if (!home)
+		return (pwd);
 	fr = pwd;
-	if (home && ft_strnstr(pwd, home, ft_strlen(pwd)))
+	if (ft_strnstr(pwd, home, ft_strlen(pwd)))
 	{
 		pwd = ft_strjoin("~", pwd + ft_strlen(home));
 		free(fr);
@@ -29,4 +31,18 @@ char	*get_pwd_for_name(t_shell *shell)
 	// pwd = ft_strjoin_f(TERM_BLUE, pwd, 2);
 	// pwd = ft_strjoin_f(pwd, RESET, 1);
 	return (pwd);
+}
+
+int	print_pwd(char	**cmd)
+{
+	char	*pwd;
+
+	printf ("my pwd working...\n");
+	
+	if (split_len(cmd) > 1)
+		return (print_error("minishell: pwd: too many arguments"));
+	pwd = getcwd(0, 256);
+	printf ("%s\n", pwd);
+	free(pwd);
+	return (0);
 }
