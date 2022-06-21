@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 16:10:17 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/31 16:10:19 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/06/21 14:48:24 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int ft_strcmp(const char *s1, const char *s2)
-{
-	while (*s1 && (*s1 == *s2))
-	{
-		s1++;
-		s2++;
-	}
-	return (*s1 - *s2);
-}
 
 char	**sorting(char **arr)
 {

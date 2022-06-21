@@ -6,7 +6,7 @@
 /*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 20:54:52 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/21 13:41:20 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/06/21 15:02:01 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ void	execute_cmd(t_command *cmd, char **env)
 		// if (ft_strlen(argv) == 0)
 		// 	ft_perror("");
 		// cmd = ft_split(argv, ' ');
+		if (cmd->cmd_name) {
+			
+		}
 		path = ft_find_cmd(cmd->cmd_name, ft_find_paths(env));
 		if (!path)
 			ft_perror ("minishell"); // cmd not found
@@ -86,53 +89,57 @@ void	execute_list_cmds(t_shell *shell)
 	t_list		*list_commands;
 
 	list_commands = shell->list_commands;
-	
 	while (list_commands)
 	{
+		
 		cmd = (t_command *) list_commands->content;
+		list_commands = list_commands->next;
 
-		if (!ft_strcmp(cmd->cmd_name, "cd"))
+		if (!cmd->cmd_name)
+			continue;
+		if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "cd"))
 		{
 			// printf ("my cd working...\n");
 			// change_dir(shell, shell->last_cmd_input, make_env(shell));
-			change_dir(shell, cmd->arr_args);
+			change_dir(shell, cmd->args);
 		}
-		else if (!ft_strcmp(cmd->cmd_name, "pwd"))
+		else if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "pwd"))
 		{
 			// printf ("my pwd working...\n");
 			// char *pwd = getcwd(0, 256);
 			// printf ("%s\n", pwd);
 			// free(pwd);
-			print_pwd(cmd->arr_args);
+			print_pwd(cmd->args);
 		}
-		else if (!ft_strcmp(cmd->cmd_name, "env"))
+		else if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "env"))
 		{
 			ft_listprint(shell->env);
 		}
-		else if (!ft_strcmp(cmd->cmd_name, "echo"))
-		{
-			echo(str, cmd);
-		}
-		else if (!ft_strcmp(cmd->cmd_name, "export"))
+		// else if (!ft_strcmp(cmd->cmd_name, "echo"))
+		// {
+		// 	// переделать эхо
+		// 	// echo(str, cmd);
+		// }
+		else if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "export"))
 		{
 			// export_print(shell->env);
-			export(shell, cmd->arr_args);
+			export(shell, cmd->args);
 		}
-		else if (!ft_strcmp(cmd->cmd_name, "unset"))
+		else if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "unset"))
 		{
-			unset(shell, cmd->arr_args);
+			unset(shell, cmd->args);
 		}
-		else if (!ft_strcmp(cmd->cmd_name, "exit"))
-		{
-			if (!my_exit(shell, cmd))
-			{
-				ft_free_split(cmd);
-				free(str);
-				break;
-			}
-		}
+		// else if (!ft_strcmp(cmd->cmd_name, "exit"))
+		// {
+		// 	if (!my_exit(shell, cmd->args))
+		// 	{
+		// 		ft_free_split(cmd->args);
+		// 		free(str);
+		// 		break;
+		// 	}
+		// }
 		else
-			execute_cmd(cmd, make_env(shell->env));
-		list_commands = list_commands->next;
+			execute_cmd(cmd, make_env(shell));
+		
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 16:23:08 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/06 16:23:11 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/06/21 14:26:10 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_echo(char *str, int len)
 	i = 0;
 	while (i < len)
 	{
-		tmp = strstr(tmp, "-n");
+		tmp = ft_strnstr(tmp, "-n", 2);
 		if (tmp)
 			i++;
 	tmp = tmp + 2;

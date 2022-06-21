@@ -6,7 +6,7 @@
 /*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/21 14:15:38 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/06/21 14:19:39 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,12 +168,6 @@ int	my_exit(t_shell *shell, char **cmd);
 
 void	ft_perror(char *str);
 int		print_error(char *str);
-
-
-//	Parser
-
-char	*parser(char *str, char **env);
-
 
 
 // Lexer

@@ -6,25 +6,16 @@
 /*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:53:40 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/21 14:15:44 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/06/21 14:45:42 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
 
-char	**my_parser(char *str)
-{
-	char	**cmd;
-
-	cmd = ft_split(str, ' ');
-	return (cmd);
-}
-
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*str;
 	char	*name;
-	char	**cmd;
 	t_shell	*shell;
 	int		status;
 
@@ -53,12 +44,13 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			add_history(str);
 			parser(&str, shell->envp, shell);
-			if (!(shell->list_commands))
+			if (shell->list_commands)
+			{
 				execute_list_cmds(shell);
+			}
 			ft_lstclear(&shell->list_commands, free_list_cmd);
 		}
 		free(str);
-		shell->last_cmd_input = NULL;
 	}
 	status = shell->status;
 	ft_clear_shell(shell);
