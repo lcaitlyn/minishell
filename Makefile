@@ -21,7 +21,7 @@ SRCS		= 	minishell.c\
 
 OBJ		=	$(SRCS:%.c=%.o)
 
-CFLAGS		=	-Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
 
 .PHONY		:	all clean fclean re
 

@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:53:40 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/20 14:09:57 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/22 16:37:02 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char *argv[], char *envp[])
 	printf ("*\t\t\t\t*\n");
 	printf ("*********************************\n");
 
-	shell->envp = make_env(shell);
+	// shell->envp = make_env(shell);
 	
 	while (1)
 	{

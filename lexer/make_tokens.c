@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 14:45:15 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/17 18:13:22 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/22 16:39:03 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,7 +329,7 @@ void	insert_env_var(t_list *list, char **env)
 		while (word[i])
 		{
 			check_open_q(word[i], &flag_open);
-			if (word[i] == '$' && flag_open != '\'')
+			if (word[i] == '$' && flag_open != '\'' && word[i + 1])
 			{
 				i++;
 				j = i;
