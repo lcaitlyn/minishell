@@ -3,65 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 14:26:29 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 19:55:37 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/21 13:08:14 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	open_dir(char *str)
+int	open_dir(t_shell *shell, char *str)
 {
-	DIR	*dir;
+	DIR		*dir;
+	char	*oldpwd;
+	char	*pwd;
 
 	dir = opendir(str);
 	if (!dir)
 	{
 		printf("minishell: cd: ");
 		printf ("%s: %s\n", str, strerror(errno));
-		return ;
+		return (1);
 	}
 	else
 	{
 		closedir(dir);
+		oldpwd = getcwd(0, 256);
 		chdir(str);
+		change_env(shell, "OLDPWD", oldpwd);
+		pwd = getcwd(0, 256);
+		change_env(shell, "PWD", pwd);
+		change_env(shell, "_", ft_strdup("cd"));
 	}
+	return (0);
 }
 
-void	change_dir(t_shell *shell, char *str, char *envp[])
+int	micro_cd(t_shell *shell, char *str)
 {
-	// int		i;
-	char	*dir;
-	char	**split;
-	char	*home;
+	char	*path;
+	char	*oldpwd;
+	char	*pwd;
 
-	(void)envp;
-	(void)dir;
-	// i = 0;
-	if (str[2] && str[2] != ' ')
+	path = get_env_content(shell->env, str);
+	if (!path)
 	{
-		printf("%s: command not found\n", str);
-		return ;
+		printf ("minishell: cd: %s not set\n", str);
+		return (1);
 	}
-	else if (ft_strlen(str) == 2)
-	{
-		home = get_my_env(shell->env, "HOME");
-		if (!home)
-		{
-			// возможно создать нормальную функцию
-			
-			printf ("minishell: cd: HOME not set\n");
-			return ;
-		}
-		if (chdir(home) == -1)
-			printf ("minishell: cd: %s: No such file or directory\n", home);
-	}
+	oldpwd = getcwd(0, 256);
+	chdir(path);
+	change_env(shell, "OLDPWD", oldpwd);
+	pwd = getcwd(0, 256);
+	change_env(shell, "PWD", pwd);
+	change_env(shell, "_", ft_strdup("cd"));
+	if (my_strnstr("OLDPWD", str, 6))
+		print_pwd(NULL);
+	return (0);
+}
+
+int	change_dir(t_shell *shell, char *cmd[])
+{
+	write (1, "my cd working...\n", 17);
+	
+	if (split_len(cmd) > 2)
+		return (print_error("minishell: cd: too many arguments"));
+	if (!cmd[1])
+		return (micro_cd(shell, "HOME"));
+	else if (my_strnstr("-", cmd[1], 1))
+		return (micro_cd(shell, "OLDPWD"));
 	else
-	{
-		split = ft_split(str, ' ');
-		open_dir(split[1]);
-		ft_free_split(split, ft_wrdcnt(str, ' '));
-	}
+		return (open_dir(shell, cmd[1]));
 }

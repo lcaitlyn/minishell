@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_listclear.c                                     :+:      :+:    :+:   */
+/*   my_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 19:03:53 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/27 16:10:25 by lcaitlyn         ###   ########.fr       */
+/*   Created: 2022/06/06 17:12:17 by lcaitlyn          #+#    #+#             */
+/*   Updated: 2022/06/06 17:12:20 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_listclear(t_env *lst)
+char	*my_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	t_env	*next;
+	char *str;
 
-	while (lst)
-	{
-		next = lst->next;
-		free(lst->name);
-		if (lst->content)
-			free(lst->content);
-		free(lst);
-		lst = NULL;
-		lst = next;
-	}
+	str = ft_strnstr(haystack, needle, len);
+	if (!str)
+		return (NULL);
+	if (str && ft_strlen(haystack) == ft_strlen(needle))
+		return (str);
+	return (NULL);
+	
 }

@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/16 00:25:35 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/21 13:09:53 by lcaitlyn         ###   ########.fr       */
+/*   Created: 2022/06/02 16:38:22 by lcaitlyn          #+#    #+#             */
+/*   Updated: 2022/06/02 16:38:36 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strcmp(const char *s1, const char *s2)
+#include "include/minishell.h"
+
+void	ft_perror(char *str)
 {
-	while (*s1 && (*s1 == *s2))
-	{
-		s1++;
-		s2++;
-	}
-	return (*s1 - *s2);
+	perror(str);
+	exit(EXIT_FAILURE);
+}
+
+int	print_error(char *str)
+{
+	printf ("%s\n", str);
+	return (1);
 }

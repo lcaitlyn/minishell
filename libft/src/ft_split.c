@@ -12,17 +12,19 @@
 
 #include "libft.h"
 
-char	**ft_free_split(char **arr, int j)
+char	**ft_free_split(char *split[])
 {
 	int	i;
 
 	i = 0;
-	while (i < j)
+	if (!split)
+		return (NULL);
+	while (split[i])
 	{
-		free(arr[i]);
+		free(split[i]);
 		i++;
 	}
-	free(arr);
+	free(split);
 	return (NULL);
 }
 
@@ -81,7 +83,7 @@ char	**ft_split(char const *s, char c)
 		{
 			arr[j] = ft_substr(s, i, ft_wrdlen(s, i, c));
 			if (!arr[j])
-				return (ft_free_split(arr, j));
+				return (ft_free_split(arr));
 			i = i + ft_wrdlen(s, i, c) - 1;
 			j++;
 		}

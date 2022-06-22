@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_list_cmds.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 20:54:52 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/20 14:13:30 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/21 15:02:01 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,14 @@ void	execute_cmd(t_command *cmd, char **env)
 		// if (ft_strlen(argv) == 0)
 		// 	ft_perror("");
 		// cmd = ft_split(argv, ' ');
-		path = ft_find_cmd(cmd->cmd_name, ft_find_paths(env));
-		if (!path)
-			ft_perror (""); // cmd not found
+		if (!cmd->cmd_name)
+			exit(1);
+		if (access(cmd->args[0], X_OK) == 0)
+			path = cmd->args[0];
+		else
+			path = ft_find_cmd(cmd->cmd_name, ft_find_paths(env));
+		if (!path || access(path, X_OK) == -1)
+			exit (printf ("minishell: %s: command not found\n", cmd->cmd_name) % 1);
 		if (execve(path, cmd->args, env) == -1)
 			ft_perror("Command execution error");
 	}
@@ -86,37 +91,58 @@ void	execute_list_cmds(t_shell *shell)
 	t_list		*list_commands;
 
 	list_commands = shell->list_commands;
-	
 	while (list_commands)
 	{
+		
 		cmd = (t_command *) list_commands->content;
+		list_commands = list_commands->next;
 
-		if (!ft_strcmp(cmd->cmd_name, "cd"))
+		if (!cmd->cmd_name)
+			continue;
+		if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "cd"))
 		{
-			printf ("my cd working...\n");
-			change_dir(shell, shell->last_cmd_input, shell->envp);
+			change_dir(shell, cmd->args);
 		}
-		else if (!ft_strcmp(cmd->cmd_name, "pwd"))
+		else if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "pwd"))
 		{
-			printf ("my pwd working...\n");
-			char *pwd = getcwd(0, 256);
-			printf ("%s\n", pwd);
-			free(pwd);
+			print_pwd(cmd->args);
 		}
-		else if (!ft_strcmp(cmd->cmd_name, "env"))
+		else if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "env"))
 		{
 			ft_listprint(shell->env);
 		}
-		else if (!ft_strcmp(cmd->cmd_name, "export"))
+		else if (!ft_strcmp(cmd->cmd_name, "echo"))
 		{
-			export_print(shell->env);
+			echo(cmd->args);
 		}
-		else if (!ft_strcmp(cmd->cmd_name, "exit"))
+		else if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "export"))
 		{
-			break;
+			export(shell, cmd->args);
+		}
+		else if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "unset"))
+		{
+			unset(shell, cmd->args);
+		}
+		else if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "exit"))
+		{
+			my_exit(shell, cmd->args);
 		}
 		else
-			execute_cmd(cmd, shell->envp);
-		list_commands = list_commands->next;
+			execute_cmd(cmd, make_env(shell));
 	}
+}
+
+int	executor(t_shell *shell)
+{
+	t_command	*cmd;
+
+	if (ft_lstsize(shell->list_commands) == 1)
+	{
+	cmd = (t_command *)shell->list_commands->content;
+	if (cmd->cmd_name && !ft_strcmp(cmd->cmd_name, "exit") &&
+		!my_exit(shell, cmd->args))
+		return (1);
+	}
+	execute_list_cmds(shell);
+	return (0);
 }

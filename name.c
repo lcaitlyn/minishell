@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   name.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 09:45:33 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/20 14:16:30 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/21 14:17:20 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*writer(int *fd, char *envp[])
 	return (str);
 }
 
-char	*get_uname(char *envp[])
+char	*get_execve(char *path, char *cmd, char *envp[])
 {
 	int		fd[2];
 	pid_t	id;
@@ -34,48 +34,20 @@ char	*get_uname(char *envp[])
 	(void)envp;
 	name = NULL;
 	if (pipe(fd) == -1)
-		ft_perror("pipe");
+		ft_perror("get_execve(): pipe");
 	id = fork();
 	if (id == -1)
-		ft_perror("fork");
+		ft_perror("get_execve(): fork");
 	else if (id == 0)
 	{
 		
 		//удалить
 		// printf ("kill %d\n", getpid());
 		if (dup2(fd[1], 1) == -1)
-			ft_perror("dup");
-		ft_exec("hostname -s", envp);
+			ft_perror("get_execve(): dup");
+		ft_exec(path, cmd, envp);
 	}
 	waitpid(id, 0, 0);
-	if (id > 0)
-		name = writer(fd, envp);
-	close(fd[0]);
-	close(fd[1]);
-	return (name);
-}
-
-char	*get_username(char *envp[])
-{
-	int		fd[2];
-	pid_t	id;
-	char	*name;
-
-	if (pipe(fd) == -1)
-		ft_perror("pipe");
-	id = fork();
-	if (id == -1)
-		ft_perror("fork");
-	else if (id == 0)
-	{
-		//удалить
-		// printf ("kill %d\n", getpid());
-		if (dup2(fd[1], 1) == -1)
-			ft_perror("dup");
-		ft_exec("whoami", envp);
-	}
-	waitpid(id, 0, 0);
-	name = NULL;
 	if (id > 0)
 		name = writer(fd, envp);
 	close(fd[0]);
@@ -89,10 +61,10 @@ char	*get_color_name(t_shell *shell, char *envp[])
 	char	*uname;
 	char	*pwd;
 
-	uname = get_uname(envp);
+	uname = get_execve("/bin/hostname", "hostname -s", envp);
 	if (!uname)
 		return (0);
-	name = get_username(envp);
+	name = get_execve("/usr/bin/whoami", "whoami", envp);
 	if (!name)
 	{
 		free(uname);

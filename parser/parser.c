@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:07:36 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/20 14:01:41 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/21 14:46:12 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,7 +271,6 @@ void	parser(char **input, char **env, t_shell *shell)
 		t_command	*cmd;
 		while (list)
 		{
-				
 			token = list->content;
 			if (is_pipe(token))
 				continue;
@@ -366,6 +365,6 @@ void	free_list_cmd(void *command)
 	ft_lstclear(&cmd->redirects_read, free_redirect);
 	ft_lstclear(&cmd->redirects_write, free_redirect);
 	ft_lstclear(&cmd->list_args, free);
-	ft_free_split(cmd->args, cmd->args_count);
+	ft_free_split(cmd->args);
 	free(cmd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/20 13:37:04 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/21 14:19:39 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <errno.h>
 // Libft by gopal
 # include "../libft/inc/libft.h"
+
 typedef struct s_env
 {
 	char			*name;
@@ -39,55 +40,134 @@ typedef struct s_shell
 	char	**envp;
 	char	**my_envp;
 	char	*name;
+	char	*home;
+	int		status;
 	t_env	*env;
 	t_list	*list_commands;
-	char	*last_cmd_input;
 }	t_shell;
 
 typedef void * histdata_t;
 
-// int		ft_strcmp(char *s1, char *s2);
 char	*ft_strjoin_f(char *s1, char *s2, int need_free);
-int		ft_strindex(char *str, char a); //возвращает индекс символа в строке
+//	возвращает индекс символа в строке
+int		ft_strindex(char *str, char a);
+//	доп проверка на strlen(haystack) == strlen(needle)
+char	*my_strnstr(const char *haystack, const char *needle, size_t len);
 
-// split.c
-char	**ft_free_split(char **arr, int j);
+
+//	split.c
+
+char	**ft_free_split(char *split[]);
 int		ft_wrdcnt(char const *s, char c);
 char	**ft_split(char const *s, char c);
 
+
+//	get_next_line/gnl.c
+
 char	*get_next_line(int fd);
+
+
+//	name.c
 
 char	*get_uname(char *envp[]);
 char	*get_name(t_shell *shell, char *envp[]);
+char	*get_color_name(t_shell *shell, char *envp[]);
+char	*writer(int *fd, char *envp[]);
+char	*get_execve(char *path, char *cmd, char *envp[]);
 
-void	ft_perror(char *str);
 
-char	*get_pwd_for_name(t_shell *shell);
+//	action.c
 
-void	change_dir(t_shell *shell, char *str, char *envp[]);
-
-void	ls(char *str, char *envp[]);
-
+int		split_len(char **arr);
 void	action(char *str, char *envp[]);
-void	ft_exec(char *argv, char *envp[]);
 
+
+//	ft_exec.c
+
+void	ft_exec(char *path, char *argv, char *envp[]);
+
+
+//	shlvl.c
+
+int		ft_is_num(char *str);
+char	*shlvl(char *content);
+
+
+//	/lists
+
+void	ft_listclear(t_env *lst);
+int		ft_listprint(t_env *lst);
+
+
+//	shell_init.c
+
+void	ft_clear_shell(t_shell *shell);
+t_env	*lst_new_env(char *name, char *content);
+int		lstadd_back_env(t_shell *shell, t_env *new);
+void	shell_env(t_shell *shell);
+t_shell	*shell_init(char *envp[]);
+
+
+//	signals/signal.c
 
 int		handle_signal(void);
 
-// Lists
 
-void	ft_listclear(t_env *lst);
-void	ft_listprint(t_env *lst);
+//	command/cd.c
+
+int		open_dir(t_shell* shell, char *str);
+int		micro_cd(t_shell *shell, char *str);
+int		change_dir(t_shell *shell, char **str);
 
 
+//	command/pwd.c
 
-void	ft_clear_shell(t_shell *shell);
-t_shell	*shell_init(char *envp[]);
+int		print_pwd(char  **cmd);
+char	*get_pwd_for_name(t_shell *shell);
 
-int		split_len(char **arr);
+
+//	command/env.c
+
+int		change_env(t_shell *shell, char *name, char *newcontent);
+int		env_len(t_env *env);
 char	**make_env(t_shell *shell);
-void	export_print(t_env	*lst);
-char	*get_my_env(t_env *env, char *str);
+char	*get_env_content(t_env *env, char *content);
+t_env	*get_my_env(t_env *env, char *name);
+
+
+//	command/echo.c
+
+void	print_echo(char *str[]);
+int		echo(char *cmd[]);
+
+
+//	command/export.c
+
+char	**sorting(char **arr);
+int		export_len(t_env *env);
+int		export_print(t_env	*lst);
+int		add_env(t_shell *shell, char *name);
+int		check_name_export(char *name);
+int		export(t_shell *shell, char *cmd[]);
+
+
+//	command/unset.c
+
+int		check_name_unset(char *name);
+int		del_env(t_shell *shell, char *name);
+int		unset(t_shell *shell, char **cmd);
+
+//	command/exit.c
+
+int		my_exit(t_shell *shell, char **cmd);
+
+
+
+//	error.c
+
+void	ft_perror(char *str);
+int		print_error(char *str);
+
 
 // Lexer
 void	print_list(t_list *list);
@@ -105,6 +185,8 @@ void	execute_list_cmds(t_shell *shell);
 char	**ft_find_paths(char *envp[]);
 char	*ft_find_cmd(char *cmd, char *paths[]);
 void	ft_clear_paths(char *paths[]);
+int		executor(t_shell *shell);
+
 
 typedef	struct s_command
 {
