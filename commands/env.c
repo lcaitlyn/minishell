@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 16:10:22 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/31 16:10:24 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/06/22 17:06:33 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 int	change_env(t_shell *shell, char *name, char *newcontent)
 {
@@ -106,10 +106,7 @@ t_env	*get_my_env(t_env *env, char *name)
 	{
 		if (ft_strnstr(name, lst->name, ft_strlen(name))
 			&& (ft_strlen(name) == ft_strlen(lst->name)))
-		{
 			return (lst);
-		}
-			
 		lst = lst->next;
 	}
 	return (0);

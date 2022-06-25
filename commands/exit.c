@@ -1,4 +1,16 @@
-#include "../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 16:10:22 by lcaitlyn          #+#    #+#             */
+/*   Updated: 2022/06/22 17:08:06 by gopal            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 int	size_len(char *arr[])
 {
@@ -16,7 +28,7 @@ int	my_exit(t_shell *shell, char **cmd)
 
 	if (!cmd)
 		return (1);
-	if (size_len(cmd)  == 1)
+	if (size_len(cmd) == 1)
 		return (0);
 	if (size_len(cmd) > 2)
 	{

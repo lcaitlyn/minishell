@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/21 14:19:39 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/06/25 10:34:00 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ int		is_single_token(char *word);
 
 // Parser
 // void	parser(char **str, char **env);
-void	parser(char **input, char **env, t_shell *shell);
+void	parser(char **input, t_shell *shell);
 void	free_list_cmd(void *command);
 
 // Executor

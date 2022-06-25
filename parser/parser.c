@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:07:36 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/21 14:46:12 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/06/23 01:10:59 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,12 +245,12 @@ char	**get_arr_args(t_list *list)
 	return (arr);
 }
 
-void	parser(char **input, char **env, t_shell *shell)
+void	parser(char **input, t_shell *shell)
 {
 	// char	*str;
 	t_list	**tokens = NULL;
 
-	tokens = make_tokens(input, env);
+	tokens = make_tokens(input, make_env(shell));
 	// puts("Tokens:");
 	// print_list(*tokens);
 

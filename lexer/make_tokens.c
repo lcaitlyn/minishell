@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 14:45:15 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/22 16:39:03 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/25 07:30:19 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,11 +303,11 @@ void	delete_empty_tokens(t_list **tokens) // а если нужно удалит
 			word = tail->content;
 			if (!ft_strncmp(word, "", 1)) // надо проверить что он не последний
 			{
-				ft_lstdelone(tail, free);
 				if (tail->next)
 					list->next = tail->next;
 				else
 					list->next = NULL;
+				ft_lstdelone(tail, free);
 			}
 		}
 		list = list->next; 
@@ -335,7 +335,8 @@ void	insert_env_var(t_list *list, char **env)
 				j = i;
 				if (ft_isdigit(word[j]))
 				{
-					while (ft_isdigit(word[j]))
+					// while (ft_isdigit(word[j]))
+					if (ft_isdigit(word[j]))
 						j++;
 					replace_var_env((char **)&list->content, i - 1, j - 1, NULL);
 					word = list->content;
@@ -360,7 +361,7 @@ void	insert_env_var(t_list *list, char **env)
 	}
 }
 
-t_list	**make_tokens(char **input, char**env)
+t_list	**make_tokens(char **input, char **env)
 {
 	char	*str;
 	t_list	**tokens = NULL;
@@ -368,15 +369,15 @@ t_list	**make_tokens(char **input, char**env)
 	str = ft_strtrim(*input, " \t\v\f\r");
 	if (!*str)
 	{
-		free(*input);
-		*input = str;
+		// free(*input);
+		// *input = str;
+		free(str);
 		return (tokens);
 	}
-
 	tokens = ft_calloc(1, sizeof(t_list **));
 	split_into_space(str, tokens);
 	insert_env_var(*tokens, env);
-	split_into_spec_sym(tokens); 
+	split_into_spec_sym(tokens);
 	strip_quotes(*tokens);
 	delete_empty_tokens(tokens);
 	free(str);

@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:53:40 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/22 16:53:51 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/25 07:08:41 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,23 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	handle_signal();
 	shell = shell_init(envp);
-		
 	printf ("*********************************\n");
 	printf ("*\t\t\t\t*\n");
 	printf ("*  Выход на Ctrl + D или exit   *\n");
 	printf ("*\t\t\t\t*\n");
 	printf ("*********************************\n");
 
-	while (1)
+	while (7)
 	{
 		name = get_name(shell, envp);
 		str = readline(name);
 		free (name);
 		if (!str)
 			break ;
-		if (ft_strlen(str) != 0)
+		if (ft_strlen(str) != 0)// это условие под вопросом, Баш туповат
 		{
 			add_history(str);
-			parser(&str, shell->envp, shell);
+			parser(&str, shell);
 			if (shell->list_commands && executor(shell))
 			{
 				ft_lstclear(&shell->list_commands, free_list_cmd);

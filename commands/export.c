@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 16:10:17 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/21 14:48:24 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/06/23 02:31:54 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 char	**sorting(char **arr)
 {
-	int	i = 0;
-	int	j;
-	char *tmp;
+	int		i;
+	int		j;
+	char	*tmp;
 
+	i = 0;
 	while (arr[i])
 	{
 		j = 0;

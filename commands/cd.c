@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 14:26:29 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/21 13:08:14 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/06/22 17:06:23 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 int	open_dir(t_shell *shell, char *str)
 {
@@ -64,7 +64,6 @@ int	micro_cd(t_shell *shell, char *str)
 int	change_dir(t_shell *shell, char *cmd[])
 {
 	write (1, "my cd working...\n", 17);
-	
 	if (split_len(cmd) > 2)
 		return (print_error("minishell: cd: too many arguments"));
 	if (!cmd[1])

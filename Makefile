@@ -6,21 +6,21 @@ LIBFT_DIR	=	./libft/
 LIBFT_INC	=	libft/inc
 LIBFT		=	-L libft -l ft -I libft/inc/
 
-SRCS		= 	minishell.c\
-			libft/ft_strindex.c libft/ft_strjoin_f.c libft/my_strnstr.c\
-			lists/ft_listclear.c lists/ft_listprint.c\
-			get_next_line/gnl.c\
-			signals/signal.c\
-			commands/pwd.c commands/cd.c commands/export.c\
-			commands/env.c commands/echo.c commands/unset.c\
-			commands/exit.c\
-			ft_exec.c name.c action.c\
-			shell_init.c\
-			error.c\
-			shlvl.c\
-			parser/parser.c\
-			lexer/make_tokens.c\
-			executor/execute_list_cmds.c\
+SRCS		=	minishell.c\
+				libft/ft_strindex.c libft/ft_strjoin_f.c libft/my_strnstr.c\
+				lists/ft_listclear.c lists/ft_listprint.c\
+				get_next_line/gnl.c\
+				signals/signal.c\
+				commands/pwd.c commands/cd.c commands/export.c\
+				commands/env.c commands/echo.c commands/unset.c\
+				commands/exit.c\
+				ft_exec.c name.c action.c\
+				shell_init.c\
+				error.c\
+				shlvl.c\
+				parser/parser.c\
+				lexer/make_tokens.c\
+				executor/execute_list_cmds.c\
 
 OBJ		=	$(SRCS:%.c=%.o)
 
@@ -31,7 +31,7 @@ CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 all		:	$(LIBFT_A) $(NAME)
 
 %.o		:	%.c
-				@gcc $(CFLAGS) -I include -c $< -o $@
+				gcc $(CFLAGS) -I include -c $< -o $@
 
 $(NAME)		:	$(OBJ)
 				@gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
@@ -50,5 +50,5 @@ fclean		:	clean
 
 re		:	fclean all
 
-run		:	re
-				./minishell
+run		:	all
+			@./minishell
