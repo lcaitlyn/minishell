@@ -7,19 +7,33 @@ LIBFT_INC	=	libft/inc
 LIBFT		=	-L libft -l ft -I libft/inc/
 
 SRCS		=	minishell.c\
-				libft/ft_strindex.c libft/ft_strjoin_f.c libft/my_strnstr.c\
-				lists/ft_listclear.c lists/ft_listprint.c\
+				libft/ft_strindex.c\
+				libft/ft_strjoin_f.c\
+				libft/my_strnstr.c\
+				lists/ft_listclear.c\
+				lists/ft_listprint.c\
 				get_next_line/gnl.c\
 				signals/signal.c\
-				commands/pwd.c commands/cd.c commands/export.c\
-				commands/env.c commands/echo.c commands/unset.c\
+				commands/pwd.c\
+				commands/cd.c\
+				commands/export.c\
+				commands/env.c\
+				commands/echo.c\
+				commands/unset.c\
 				commands/exit.c\
 				ft_exec.c name.c action.c\
 				shell_init.c\
 				error.c\
 				shlvl.c\
-				parser/parser.c\
+				lexer/insert_env_var.c\
+				lexer/insert_env_var_utils.c\
+				lexer/strip_quotes.c\
+				lexer/split_into_space.c\
+				lexer/split_into_spec_sym.c\
+				lexer/delete_empty_tokens.c\
+				lexer/lexer_utils.c\
 				lexer/make_tokens.c\
+				parser/parser.c\
 				executor/execute_list_cmds.c\
 
 OBJ		=	$(SRCS:%.c=%.o)

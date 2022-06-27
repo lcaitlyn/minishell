@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/25 10:34:00 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 01:01:04 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,9 @@ t_env	*get_my_env(t_env *env, char *name);
 
 //	command/echo.c
 
-void	print_echo(char *str[]);
-int		echo(char *cmd[]);
+// void	print_echo(char *str[]);
+// int		echo(char *cmd[]);
+int		echo(char *args[], int fd);
 
 
 //	command/export.c
@@ -168,15 +169,24 @@ int		my_exit(t_shell *shell, char **cmd);
 void	ft_perror(char *str);
 int		print_error(char *str);
 
-
 // Lexer
 void	print_list(t_list *list);
 void	print_redir_list(t_list *list);
-t_list	**make_tokens(char **input, char**env);
+void	check_open_q(char c, char *flag_open);
+void	insert_env_var_tokens(t_list *list, char **env);
+char	*get_key(char *word, int *i, int *j);
+int		is_quote(char c);
+void	check_open_q(char c, char *flag_open);
+int		is_spec_sym(char c);
 int		is_single_token(char *word);
+int		is_sym_var_env(char c);
+void	split_into_space(char *str, t_list **tokens);
+void	split_into_spec_sym(t_list **tokens);
+void	strip_quotes(t_list *tokens);
+void	delete_empty_tokens(t_list **tokens);
+t_list	**make_tokens(char **input, char**env);
 
 // Parser
-// void	parser(char **str, char **env);
 void	parser(char **input, t_shell *shell);
 void	free_list_cmd(void *command);
 
@@ -186,7 +196,6 @@ char	**ft_find_paths(char *envp[]);
 char	*ft_find_cmd(char *cmd, char *paths[]);
 void	ft_clear_paths(char *paths[]);
 int		executor(t_shell *shell);
-
 
 typedef	struct s_command
 {

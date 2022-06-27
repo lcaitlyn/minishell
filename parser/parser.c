@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:07:36 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/23 01:10:59 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/27 17:02:32 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,40 +26,6 @@ void	free_list_cmd(void *cmd);
 // 						 и проверяет сами токены редиректов
 // пайп в начале и в конце - ящик пандоры,
 // редирект без пары - очень грустный - Error
-
-
-
-
-
-// int	cnt_len_word(char *str, int i)
-// {
-// 	int j;
-
-// 	j = i;
-// 	while (!ft_isspace(str[j]) && str[j] != '\0')
-// 	{
-// 		if (str[j] == '\'')
-// 		{
-// 			j++;
-// 			while (str[j] && str[j] != '\'')
-// 				j++;
-// 			if (str[j] == '\'')
-// 				j++;
-// 		}
-// 		else if (str[j] == '\"')
-// 		{
-// 			j++;
-// 			while (str[j] && str[j] != '\"')
-// 				j++;
-// 			if (str[j] == '\"')
-// 				j++;
-// 		}
-// 		else
-// 			j++;
-// 	}
-// 	return (j);
-// }
-
 
 // 3 типа редиректа и heredoc, а также пайп
 // еще можно раздеть кавычки у строк, и склеить слипшие строки
@@ -254,8 +220,6 @@ void	parser(char **input, t_shell *shell)
 	// puts("Tokens:");
 	// print_list(*tokens);
 
-
-	// проверка на пустую душу??????
 	t_list *list_commands = NULL;
 	if (tokens && is_valid_tokens(*tokens))
 	{

@@ -6,13 +6,13 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 16:23:08 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/25 12:04:30 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 01:59:12 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_echo(char *str[])
+void	print_echo(char *str[], int fd)
 {
 	int	i;
 
@@ -20,14 +20,13 @@ void	print_echo(char *str[])
 	while (str && str[i])
 	{
 		if (i)
-			write(1, " ", 1);
-		write(1, str[i], ft_strlen(str[i]));
+			write(fd, " ", 1);
+		write(fd, str[i], ft_strlen(str[i]));
 		i++;
 	}
 }
 
-// Нужно переписать echo так, чтобы он писал по заданному fd
-int	echo(char *args[])
+int	echo(char *args[], int fd)
 {
 	int	need_n;
 	int	i;
@@ -47,8 +46,10 @@ int	echo(char *args[])
 		else
 			break ;
 	}
-	print_echo(args + i);
+	print_echo(args + i, fd);
 	if (need_n)
-		write (1, "\n", 1);
+		write (fd, "\n", 1);
+	if (fd != 1)
+		close(fd);
 	return (0);
 }
