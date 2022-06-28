@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:40:36 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/27 18:40:33 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 09:25:37 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,23 @@ int	is_single_token(char *word)
 	int	i;
 
 	i = 0;
-	while (word[i])
+	if (is_string(word[i]))
 	{
-		if (!is_spec_sym(word[i]))
-			return (0);
-		i++;
+		while (word[i])
+		{
+			if (!is_string(word[i]))
+				return (0);
+			i++;
+		}
+	}
+	if (is_spec_sym(word[i]))
+	{
+		while (word[i])
+		{
+			if (!is_spec_sym(word[i]))
+				return (0);
+			i++;
+		}
 	}
 	return (1);
 }

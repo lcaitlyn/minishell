@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/28 01:01:04 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 09:35:18 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,8 @@ int		print_error(char *str);
 void	print_list(t_list *list);
 void	print_redir_list(t_list *list);
 void	check_open_q(char c, char *flag_open);
+int		is_string(char c);
+int		is_str_word(char *str);
 void	insert_env_var_tokens(t_list *list, char **env);
 char	*get_key(char *word, int *i, int *j);
 int		is_quote(char c);

@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:07:36 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/27 17:02:32 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 09:44:17 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,14 +125,12 @@ int	is_valid_tokens(t_list *tokens)
 		token = tokens->content;
 		if (is_single_token(token))
 		{
-			if (is_redirects(token) || is_pipe(token))
+			if (is_redirects(token) || is_pipe(token) || is_str_word(token))
 			{
 				tokens = tokens->next;
 				continue;
 			}
-			ft_putstr_fd("Syntax error: invalid token '", 2);
-			ft_putstr_fd(token, 2);
-			ft_putstr_fd("'\n", 2);
+			printf("Syntax error: invalid token '%s'\n", token);
 			return (0);
 		}
 		tokens = tokens->next;
@@ -217,8 +215,8 @@ void	parser(char **input, t_shell *shell)
 	t_list	**tokens = NULL;
 
 	tokens = make_tokens(input, make_env(shell));
-	// puts("Tokens:");
-	// print_list(*tokens);
+	puts("Tokens:");
+	print_list(*tokens);
 
 	t_list *list_commands = NULL;
 	if (tokens && is_valid_tokens(*tokens))
