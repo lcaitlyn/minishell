@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:07:36 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/28 14:27:21 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/29 02:07:47 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,41 @@ void	fill_cmd_name_args(t_command *cmd, char *token)
 	cmd->args_count += 1;
 }
 
+void	make_cmd(t_list **list_tokens, t_shell *shell)
+{
+	t_command	*cmd;
+	t_list		*list;
+	char		*token;
+	char		*next_token;
+
+	list = *list_tokens;
+	cmd = init_cmd();
+	while (list && !is_pipe(list->content))
+	{
+		token = list->content;
+		if (is_redirects(token))
+		{
+			next_token = list->next->content;
+			fill_redirect(cmd, token, next_token);
+			list = list->next;
+		}
+		else
+			fill_cmd_name_args(cmd, token);
+		list = list->next;
+	}
+	cmd->args = get_arr_args(cmd->list_args);
+	ft_lstadd_back(&shell->list_commands, ft_lstnew(cmd));
+	*list_tokens = list;
+}
+
+// *** Отладочная печать ***
 // puts("Tokens:");
 // print_list(*tokens);
+// print_list_cmds(list_commands);
 
 void	parser(t_shell *shell)
 {
 	t_list		*list;
-	char		*token;
-	char		*next_token;
-	t_command	*cmd;
 
 	if (shell->list_tokens && *(shell->list_tokens)
 		&& is_valid_tokens(*(shell->list_tokens)))
@@ -74,24 +100,7 @@ void	parser(t_shell *shell)
 		while (list)
 		{
 			if (!is_pipe(list->content))
-			{
-				cmd = init_cmd();
-				while (list && !is_pipe(list->content))
-				{
-					token = list->content;
-					if (is_redirects(token))
-					{
-						next_token = list->next->content;
-						fill_redirect(cmd, token, next_token);
-						list = list->next;
-					}
-					else
-						fill_cmd_name_args(cmd, token);
-					list = list->next;
-				}
-				cmd->args = get_arr_args(cmd->list_args);
-				ft_lstadd_back(&shell->list_commands, ft_lstnew(cmd));
-			}
+				make_cmd(&list, shell);
 			if (list)
 				list = list->next;
 		}
@@ -100,4 +109,3 @@ void	parser(t_shell *shell)
 	free(shell->list_tokens);
 	shell->list_tokens = NULL;
 }
-// print_list_cmds(list_commands);
