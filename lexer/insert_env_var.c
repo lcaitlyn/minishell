@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:18:49 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/27 18:38:37 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 08:48:44 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	insert_env_var(char **ptr_word, char *word, char **env)
 		{
 			j = ++i;
 			value = NULL;
-			if (ft_isdigit(word[j]))
+			if (ft_isdigit(word[j]) || word[j] == '$')
 				j++;
 			else if (is_sym_var_env(word[j]))
 				value = find_var_env(get_key(word, &i, &j), env);
