@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 20:54:52 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/28 01:36:24 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 08:00:36 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,17 +113,14 @@ void	execute_cmd(t_command *cmd, /*char **env */ t_shell *shell)
 				path = ft_find_cmd(cmd->cmd_name, ft_find_paths(shell->my_envp));
 			if (!path || access(path, X_OK) == -1)
 				exit (printf ("minishell: %s: command not found\n", cmd->cmd_name) % 1);
-			// write(1, "a\n", 2);
 			if (execve(path, cmd->args, shell->my_envp) == -1)
 			{
 				ft_perror("Command execution error");
+				exit(1);
 			}
-			// write(1, "b\n", 2);
-			// puts("Закрытие труб");
-			
-			exit(1);
 		}
-		else {
+		else
+		{
 			int	status;
 			waitpid(pid, &status, 0);
 			if (cmd->fd_read != 0)
@@ -157,23 +154,6 @@ void	set_pipes_cmds(t_list *list_commands, t_shell *shell)
 		list_commands = list_commands->next;
 	}
 }
-
-// void	close_pipes_cmds(t_list *list_commands)
-// {
-// 	// t_list	*start;
-// 	t_command	*cmd;
-
-// 	// start = list_commands;
-// 	while (list_commands)
-// 	{
-// 		cmd = list_commands->content;
-// 		if (cmd->fd_read != 0)
-// 			close(cmd->fd_read);
-// 		// if (cmd->fd_write != 1)
-// 		// 	close(cmd->fd_write);
-// 		list_commands = list_commands->next;
-// 	}
-// }
 
 void	execute_list_cmds(t_shell *shell)
 {

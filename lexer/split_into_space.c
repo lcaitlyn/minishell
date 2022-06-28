@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:34:35 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/27 18:42:29 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 03:52:03 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ int	skiper_spaces(char *str, int *i, char *flag_open)
 	}
 	return (j);
 }
+
+// split_into_space и split_into_spec_sym можно объединить и упростить
+// у второй функции слишком усложненная реализация 
+// через вставку в середину списка
 
 void	split_into_space(char *str, t_list **tokens)
 {

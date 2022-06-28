@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 14:45:15 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/27 18:41:05 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 03:06:45 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ t_list	**make_tokens(char **input, char **env)
 		insert_env_var_tokens(*tokens, env);
 		split_into_spec_sym(tokens);
 		strip_quotes(*tokens);
-		// delete_empty_tokens(tokens);
 	}
 	free(str);
 	return (tokens);
 }
+// delete_empty_tokens(tokens);
 
 // echo "" hello   --- печатает ' hello' то есть пустая строка это тоже аргумент
 // под вопросом эта функция delete_empty_tokens(tokens);
