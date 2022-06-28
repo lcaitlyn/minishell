@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/28 09:35:18 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 14:30:32 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_shell
 	char	*home;
 	int		status;
 	t_env	*env;
+	t_list	**list_tokens;
 	t_list	*list_commands;
 }	t_shell;
 
@@ -137,8 +138,6 @@ t_env	*get_my_env(t_env *env, char *name);
 
 //	command/echo.c
 
-// void	print_echo(char *str[]);
-// int		echo(char *cmd[]);
 int		echo(char *args[], int fd);
 
 
@@ -162,8 +161,6 @@ int		unset(t_shell *shell, char **cmd);
 
 int		my_exit(t_shell *shell, char **cmd);
 
-
-
 //	error.c
 
 void	ft_perror(char *str);
@@ -182,15 +179,26 @@ void	check_open_q(char c, char *flag_open);
 int		is_spec_sym(char c);
 int		is_single_token(char *word);
 int		is_sym_var_env(char c);
-void	split_into_space(char *str, t_list **tokens);
-void	split_into_spec_sym(t_list **tokens);
+void	split_into_tokens(char *str, t_list **tokens);
 void	strip_quotes(t_list *tokens);
 void	delete_empty_tokens(t_list **tokens);
-t_list	**make_tokens(char **input, char**env);
+void	lexer(char **input, t_shell *shell);
 
 // Parser
-void	parser(char **input, t_shell *shell);
+void	parser(t_shell *shell);
 void	free_list_cmd(void *command);
+// Parser: prints
+void	print_list_cmds(t_list *list_commands);
+void	print_list(t_list *list);
+void	print_arr_str(char **arr);
+void	print_redir_list(t_list *list);
+// Parser: Utils
+int		is_redirects(char *str);
+int		is_pipe(char *str);
+int		is_spec_token(char *str);
+char	**get_arr_args(t_list *list);
+int		is_valid_tokens(t_list *tokens);
+
 
 // Executor
 void	execute_list_cmds(t_shell *shell);

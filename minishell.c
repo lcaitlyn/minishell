@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:53:40 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/25 07:08:41 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 14:25:54 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ int	main(int argc, char *argv[], char *envp[])
 		free (name);
 		if (!str)
 			break ;
-		if (ft_strlen(str) != 0)// это условие под вопросом, Баш туповат
+		if (ft_strlen(str) != 0)
 		{
 			add_history(str);
-			parser(&str, shell);
+			lexer(&str, shell);
+			parser(shell);
 			if (shell->list_commands && executor(shell))
 			{
 				ft_lstclear(&shell->list_commands, free_list_cmd);

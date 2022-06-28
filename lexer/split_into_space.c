@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:34:35 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/28 09:34:55 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 14:03:26 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	get_length_token(char *str, int *i, char *flag_open)
 // у второй функции слишком усложненная реализация 
 // через вставку в середину списка
 
-void	split_into_space(char *str, t_list **tokens)
+void	split_into_tokens(char *str, t_list **tokens)
 {
 	int		i;
 	int		j;

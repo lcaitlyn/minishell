@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 18:50:03 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/25 10:34:09 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 13:41:35 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ t_shell	*shell_init(char *envp[])
 	shell->env = NULL;
 	shell->status = 0;
 	shell->list_commands = NULL;
+	shell->list_tokens = NULL;
 	shell_env(shell);
 	return (shell);
 }

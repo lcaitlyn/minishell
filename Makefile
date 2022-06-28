@@ -30,8 +30,12 @@ SRCS		=	minishell.c\
 				lexer/strip_quotes.c\
 				lexer/split_into_space.c\
 				lexer/lexer_utils.c\
-				lexer/make_tokens.c\
+				lexer/lexer.c\
 				parser/parser.c\
+				parser/parser_utils.c\
+				parser/prints.c\
+				parser/validation_tokens.c\
+				parser/free_list_cmd.c\
 				executor/execute_list_cmds.c\
 
 OBJ		=	$(SRCS:%.c=%.o)

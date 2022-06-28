@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_tokens.c                                      :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 14:45:15 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/28 09:02:03 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 14:09:33 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	**make_tokens(char **input, char **env)
+void	make_tokens(char **input, char **env, t_shell *shell)
 {
 	char	*str;
 	t_list	**tokens;
 
-	tokens = NULL;
 	str = ft_strtrim(*input, " \t\v\f\r");
 	if (*str)
 	{
 		tokens = ft_calloc(1, sizeof(t_list **));
-		split_into_space(str, tokens);
+		split_into_tokens(str, tokens);
 		insert_env_var_tokens(*tokens, env);
 		strip_quotes(*tokens);
+		shell->list_tokens = tokens;
 	}
 	free(str);
-	return (tokens);
 }
-// split_into_spec_sym(tokens);
-// delete_empty_tokens(tokens);
 
-// echo "" hello   --- печатает ' hello' то есть пустая строка это тоже аргумент
-// под вопросом эта функция delete_empty_tokens(tokens);
+void	lexer(char **input, t_shell *shell)
+{
+	char	**env;
+
+	env = make_env(shell);
+	make_tokens(input, env, shell);
+}

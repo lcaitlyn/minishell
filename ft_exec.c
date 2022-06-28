@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:18:22 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/25 19:07:10 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/28 10:10:49 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	ft_clear_paths(char *paths[])
 	int	i;
 
 	i = 0;
-	if (!paths)
-		return ;
-	while (paths[i])
+	while (paths && paths[i])
 	{
 		free(paths[i]);
 		i++;
