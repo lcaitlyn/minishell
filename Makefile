@@ -29,8 +29,6 @@ SRCS		=	minishell.c\
 				lexer/insert_env_var_utils.c\
 				lexer/strip_quotes.c\
 				lexer/split_into_space.c\
-				lexer/split_into_spec_sym.c\
-				lexer/delete_empty_tokens.c\
 				lexer/lexer_utils.c\
 				lexer/make_tokens.c\
 				parser/parser.c\
