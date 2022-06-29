@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 20:54:52 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/29 09:44:32 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/29 15:10:47 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	check_redirs_read(t_command *cmd)
 {
-	// а, еще heredoc (интерактивный ввод до стоп слова) - тоже редирект
-	// и стоит в такой же очереди
 	t_list		*list_fd;
 	int			fd;
 	t_redirect	*redirect;
@@ -38,12 +36,28 @@ void	check_redirs_read(t_command *cmd)
 			fd = open(redirect->file_name, O_RDONLY);
 			cmd->fd_read = fd;
 		}
-		// if (!ft_strcmp(redirect->type_redir, "<<"))
-		// {
-		// 	if (cmd->fd_read != 0 || cmd->fd_read != -1)
-		// 		close(cmd->fd_read);
-			
-		// } 
+		if (!ft_strcmp(redirect->type_redir, "<<"))
+		{
+			if (cmd->fd_read != 0 && cmd->fd_read != -1)
+				close(cmd->fd_read);
+			int	pipe_heredoc[2];
+			pipe(pipe_heredoc);
+			cmd->fd_read = pipe_heredoc[0];
+			signal(SIGINT, (void *) SIGTERM);
+			char	*line_read = readline("heredoc> ");
+			while (ft_strcmp(line_read, redirect->file_name) != 0 )
+			{
+				ft_putstr_fd(line_read, pipe_heredoc[1]);
+				ft_putstr_fd("\n", pipe_heredoc[1]);
+				free(line_read);
+				signal(SIGINT, (void *) SIG_IGN);
+				// signal(SIGINT, (void *)&signal_sigint);
+				line_read = readline("heredoc> ");
+				signal(SIGINT, (void *) SIGTERM);
+			}
+			close(pipe_heredoc[1]);
+			signal(SIGINT, (void *)&signal_sigint);
+		} 
 		list_fd = list_fd->next;
 	}
 }
@@ -115,15 +129,6 @@ void	execute_builtin_cmd(t_command *cmd, t_shell *shell)
 
 void	execute_cmd(t_command *cmd, t_shell *shell)
 {
-	
-	// cmd->fd_read = check_redirs_read(cmd->redirects_read);
-	// cmd->fd_write = check_redirs_write(cmd->redirects_read);
-
-	// тут типа долгая настройка fd
-	// нужно придумать организацию пайпов (типа у первого нет входного потока от пайпа,
-	// у последнего нет выходного пайпа, а еще редиректы переопределяют пайтп)
-
-	// Нужно разобрать как работает Pipex с бонусами
 	pid_t	pid;
 
 	check_redirs_read(cmd);
@@ -133,7 +138,7 @@ void	execute_cmd(t_command *cmd, t_shell *shell)
 	{
 		execute_builtin_cmd(cmd, shell);
 	}
-	else if (cmd->cmd_name && cmd->fd_read >= 0)
+	else if (cmd->cmd_name && cmd->fd_read >= 0 && cmd->fd_write > 0)
 	{
 		pid = fork();
 		if (pid == -1)
