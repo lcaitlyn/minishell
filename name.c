@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 09:45:33 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/29 06:10:04 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/29 15:23:51 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ char	*get_color_name(t_shell *shell, char *envp[])
 	}
 	name = ft_strjoin_f(name, "@", 1);
 	name = ft_strjoin_f(name, uname, 3);
-	// name = ft_strjoin_f(READLINE_GREEN, name, 2);
-	// name = ft_strjoin_f(name, RESET, 1);
 	name = ft_strjoin_f(name, ":", 1);
 	pwd = get_pwd_for_name(shell);
 	name = ft_strjoin_f(name, pwd, 3);
 	name = ft_strjoin_f(name, "[MINISHELL]> ", 1);
 	return (name);
 }
+// name = ft_strjoin_f(READLINE_GREEN, name, 2);
+// name = ft_strjoin_f(name, RESET, 1);
 
 char	*get_name(t_shell *shell, char *envp[])
 {

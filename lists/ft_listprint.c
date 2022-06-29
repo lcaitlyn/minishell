@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_listprint.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/29 15:21:41 by gopal             #+#    #+#             */
+/*   Updated: 2022/06/29 15:22:16 by gopal            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 int	ft_listprint(t_env *lst)
@@ -8,7 +20,7 @@ int	ft_listprint(t_env *lst)
 	while (lst)
 	{
 		if (lst->content)
-		printf ("%s=%s\n", lst->name, lst->content);
+			printf("%s=%s\n", lst->name, lst->content);
 		lst = lst->next;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/29 08:51:45 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/29 15:36:00 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/stat.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <signal.h>
 // Libft by gopal
 # include "../libft/inc/libft.h"
 
@@ -48,7 +49,25 @@ typedef struct s_shell
 	t_list	*list_commands;
 }	t_shell;
 
-typedef void * histdata_t;
+typedef struct s_command
+{
+	char	*cmd_name;
+	t_list	*list_args;
+	int		args_count;
+	char	**args;
+	t_list	*redirects_read;
+	t_list	*redirects_write;
+	int		fd_read;
+	int		fd_write;
+}	t_command;
+
+typedef struct s_redirect
+{
+	char	*file_name;
+	char	*type_redir;	
+}	t_redirect;
+
+// typedef void *histdata_t;
 
 char	*ft_strjoin_f(char *s1, char *s2, int need_free);
 //	возвращает индекс символа в строке
@@ -62,73 +81,56 @@ char	**ft_free_split(char *split[]);
 int		ft_wrdcnt(char const *s, char c);
 char	**ft_split(char const *s, char c);
 
-
 //	get_next_line/gnl.c
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
 char	*get_next_line(int fd);
 
-
 //	name.c
-
 char	*get_uname(char *envp[]);
 char	*get_name(t_shell *shell, char *envp[]);
 char	*get_color_name(t_shell *shell, char *envp[]);
 char	*writer(int *fd, char *envp[]);
 char	*get_execve(char *path, char *cmd, char *envp[]);
 
-
 //	action.c
-
 int		split_len(char **arr);
 void	action(char *str, char *envp[]);
 
-
 //	ft_exec.c
-
 void	ft_exec(char *path, char *argv, char *envp[]);
 
-
 //	shlvl.c
-
 int		ft_is_num(char *str);
 char	*shlvl(char *content);
 
-
 //	/lists
-
 void	ft_listclear(t_env *lst);
 int		ft_listprint(t_env *lst);
 
-
 //	shell_init.c
-
 void	ft_clear_shell(t_shell *shell);
 t_env	*lst_new_env(char *name, char *content);
 int		lstadd_back_env(t_shell *shell, t_env *new);
 void	shell_env(t_shell *shell);
 t_shell	*shell_init(char *envp[]);
 
-
 //	signals/signal.c
-
 int		handle_signal(void);
-
+int		signal_sigint(int sig);
 
 //	command/cd.c
-
-int		open_dir(t_shell* shell, char *str);
+int		open_dir(t_shell *shell, char *str);
 int		micro_cd(t_shell *shell, char *str);
 int		change_dir(t_shell *shell, char **str);
 
-
 //	command/pwd.c
-
-int		print_pwd(char  **cmd);
+int		print_pwd(char **cmd);
 char	*get_pwd_for_name(t_shell *shell);
 
-
 //	command/env.c
-
 int		change_env(t_shell *shell, char *name, char *newcontent);
 int		env_len(t_env *env);
 void	fill_arr_env(t_env *list_env, char **arr_env);
@@ -136,32 +138,25 @@ char	**make_env(t_shell *shell);
 char	*get_env_content(t_env *env, char *content);
 t_env	*get_my_env(t_env *env, char *name);
 
-
 //	command/echo.c
-
 int		echo(char *args[], int fd);
 
 //	command/export.c
-
 int		export_len(t_env *env);
 int		export_print(t_env	*lst);
 int		add_env(t_shell *shell, char *name);
 int		check_name_export(char *name);
 int		export(t_shell *shell, char *cmd[]);
 
-
 //	command/unset.c
-
 int		check_name_unset(char *name);
 int		del_env(t_shell *shell, char *name);
 int		unset(t_shell *shell, char **cmd);
 
 //	command/exit.c
-
 int		my_exit(t_shell *shell, char **cmd);
 
 //	error.c
-
 void	ft_perror(char *str);
 int		print_error(char *str);
 
@@ -198,31 +193,11 @@ int		is_spec_token(char *str);
 char	**get_arr_args(t_list *list);
 int		is_valid_tokens(t_list *tokens);
 
-
 // Executor
 void	execute_list_cmds(t_shell *shell);
 char	**ft_find_paths(char *envp[]);
 char	*ft_find_cmd(char *cmd, char *paths[]);
 void	ft_clear_paths(char *paths[]);
 int		executor(t_shell *shell);
-
-typedef	struct s_command
-{
-	char	*cmd_name;
-	t_list	*list_args;
-	int		args_count;
-	char	**args; // не забыть 0 - команда
-	t_list	*redirects_read; // если NULL - Стандарт ввод
-	t_list	*redirects_write;
-	int		fd_read; // start -1
-	int		fd_write; // start -1
-	
-}	t_command;
-
-typedef struct s_redirect
-{
-	char	*file_name;
-	char	*type_redir;	
-}	t_redirect;
 
 #endif

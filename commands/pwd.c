@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 13:17:31 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/29 05:51:47 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/29 15:13:08 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ char	*get_pwd_for_name(t_shell *shell)
 		pwd = ft_strjoin("~", pwd + ft_strlen(home));
 		free(fr);
 	}
-	// pwd = ft_strjoin_f(TERM_BLUE, pwd, 2);
-	// pwd = ft_strjoin_f(pwd, RESET, 1);
 	return (pwd);
 }
+// pwd = ft_strjoin_f(TERM_BLUE, pwd, 2);
+// pwd = ft_strjoin_f(pwd, RESET, 1);
 
 int	print_pwd(char	**cmd)
 {

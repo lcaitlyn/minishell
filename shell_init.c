@@ -6,16 +6,16 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 18:50:03 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/28 13:41:35 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/29 15:26:41 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
 
+//	free(shell->home);
 void	ft_clear_shell(t_shell *shell)
 {
 	ft_listclear(shell->env);
-//	free(shell->home);
 	ft_free_split(shell->my_envp);
 	free(shell);
 }
@@ -30,7 +30,6 @@ t_env	*lst_new_env(char *name, char *content)
 	lst->name = name;
 	lst->content = content;
 	lst->next = NULL;
-	
 	return (lst);
 }
 
@@ -80,7 +79,7 @@ void	shell_env(t_shell *shell)
 t_shell	*shell_init(char *envp[])
 {
 	t_shell	*shell;
-	
+
 	shell = malloc(sizeof(t_shell));
 	if (!shell)
 	{

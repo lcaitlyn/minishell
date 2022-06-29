@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:18:22 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/28 10:10:49 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/29 15:23:24 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	**ft_find_paths(char *envp[])
 void	ft_exec(char *path, char *argv, char *envp[])
 {
 	char	**cmd;
-	
+
 	if (ft_strlen(argv) == 0)
 		ft_perror("");
 	cmd = ft_split(argv, ' ');
