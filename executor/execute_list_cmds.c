@@ -6,40 +6,78 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 20:54:52 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/28 08:00:36 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/29 09:44:32 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_redirs_read(t_list *redirects_read)
+void	check_redirs_read(t_command *cmd)
 {
-	(void)redirects_read;
-	// проверим что файлы существуют и доступны для чтения
-	// и вернем fd последнего редиректа
 	// а, еще heredoc (интерактивный ввод до стоп слова) - тоже редирект
 	// и стоит в такой же очереди
-	// а пайп (ввод из терминала 0 fd) будет доступен при отсутсвии редиректов
+	t_list		*list_fd;
+	int			fd;
+	t_redirect	*redirect;
 
-	// вывод ошибки если что-то пошло не так (или это свалить на заботы команды с execve?)
-
-	return (0); // по умолчанию возращаем fd ввода стандартного терминала
+	list_fd = cmd->redirects_read;
+	while (list_fd)
+	{
+		redirect = list_fd->content;
+		
+		if (!ft_strcmp(redirect->type_redir, "<"))
+		{
+			if (cmd->fd_read != 0 && cmd->fd_read != -1)
+				close(cmd->fd_read);
+			if (access(redirect->file_name, F_OK) != 0
+				|| access(redirect->file_name, R_OK) != 0)
+			{
+				perror("miniSH");
+				cmd->fd_read = -1;
+			}
+			fd = open(redirect->file_name, O_RDONLY);
+			cmd->fd_read = fd;
+		}
+		// if (!ft_strcmp(redirect->type_redir, "<<"))
+		// {
+		// 	if (cmd->fd_read != 0 || cmd->fd_read != -1)
+		// 		close(cmd->fd_read);
+			
+		// } 
+		list_fd = list_fd->next;
+	}
 }
 
-int	check_redirs_write(t_list *redirects_write)
+void	check_redirs_write(t_command *cmd)
 {
-	(void)redirects_write;
-	// проверим что файлы существуют и доступны для записи
-	// если их нет, то создать, если есть - перезаписать на ноль
-	// за исключением редиректа '>>' - открыть файл для добавления контента
-	// и вернем fd последнего редиректа
-	// Так, результат выполнения команды мы пишем в последний файл редиректа 
-	// (несмотря на то, что мы создали или обнулили до этого другие файлы)
-	// а пайп (вывод из терминала 1 fd) будет доступен при отсутсвии редиректов
+	t_list		*list_fd;
+	int			fd;
+	t_redirect	*redirect;
 
-	// вывод ошибки если что-то пошло не так (или это свалить на заботы команды с execve?)
-
-	return (1); // по умолчанию возращаем fd вывода стандартного терминала
+	list_fd = cmd->redirects_write;
+	while (list_fd)
+	{
+		redirect = list_fd->content;
+		
+		if (!ft_strcmp(redirect->type_redir, ">")
+			|| !ft_strcmp(redirect->type_redir, ">>"))
+		{
+			if (cmd->fd_write != 1 && cmd->fd_write != -1)
+				close(cmd->fd_write);
+			if (access(redirect->file_name, F_OK) == 0
+				&& access(redirect->file_name, W_OK) != 0)
+			{
+				perror("miniSH");
+				cmd->fd_read = -1;
+			}
+			if (!ft_strcmp(redirect->type_redir, ">"))
+				fd = open(redirect->file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
+			else if (!ft_strcmp(redirect->type_redir, ">>"))
+				fd = open(redirect->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
+			cmd->fd_write = fd;
+		}
+		list_fd = list_fd->next;
+	}
 }
 
 int	is_builtin_cmd(char *cmd_name)
@@ -75,7 +113,7 @@ void	execute_builtin_cmd(t_command *cmd, t_shell *shell)
 		my_exit(shell, cmd->args);
 }
 
-void	execute_cmd(t_command *cmd, /*char **env */ t_shell *shell)
+void	execute_cmd(t_command *cmd, t_shell *shell)
 {
 	
 	// cmd->fd_read = check_redirs_read(cmd->redirects_read);
@@ -88,12 +126,14 @@ void	execute_cmd(t_command *cmd, /*char **env */ t_shell *shell)
 	// Нужно разобрать как работает Pipex с бонусами
 	pid_t	pid;
 
+	check_redirs_read(cmd);
+	check_redirs_write(cmd);
 	make_env(shell);
 	if (cmd->cmd_name && is_builtin_cmd(cmd->cmd_name))
 	{
 		execute_builtin_cmd(cmd, shell);
 	}
-	else if (cmd->cmd_name)
+	else if (cmd->cmd_name && cmd->fd_read >= 0)
 	{
 		pid = fork();
 		if (pid == -1)
@@ -142,7 +182,9 @@ void	set_pipes_cmds(t_list *list_commands, t_shell *shell)
 	{
 		cmd = list_commands->content;
 		if (size > 1 && list_commands->next)
+		{
 			pipe(pipe_fd);
+		}
 		if (shell->list_commands == list_commands)
 			cmd->fd_read = STDIN_FILENO;
 		if (list_commands->next)
