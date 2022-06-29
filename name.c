@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   name.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 09:45:33 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/21 14:17:20 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/06/29 06:10:04 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*get_execve(char *path, char *cmd, char *envp[])
 	pid_t	id;
 	char	*name;
 
-	(void)envp;
 	name = NULL;
 	if (pipe(fd) == -1)
 		ft_perror("get_execve(): pipe");
@@ -40,9 +39,6 @@ char	*get_execve(char *path, char *cmd, char *envp[])
 		ft_perror("get_execve(): fork");
 	else if (id == 0)
 	{
-		
-		//удалить
-		// printf ("kill %d\n", getpid());
 		if (dup2(fd[1], 1) == -1)
 			ft_perror("get_execve(): dup");
 		ft_exec(path, cmd, envp);
@@ -73,7 +69,7 @@ char	*get_color_name(t_shell *shell, char *envp[])
 	name = ft_strjoin_f(name, "@", 1);
 	name = ft_strjoin_f(name, uname, 3);
 	// name = ft_strjoin_f(READLINE_GREEN, name, 2);
-	// name = ft_strjoin(name, RESET, 1);
+	// name = ft_strjoin_f(name, RESET, 1);
 	name = ft_strjoin_f(name, ":", 1);
 	pwd = get_pwd_for_name(shell);
 	name = ft_strjoin_f(name, pwd, 3);

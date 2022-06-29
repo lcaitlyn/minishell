@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/28 14:30:32 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/29 08:51:45 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <errno.h>
+# include <fcntl.h>
 // Libft by gopal
 # include "../libft/inc/libft.h"
 
@@ -54,7 +55,6 @@ char	*ft_strjoin_f(char *s1, char *s2, int need_free);
 int		ft_strindex(char *str, char a);
 //	доп проверка на strlen(haystack) == strlen(needle)
 char	*my_strnstr(const char *haystack, const char *needle, size_t len);
-
 
 //	split.c
 
@@ -131,6 +131,7 @@ char	*get_pwd_for_name(t_shell *shell);
 
 int		change_env(t_shell *shell, char *name, char *newcontent);
 int		env_len(t_env *env);
+void	fill_arr_env(t_env *list_env, char **arr_env);
 char	**make_env(t_shell *shell);
 char	*get_env_content(t_env *env, char *content);
 t_env	*get_my_env(t_env *env, char *name);
@@ -140,10 +141,8 @@ t_env	*get_my_env(t_env *env, char *name);
 
 int		echo(char *args[], int fd);
 
-
 //	command/export.c
 
-char	**sorting(char **arr);
 int		export_len(t_env *env);
 int		export_print(t_env	*lst);
 int		add_env(t_shell *shell, char *name);

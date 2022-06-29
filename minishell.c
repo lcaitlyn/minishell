@@ -6,11 +6,22 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:53:40 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/28 14:25:54 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/29 08:18:26 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
+
+void	print_welcome()
+{
+	printf (":::::::::::::::::::::::::::::::::\n");
+	printf (":\t\t\t\t:\n");
+	printf (":       M I N I S H E L L       :\n");
+	printf (":\t\t\t\t:\n");
+	printf (":  Выход на Ctrl + D или exit   :\n");
+	printf (":\t\t\t\t:\n");
+	printf (":::::::::::::::::::::::::::::::::\n");
+}
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -23,12 +34,7 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	handle_signal();
 	shell = shell_init(envp);
-	printf ("*********************************\n");
-	printf ("*\t\t\t\t*\n");
-	printf ("*  Выход на Ctrl + D или exit   *\n");
-	printf ("*\t\t\t\t*\n");
-	printf ("*********************************\n");
-
+	print_welcome();
 	while (7)
 	{
 		name = get_name(shell, envp);

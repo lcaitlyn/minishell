@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 16:10:22 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/22 17:06:33 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/29 02:30:26 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ char	**make_env(t_shell *shell)
 	t_env	*lst;
 	char	**envp;
 	int		env_size;
-	int		i;
 
 	if (!shell->env)
 		return (0);
@@ -58,18 +57,7 @@ char	**make_env(t_shell *shell)
 	if (!env_size)
 		return (0);
 	envp = (char **)malloc(sizeof(char *) * (env_size + 1));
-	i = 0;
-	while (lst)
-	{
-		if (lst->content)
-		{
-			envp[i] = ft_strjoin(lst->name, "=");
-			envp[i] = ft_strjoin_f(envp[i], lst->content, 1);
-			i++;
-		}
-		lst = lst->next;
-	}
-	envp[i] = NULL;
+	fill_arr_env(lst, envp);
 	if (shell->my_envp)
 		ft_free_split(shell->my_envp);
 	shell->my_envp = envp;

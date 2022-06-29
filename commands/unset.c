@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 13:01:26 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/22 17:06:55 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/29 04:45:58 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,37 @@ int	check_name_unset(char *name)
 		return (1);
 	while (name[i])
 	{
-		if (!ft_isalpha(name[i]) && !ft_isdigit(name[i])
-		&& name[i] != '_')
+		if (!ft_isalpha(name[i])
+			&& !ft_isdigit(name[i])
+			&& name[i] != '_')
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
+void	free_first_node_list(t_env *list_env, t_shell *shell)
+{
+	if (list_env == shell->env)
+	{
+		shell->env = shell->env->next;
+		free(list_env->name);
+		if (list_env->content)
+			free(list_env->content);
+		free(list_env);
+	}
+}
+
 int	del_env(t_shell *shell, char *name)
 {
 	t_env	*lst;
 	t_env	*prev;
-	
+
 	if (!shell->env || !get_my_env(shell->env, name))
 		return (0);
 	lst = get_my_env(shell->env, name);
 	if (lst == shell->env)
-	{
-		shell->env = shell->env->next;
-		free(lst->name);
-		if (lst->content)
-			free(lst->content);
-		free(lst);
-	}
+		free_first_node_list(lst, shell);
 	else
 	{
 		prev = shell->env;
@@ -61,10 +68,10 @@ int	del_env(t_shell *shell, char *name)
 
 int	unset(t_shell *shell, char *cmd[])
 {
-	printf("my unset working...\n");
 	int		i;
 	int		status;
 
+	printf("my unset working...\n");
 	i = 1;
 	status = 0;
 	if (!cmd[1])

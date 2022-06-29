@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 16:10:17 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/23 02:31:54 by gopal            ###   ########.fr       */
+/*   Updated: 2022/06/29 04:28:38 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,39 +37,33 @@ char	**sorting(char **arr)
 	return (arr);
 }
 
-int	export_len(t_env *env)
+char	**get_sort_env(t_env *list_env)
 {
-	int		env_size;
-	t_env	*lst;
+	char	**arr_sort_env;
+	int		i;
+	int		size_list_env;
 
-	lst = env;
-	env_size = 0;
-	while (lst)
+	size_list_env = export_len(list_env);
+	arr_sort_env = (char **) malloc((size_list_env + 1) * sizeof(char *));
+	i = 0;
+	while (list_env)
 	{
-		env_size++;
-		lst = lst->next;
+		arr_sort_env[i++] = list_env->name;
+		list_env = list_env->next;
 	}
-	return (env_size);
+	arr_sort_env[i] = NULL;
+	sorting(arr_sort_env);
+	return (arr_sort_env);
 }
 
 int	export_print(t_env	*env)
 {
 	char	**sorted;
-	t_env	*lst;
 	int		i;
 
 	if (!env)
 		return (1);
-	lst = env;
-	sorted = malloc((export_len(env) + 1) * sizeof(char *));
-	i = 0;
-	while (lst)
-	{
-		sorted[i++] = lst->name;
-		lst = lst->next;
-	}
-	sorted[i] = NULL;
-	sorted = sorting(sorted);
+	sorted = get_sort_env(env);
 	i = 0;
 	while (sorted[i])
 	{
@@ -92,35 +86,19 @@ int	add_env(t_shell *shell, char *name)
 	else
 	{
 		new_name = ft_substr(name, 0, ft_strindex(name, '='));
-		change_env(shell, new_name, ft_strdup(ft_strnstr(name, "=", ft_strlen(name)) + 1));
+		change_env(shell, new_name,
+			ft_strdup(ft_strnstr(name, "=", ft_strlen(name)) + 1));
 		free (new_name);
-	}
-	return (0);
-}
-
-int	check_name_export(char *name)
-{
-	int	i;
-
-	i = 0;
-	if (!ft_isalpha(name[0]) && name[i] != '_')
-		return (1);
-	while (name[i])
-	{
-		if (!ft_isalpha(name[i]) && !ft_isdigit(name[i])
-		&& name[i] != '_' && name[i] != '=')
-			return (1);
-		i++;
 	}
 	return (0);
 }
 
 int	export(t_shell *shell, char *cmd[])
 {
-	printf("my export working...\n");
 	int		i;
 	int		status;
 
+	printf("my export working...\n");
 	i = 1;
 	status = 0;
 	if (!cmd[1])

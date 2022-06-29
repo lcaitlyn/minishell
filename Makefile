@@ -17,7 +17,9 @@ SRCS		=	minishell.c\
 				commands/pwd.c\
 				commands/cd.c\
 				commands/export.c\
+				commands/export_utils.c\
 				commands/env.c\
+				commands/env_utils.c\
 				commands/echo.c\
 				commands/unset.c\
 				commands/exit.c\

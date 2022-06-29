@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl.c                                              :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/20 10:37:37 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/29 04:47:32 by gopal            ###   ########.fr       */
+/*   Created: 2022/06/29 02:28:51 by gopal             #+#    #+#             */
+/*   Updated: 2022/06/29 02:54:04 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
-char	*get_next_line(int fd)
+void	fill_arr_env(t_env *list_env, char **arr_env)
 {
-	char	c;
-	char	*line;
-	char	*word;
+	int	i;
 
-	if ((read(fd, &c, 1)) == 0)
-		return (NULL);
-	line = malloc(100);
-	word = line;
-	*line++ = c;
-	while ((read(fd, &c, 1)) > 0 && c != '\n')
-		*line++ = c;
-	if (c == '\n')
-		*line++ = '\n';
-	*line = '\0';
-	return (word);
+	i = 0;
+	while (list_env)
+	{
+		if (list_env->content)
+		{
+			arr_env[i] = ft_strjoin(list_env->name, "=");
+			arr_env[i] = ft_strjoin_f(arr_env[i], list_env->content, 1);
+			i++;
+		}
+		list_env = list_env->next;
+	}
+	arr_env[i] = NULL;
 }
