@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 16:10:17 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/29 04:28:38 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/01 19:24:13 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	export(t_shell *shell, char *cmd[])
 	int		i;
 	int		status;
 
-	printf("my export working...\n");
 	i = 1;
 	status = 0;
 	if (!cmd[1])
