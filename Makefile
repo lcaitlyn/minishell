@@ -44,7 +44,7 @@ OBJ			=	$(SRCS_OBJS)\
 				$(EXECUTOR_OBJS)\
 				$(COMMANDS_OBJS)
 
-CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g #-fsanitize=address
 
 CC		=	gcc
 

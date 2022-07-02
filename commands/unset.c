@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 13:01:26 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/29 04:45:58 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/02 13:56:05 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	unset(t_shell *shell, char *cmd[])
 	int		i;
 	int		status;
 
-	printf("my unset working...\n");
 	i = 1;
 	status = 0;
 	if (!cmd[1])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:53:40 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/07/02 11:59:43 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/02 14:19:24 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	handle_signal();
 	g_shell = shell_init(envp);
-	print_welcome();
 	loop_dormammu(g_shell, envp);
 	status = g_shell->status;
 	ft_clear_shell(g_shell);
