@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcaitlyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:57:05 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/03 10:57:07 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/07/02 12:00:03 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minishell.h"
+#include "minishell.h"
 
 int	ft_is_num(char *str)
 {

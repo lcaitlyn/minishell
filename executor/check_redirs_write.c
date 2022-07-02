@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 08:37:52 by gopal             #+#    #+#             */
-/*   Updated: 2022/07/02 08:43:52 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/02 12:23:21 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	get_fd_write(t_redirect *redirect, int old_fd_write)
 {
 	int	new_fd_write;
 
+	new_fd_write = -1;
 	if (!ft_strcmp(redirect->type_redir, ">")
 		|| !ft_strcmp(redirect->type_redir, ">>"))
 	{
@@ -35,7 +36,7 @@ int	get_fd_write(t_redirect *redirect, int old_fd_write)
 					O_RDWR | O_CREAT | O_APPEND, 0644);
 		return (new_fd_write);
 	}
-	return (-1);
+	return (new_fd_write);
 }
 
 void	check_redirs_write(t_command *cmd)

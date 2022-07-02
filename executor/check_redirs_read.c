@@ -6,15 +6,13 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 08:35:15 by gopal             #+#    #+#             */
-/*   Updated: 2022/07/02 11:11:35 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/02 11:21:52 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_shell *g_shell;
-
-
+extern t_shell	*g_shell;
 
 int	heredoc(int fd_write, char *stop_word)
 {
@@ -66,6 +64,7 @@ void	check_redirs_read(t_command *cmd)
 {
 	t_redirect	*redirect;
 	t_list		*list_fd;
+	int			pipe_heredoc[2];
 
 	list_fd = cmd->redirects_read;
 	while (list_fd)
@@ -77,7 +76,6 @@ void	check_redirs_read(t_command *cmd)
 		{
 			if (cmd->fd_read != 0 && cmd->fd_read != -1)
 				close(cmd->fd_read);
-			int	pipe_heredoc[2];
 			pipe(pipe_heredoc);
 			cmd->fd_read = pipe_heredoc[0];
 			if (heredoc(pipe_heredoc[1], redirect->file_name))

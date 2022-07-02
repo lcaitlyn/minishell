@@ -6,11 +6,11 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:18:22 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/29 15:23:24 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/02 11:59:34 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minishell.h"
+#include "minishell.h"
 
 void	ft_clear_paths(char *paths[])
 {

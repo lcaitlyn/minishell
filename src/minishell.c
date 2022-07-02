@@ -6,11 +6,11 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:53:40 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/07/02 04:11:30 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/02 11:59:43 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minishell.h"
+#include "minishell.h"
 
 t_shell	*g_shell;
 

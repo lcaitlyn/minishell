@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_listclear.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 19:03:53 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/05/27 16:10:25 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/07/02 11:58:40 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 void	ft_listclear(t_env *lst)
 {
