@@ -6,11 +6,13 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:53:40 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/29 15:39:12 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/02 04:11:30 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
+
+t_shell	*g_shell;
 
 void	print_welcome(void)
 {
@@ -25,35 +27,14 @@ void	print_welcome(void)
 	printf (":::::::::::::::::::::::::::::::::\n");
 }
 
-// int	kill_self(int sig)
-// {
-// 	(void)sig;
-// 	exit(0);
-// 	return (0);
-// }
-
-// // signal(SIGQUIT, (void *)&kill_self);
-// // 	while (7)
-// // 	{
-// // 		sleep(9999);
-// // 	}
-// signal(SIGQUIT, (void *)&kill_self);
-
-int	main(int argc, char *argv[], char *envp[])
+void	loop_dormammu(t_shell *g_shell, char **envp)
 {
-	char	*str;
 	char	*name;
-	t_shell	*shell;
-	int		status;
+	char	*str;
 
-	(void)argc;
-	(void)argv;
-	handle_signal();
-	shell = shell_init(envp);
-	print_welcome();
-	while (7)
+	while (777)
 	{
-		name = get_name(shell, envp);
+		name = get_name(g_shell, envp);
 		str = readline(name);
 		free (name);
 		if (!str)
@@ -61,20 +42,31 @@ int	main(int argc, char *argv[], char *envp[])
 		if (ft_strlen(str) != 0)
 		{
 			add_history(str);
-			lexer(&str, shell);
-			parser(shell);
-			if (shell->list_commands && executor(shell))
+			lexer(&str, g_shell);
+			parser(g_shell);
+			if (g_shell->list_commands && executor(g_shell))
 			{
-				ft_lstclear(&shell->list_commands, free_list_cmd);
+				ft_lstclear(&g_shell->list_commands, free_list_cmd);
 				break ;
 			}
-			ft_lstclear(&shell->list_commands, free_list_cmd);
+			ft_lstclear(&g_shell->list_commands, free_list_cmd);
 		}
 		free(str);
 	}
-	status = shell->status;
-	ft_clear_shell(shell);
+}
+
+int	main(int argc, char *argv[], char *envp[])
+{
+	int	status;
+
+	(void)argc;
+	(void)argv;
+	handle_signal();
+	g_shell = shell_init(envp);
+	print_welcome();
+	loop_dormammu(g_shell, envp);
+	status = g_shell->status;
+	ft_clear_shell(g_shell);
 	printf ("exit\n");
 	exit (status);
 }
-// printf ("Завершён!\n");

@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 13:17:31 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/29 15:13:08 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/01 22:14:25 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	print_pwd(char	**cmd)
 {
 	char	*pwd;
 
-	printf ("my pwd working...\n");
 	if (split_len(cmd) > 1)
 		return (print_error("minishell: pwd: too many arguments"));
 	pwd = getcwd(0, 256);

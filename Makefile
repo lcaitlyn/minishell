@@ -38,7 +38,11 @@ SRCS		=	minishell.c\
 				parser/prints.c\
 				parser/validation_tokens.c\
 				parser/free_list_cmd.c\
-				executor/execute_list_cmds.c\
+				executor/check_redirs_read.c\
+				executor/check_redirs_write.c\
+				executor/execute_builtin_cmd.c\
+				executor/execute_cmd.c\
+				executor/executor.c\
 
 OBJ		=	$(SRCS:%.c=%.o)
 

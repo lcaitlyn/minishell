@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:07:36 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/29 02:07:47 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/01 20:16:14 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	make_cmd(t_list **list_tokens, t_shell *shell)
 	*list_tokens = list;
 }
 
-// *** Отладочная печать ***
+// *** Debug print's functions ***
 // puts("Tokens:");
 // print_list(*tokens);
 // print_list_cmds(list_commands);

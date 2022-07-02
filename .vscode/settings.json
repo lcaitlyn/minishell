@@ -1,9 +1,0 @@
-{
-<<<<<<< HEAD
-	"makefile.extensionOutputFolder": "./.vscode"
-=======
-	"files.associations": {
-		"sstream": "c"
-	}
->>>>>>> gopal
-}

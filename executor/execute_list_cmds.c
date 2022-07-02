@@ -6,60 +6,15 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 20:54:52 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/29 15:10:47 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/02 10:28:06 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	check_redirs_read(t_command *cmd)
+int heredoc(int fd_write, char *stop_word)
 {
-	t_list		*list_fd;
-	int			fd;
-	t_redirect	*redirect;
-
-	list_fd = cmd->redirects_read;
-	while (list_fd)
-	{
-		redirect = list_fd->content;
-		
-		if (!ft_strcmp(redirect->type_redir, "<"))
-		{
-			if (cmd->fd_read != 0 && cmd->fd_read != -1)
-				close(cmd->fd_read);
-			if (access(redirect->file_name, F_OK) != 0
-				|| access(redirect->file_name, R_OK) != 0)
-			{
-				perror("miniSH");
-				cmd->fd_read = -1;
-			}
-			fd = open(redirect->file_name, O_RDONLY);
-			cmd->fd_read = fd;
-		}
-		if (!ft_strcmp(redirect->type_redir, "<<"))
-		{
-			if (cmd->fd_read != 0 && cmd->fd_read != -1)
-				close(cmd->fd_read);
-			int	pipe_heredoc[2];
-			pipe(pipe_heredoc);
-			cmd->fd_read = pipe_heredoc[0];
-			signal(SIGINT, (void *) SIGTERM);
-			char	*line_read = readline("heredoc> ");
-			while (ft_strcmp(line_read, redirect->file_name) != 0 )
-			{
-				ft_putstr_fd(line_read, pipe_heredoc[1]);
-				ft_putstr_fd("\n", pipe_heredoc[1]);
-				free(line_read);
-				signal(SIGINT, (void *) SIG_IGN);
-				// signal(SIGINT, (void *)&signal_sigint);
-				line_read = readline("heredoc> ");
-				signal(SIGINT, (void *) SIGTERM);
-			}
-			close(pipe_heredoc[1]);
-			signal(SIGINT, (void *)&signal_sigint);
-		} 
-		list_fd = list_fd->next;
-	}
+	
 }
 
 void	check_redirs_write(t_command *cmd)

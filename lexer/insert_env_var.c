@@ -6,11 +6,13 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:18:49 by gopal             #+#    #+#             */
-/*   Updated: 2022/06/28 08:48:44 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/01 19:21:56 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern t_shell	*g_shell;
 
 char	*find_var_env(char *key, char **env)
 {
@@ -93,8 +95,10 @@ void	insert_env_var(char **ptr_word, char *word, char **env)
 		{
 			j = ++i;
 			value = NULL;
-			if (ft_isdigit(word[j]) || word[j] == '$')
+			if (ft_isdigit(word[j]) || word[j] == '$' || word[j] == '?')
 				j++;
+			if (word[j - 1] == '?')
+				value = ft_itoa(g_shell->status);
 			else if (is_sym_var_env(word[j]))
 				value = find_var_env(get_key(word, &i, &j), env);
 			replace_var_env(ptr_word, i - 1, j - 1, value);

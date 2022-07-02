@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/07/02 04:12:41 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/02 08:42:32 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ void	check_open_q(char c, char *flag_open);
 int		is_spec_sym(char c);
 int		is_sym_var_env(char c);
 void	strip_quotes(t_list *tokens);
+void	split_into_tokens(char *str, t_list **tokens);
 void	lexer(char **input, t_shell *shell);
 
 // Parser
@@ -192,6 +193,11 @@ void	execute_list_cmds(t_shell *shell);
 char	**ft_find_paths(char *envp[]);
 char	*ft_find_cmd(char *cmd, char *paths[]);
 void	ft_clear_paths(char *paths[]);
+int		is_builtin_cmd(char *cmd_name);
+void	execute_builtin_cmd(t_command *cmd, t_shell *shell);
+void	check_redirs_read(t_command *cmd);
+void	check_redirs_write(t_command *cmd);
+void	execute_cmd(t_command *cmd, t_shell *shell);
 int		executor(t_shell *shell);
 
 #endif
