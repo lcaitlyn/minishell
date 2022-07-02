@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/06/29 15:36:00 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/02 04:12:41 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include <sys/stat.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <signal.h>
 // Libft by gopal
 # include "../libft/inc/libft.h"
 
@@ -66,8 +65,6 @@ typedef struct s_redirect
 	char	*file_name;
 	char	*type_redir;	
 }	t_redirect;
-
-// typedef void *histdata_t;
 
 char	*ft_strjoin_f(char *s1, char *s2, int need_free);
 //	возвращает индекс символа в строке
@@ -171,11 +168,8 @@ char	*get_key(char *word, int *i, int *j);
 int		is_quote(char c);
 void	check_open_q(char c, char *flag_open);
 int		is_spec_sym(char c);
-int		is_single_token(char *word);
 int		is_sym_var_env(char c);
-void	split_into_tokens(char *str, t_list **tokens);
 void	strip_quotes(t_list *tokens);
-void	delete_empty_tokens(t_list **tokens);
 void	lexer(char **input, t_shell *shell);
 
 // Parser
