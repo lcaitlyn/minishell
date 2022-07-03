@@ -53,7 +53,7 @@ CC		=	gcc
 all		:	$(LIBFT_A) $(NAME)
 
 %.o		:	%.c
-			$(CC) $(CFLAGS) -I include -c $< -o $@
+			@$(CC) $(CFLAGS) -I include -c $< -o $@
 
 $(NAME)	:	$(OBJ)
 			@gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline

@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/07/02 08:42:32 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/03 03:14:08 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ void	print_redir_list(t_list *list);
 int		is_redirects(char *str);
 int		is_pipe(char *str);
 int		is_spec_token(char *str);
+int		is_token_only_spec_sym(char *str);
 char	**get_arr_args(t_list *list);
 int		is_valid_tokens(t_list *tokens);
 
