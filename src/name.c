@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   name.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 09:45:33 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/07/02 11:59:49 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/02 15:05:02 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*get_color_name(t_shell *shell, char *envp[])
 	name = ft_strjoin_f(name, ":", 1);
 	pwd = get_pwd_for_name(shell);
 	name = ft_strjoin_f(name, pwd, 3);
-	name = ft_strjoin_f(name, "[MINISHELL]> ", 1);
+	name = ft_strjoin_f(name, "$ ", 1);
 	return (name);
 }
 // name = ft_strjoin_f(READLINE_GREEN, name, 2);

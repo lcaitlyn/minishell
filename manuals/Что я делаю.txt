@@ -71,6 +71,8 @@ SIGQUIT = Ctrl + \
 	✅Сделать unset. Доделать unset!
 
 17.06	❗️Сделать export add
+
+2.07	!По
 	
 	
 

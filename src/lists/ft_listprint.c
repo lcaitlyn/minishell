@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_listprint.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:21:41 by gopal             #+#    #+#             */
-/*   Updated: 2022/07/02 12:33:37 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/02 13:58:10 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_listprint(t_env *lst)
 {
-	printf ("my env working...\n");
 	if (!lst)
 		return (0);
 	while (lst)
