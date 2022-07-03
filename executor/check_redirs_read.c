@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 08:35:15 by gopal             #+#    #+#             */
-/*   Updated: 2022/07/02 11:21:52 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/03 13:12:11 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,30 @@ extern t_shell	*g_shell;
 int	heredoc(int fd_write, char *stop_word)
 {
 	int		pid;
-	char	*line_read;
+	int		status;
 
+	signal(SIGINT, (void *) SIG_IGN);
 	pid = fork();
 	if (pid < 0)
 		ft_perror("fork's error");
 	if (pid == 0)
 	{
-		signal(SIGINT, (void *) SIGTERM);
-		line_read = readline("heredoc> ");
-		while (ft_strcmp(line_read, stop_word) != 0)
+		signal(SIGINT, (void *) &handler_readline_heredoc);
+		g_shell->buffer = readline("heredoc> ");
+		rl_on_new_line();
+		while (g_shell->buffer && ft_strcmp(g_shell->buffer, stop_word) != 0)
 		{
-			if (line_read)
-			{
-				ft_putstr_fd(line_read, fd_write);
-				ft_putstr_fd("\n", fd_write);
-			}
-			free(line_read);
-			line_read = readline("heredoc> ");
+			ft_putstr_fd(g_shell->buffer, fd_write);
+			ft_putstr_fd("\n", fd_write);
+			free(g_shell->buffer);
+			g_shell->buffer = readline("heredoc> ");
 		}
 		exit(0);
 	}
-	waitpid(pid, &g_shell->status, 0);
+	waitpid(pid, &status, 0);
 	close(fd_write);
-	return (g_shell->status);
+	signal(SIGINT, (void *) &signal_sigint);
+	return (status / 256);
 }
 
 int	get_fd_read(t_redirect *redirect, int old_fd_read)

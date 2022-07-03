@@ -6,7 +6,7 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 16:53:48 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/07/03 03:14:08 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/03 14:59:49 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <errno.h>
+# include <termios.h>
 # include <fcntl.h>
 // Libft by gopal
 # include "../libft/inc/libft.h"
+
+typedef struct termios	t_termios;
 
 typedef struct s_env
 {
@@ -38,14 +41,17 @@ typedef struct s_env
 
 typedef struct s_shell
 {
-	char	**envp;
-	char	**my_envp;
-	char	*name;
-	char	*home;
-	int		status;
-	t_env	*env;
-	t_list	**list_tokens;
-	t_list	*list_commands;
+	t_termios	setting_out_tty;
+	char		**envp;
+	char		**my_envp;
+	char		*name;
+	char		*home;
+	char		*last_cmd_line;
+	char		*buffer;
+	int			status;
+	t_env		*env;
+	t_list		*list_tokens;
+	t_list		*list_commands;
 }	t_shell;
 
 typedef struct s_command
@@ -117,6 +123,8 @@ t_shell	*shell_init(char *envp[]);
 //	signals/signal.c
 int		handle_signal(void);
 int		signal_sigint(int sig);
+int		handler_readline_pipe(int sig);
+int		handler_readline_heredoc(int sig);
 
 //	command/cd.c
 int		open_dir(t_shell *shell, char *str);
@@ -171,11 +179,14 @@ int		is_spec_sym(char c);
 int		is_sym_var_env(char c);
 void	strip_quotes(t_list *tokens);
 void	split_into_tokens(char *str, t_list **tokens);
+t_list	*make_tokens(char **input, char **env);
 void	lexer(char **input, t_shell *shell);
 
 // Parser
+// void	parser(t_shell *shell);
 void	parser(t_shell *shell);
 void	free_list_cmd(void *command);
+int		check_pipe_end(t_list	*list, t_shell *shell);
 // Parser: prints
 void	print_list_cmds(t_list *list_commands);
 void	print_list(t_list *list);

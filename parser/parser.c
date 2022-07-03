@@ -6,16 +6,11 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:07:36 by gopal             #+#    #+#             */
-/*   Updated: 2022/07/01 20:16:14 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/03 15:46:04 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// идея функции: проверки на закрытые кавычки - 
-// если после прогона flag_open != 0 - Error!!!
-// и она также сообщает что не закрыта нужная кавычка (хранится в flag_open)
-// Пример: ls "text - не валидно 👺 ls text" - 
 
 t_command	*init_cmd(void)
 {
@@ -93,19 +88,20 @@ void	parser(t_shell *shell)
 {
 	t_list		*list;
 
-	if (shell->list_tokens && *(shell->list_tokens)
-		&& is_valid_tokens(*(shell->list_tokens)))
+	if (shell->list_tokens && is_valid_tokens(shell->list_tokens))
 	{
-		list = *(shell->list_tokens);
-		while (list)
+		list = shell->list_tokens;
+		if (check_pipe_end(list, shell) && is_valid_tokens(list))
 		{
-			if (!is_pipe(list->content))
-				make_cmd(&list, shell);
-			if (list)
-				list = list->next;
+			while (list)
+			{
+				if (!is_pipe(list->content))
+					make_cmd(&list, shell);
+				if (list)
+					list = list->next;
+			}
 		}
 	}
-	ft_lstclear(shell->list_tokens, free);
-	free(shell->list_tokens);
+	ft_lstclear(&shell->list_tokens, free);
 	shell->list_tokens = NULL;
 }

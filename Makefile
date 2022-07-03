@@ -15,7 +15,7 @@ LEXER_OBJS		=	$(addprefix $(LEXER_DIR), $(LEXER_SRCS:%.c=%.o))
 # Parser
 PARSER_DIR		=	parser/
 PARSER_SRCS		=	parser.c parser_utils.c prints.c\
-					validation_tokens.c free_list_cmd.c
+					validation_tokens.c free_list_cmd.c check_pipe_end.c
 PARSER_OBJS		=	$(addprefix $(PARSER_DIR), $(PARSER_SRCS:%.c=%.o))
 
 # Executor
@@ -44,9 +44,9 @@ OBJ			=	$(SRCS_OBJS)\
 				$(EXECUTOR_OBJS)\
 				$(COMMANDS_OBJS)
 
-CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror #-g -fsanitize=address
 
-CC		=	gcc
+CC		=	cc
 
 .PHONY	:	all clean fclean re
 

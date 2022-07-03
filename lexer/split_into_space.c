@@ -6,11 +6,16 @@
 /*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:34:35 by gopal             #+#    #+#             */
-/*   Updated: 2022/07/02 14:41:37 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/03 14:55:20 by gopal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// the idea of the function: checking for closed quotes -
+// if after running flag_open != 0 - Error!!!
+// and it also reports that the necessary quotation mark is not closed (stored in flag_open)
+// Example: ls "text - not valid 👺 ls text" -
 
 int	is_string(char c)
 {
@@ -56,9 +61,9 @@ int	get_length_token(char *str, int *i, char *flag_open)
 	return (j);
 }
 
-// split_into_space и split_into_spec_sym можно объединить и упростить
-// у второй функции слишком усложненная реализация 
-// через вставку в середину списка
+// split_into_space and split_into_spec_sim can be combined and simplified
+// the second function has an overly complicated implementation
+// by inserting into the middle of the list
 
 void	split_into_tokens(char *str, t_list **tokens)
 {
