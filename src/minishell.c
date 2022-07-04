@@ -3,29 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:53:40 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/07/03 16:02:58 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/04 15:55:13 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_shell	*g_shell;
-
-void	print_welcome(void)
-{
-	printf (":::::::::::::::::::::::::::::::::\n");
-	printf (":\t\t\t\t:\n");
-	printf("%s", READLINE_GREEN);
-	printf (":       M I N I S H E L L       :\n");
-	printf("%s", RESET);
-	printf (":\t\t\t\t:\n");
-	printf (":  Выход на Ctrl + D или exit   :\n");
-	printf (":\t\t\t\t:\n");
-	printf (":::::::::::::::::::::::::::::::::\n");
-}
 
 // Disables output of such characters to the terminal ^C, ^D...
 void	set_param_tty(t_shell *shell)
@@ -76,7 +63,6 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void)argc;
 	(void)argv;
-	print_welcome();
 	handle_signal();
 	g_shell = shell_init(envp);
 	set_param_tty(g_shell);
