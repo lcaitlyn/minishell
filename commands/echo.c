@@ -6,13 +6,13 @@
 /*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 16:23:08 by lcaitlyn          #+#    #+#             */
-/*   Updated: 2022/07/04 15:47:01 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:57:39 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		is_n(char *str)
+int	is_n(char *str)
 {
 	int	i;
 

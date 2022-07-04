@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_into_space.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:34:35 by gopal             #+#    #+#             */
-/*   Updated: 2022/07/03 14:55:20 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/04 15:56:20 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 // the idea of the function: checking for closed quotes -
 // if after running flag_open != 0 - Error!!!
-// and it also reports that the necessary quotation mark is not closed (stored in flag_open)
+// and it also reports that the necessary quotation 
+// mark is not closed (stored in flag_open)
 // Example: ls "text - not valid 👺 ls text" -
 
 int	is_string(char c)

@@ -6,7 +6,7 @@
 /*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 08:39:29 by gopal             #+#    #+#             */
-/*   Updated: 2022/07/02 15:43:33 by lcaitlyn         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:56:58 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ void	fork_execve_cmd(t_command *cmd, t_shell *shell)
 		waitpid(pid, &shell->status, 0);
 		shell->status = shell->status / 256;
 	}
-		
-		
 }
 
 void	execute_cmd(t_command *cmd, t_shell *shell)
