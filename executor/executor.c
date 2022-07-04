@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gopal <gopal@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: lcaitlyn <lcaitlyn@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 20:54:52 by gopal             #+#    #+#             */
-/*   Updated: 2022/07/02 10:21:04 by gopal            ###   ########.fr       */
+/*   Updated: 2022/07/04 09:55:38 by lcaitlyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,15 @@ int	executor(t_shell *shell)
 	{
 		cmd = (t_command *)shell->list_commands->content;
 		if (cmd->cmd_name
-			&& !ft_strcmp(cmd->cmd_name, "exit")
-			&& !my_exit(shell, cmd->args))
-			return (1);
+			&& !ft_strcmp(cmd->cmd_name, "exit"))
+		{
+			if (!my_exit(shell, cmd->args))
+				return (1);
+		}
+		else
+			execute_list_cmds(shell);
 	}
-	execute_list_cmds(shell);
+	else
+		execute_list_cmds(shell);
 	return (0);
 }
